@@ -220,16 +220,19 @@ public class StageController implements Initializable {
     }
     @FXML
     void DeleteStock(ActionEvent event) throws IOException {
-
-
-
         Parent root = FXMLLoader.load(getClass().getResource("deleteScene.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
-
+    }
+    @FXML
+    void usermanagementscene(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("Usermanagement.fxml"));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @Override
