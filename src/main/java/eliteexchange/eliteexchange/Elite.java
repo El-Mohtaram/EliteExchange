@@ -15,7 +15,7 @@ public class Elite extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-      //  stage.initStyle(StageStyle.TRANSPARENT); //try
+      //  stage.initStyle(StageStyle.TRANSPARENT); //zobr wael 3cm
         FXMLLoader fxmlLoader = new FXMLLoader(Elite.class.getResource("mainsceneb.fxml"));
         Group group = new Group();
         Scene scene = new Scene(fxmlLoader.load());
