@@ -1,5 +1,6 @@
 package eliteexchange.eliteexchange;
 import ApplicationElite.Account;
+import ApplicationElite.Admin;
 import ApplicationElite.Securities;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -40,9 +41,11 @@ public class StageController implements Initializable {
     @FXML
     private Button delete;
     @FXML
+    private Button deleteuserbutton;
+    @FXML
     private Button exit;
     @FXML
-    private ComboBox<String> stocklist;
+    private ComboBox<String> stocklist,userlist;
 
     @FXML
     private Button add;
@@ -154,6 +157,7 @@ public class StageController implements Initializable {
         }
         else
         if(account.CheckLoginData() && account.userOrAdmin().equals("admin")&& account.admin_log_in_out().equals("no")){
+            Admin.createuserslist();
             account.adminSwitch();
             stock.RestoreData();
             Parent root = FXMLLoader.load(getClass().getResource("AdminMenu.fxml"));
@@ -220,16 +224,19 @@ public class StageController implements Initializable {
     }
     @FXML
     void DeleteStock(ActionEvent event) throws IOException {
-
-
-
         Parent root = FXMLLoader.load(getClass().getResource("deleteScene.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
-
+    }
+    @FXML
+    void usermanagementscene(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("Usermanagement.fxml"));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @Override
@@ -238,11 +245,18 @@ public class StageController implements Initializable {
             for(int i=2;i<stock.stockList1.length;i++)
                 stocklist.getItems().add(stock.stockList1[i]);
         }
+        if(userlist != null){
+            for (int i = 0; i <Admin.userslist.size() ; i++) {
+                userlist.getItems().add(Admin.userslist.get(i));
+            }
+        }
+
+
     }
     @FXML
     void deleteButton(ActionEvent event) {
         System.out.println(stocklist.getValue());
-        stock.DeleteStock(stocklist.getValue());
+       stock.DeleteStock(stocklist.getValue());
         stock.RestoreData2();
     }
     @FXML
@@ -270,6 +284,11 @@ public class StageController implements Initializable {
     private void exit2(ActionEvent event) throws IOException {
         account.adminSwitch();
         System.exit(0);
+    }
+    @FXML
+private void deleteusers(){
+        System.out.println(userlist.getValue());
+        Admin.deleteuser(userlist.getValue());
     }
 
 }
