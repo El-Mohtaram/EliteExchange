@@ -1,0 +1,31 @@
+.root {
+    -fx-background-radius: 10; /* Adjust the value to increase or decrease the roundness */
+}
+#pest{
+  -fx-background-color: red;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-border-style: solid;
+    -fx-border-color: blue ;
+}
+#min, #close {
+    -fx-fill: #181a20; /* Initial gradient */
+    -fx-transition: -fx-fill 0.6s ease;
+}
+/*#pest:hover {*/
+/*    -fx-fill: blue; !* Color on hover *!*/
+/*}*/
+/* Change icon color on mouse hover */
+#close:hover {
+    -fx-fill: #d50000;
+}
+#min:hover{
+    -fx-fill: white;
+}
+#min:pressed{
+    -fx-fill: grey;
+}
+#close:pressed{
+    -fx-fill: #930000
+}
