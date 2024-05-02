@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eliteexchange.eliteexchange.StageController">
+   <children>
+      <TextField fx:id="companyName" layoutX="181.0" layoutY="151.0" />
+      <Label layoutX="60.0" layoutY="56.0" text="Add Stock">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="150.0" text="Company name">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="43.0" layoutY="225.0" text="Number of stocks">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <TextField fx:id="numberOfStocks" layoutX="181.0" layoutY="225.0" prefHeight="25.0" prefWidth="87.0" />
+      <Button fx:id="add" layoutX="435.0" layoutY="306.0" mnemonicParsing="false" onAction="#confirmAdd" text="Add">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+      <Button fx:id="back" layoutX="20.0" layoutY="21.0" mnemonicParsing="false" onAction="#BackPressed" text="back">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <TextField fx:id="stockValue" layoutX="181.0" layoutY="188.0" prefHeight="25.0" prefWidth="87.0" />
+      <TextField fx:id="startPrice" layoutX="181.0" layoutY="261.0" prefHeight="25.0" prefWidth="87.0" />
+      <Label layoutX="71.0" layoutY="186.0" text="Stock value">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="72.0" layoutY="261.0" text="Starting price">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="273.0" layoutY="260.0" text="\$">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="273.0" layoutY="187.0" text="\$">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
