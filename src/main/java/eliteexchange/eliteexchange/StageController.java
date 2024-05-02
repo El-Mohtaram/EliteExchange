@@ -24,6 +24,9 @@ import java.net.URL;
 import java.util.EventObject;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
+
+import org.controlsfx.control.action.Action;
+
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 
@@ -36,6 +39,8 @@ public class StageController implements Initializable {
     private Parent root;
     @FXML
     private Button delete;
+    @FXML
+    private Button exit;
     @FXML
     private ComboBox<String> stocklist;
 
@@ -242,6 +247,7 @@ public class StageController implements Initializable {
     }
     @FXML
     private void exit(MouseEvent event) throws IOException {
+        account.adminSwitch();
         System.exit(0);
     }
     @FXML
@@ -259,6 +265,11 @@ public class StageController implements Initializable {
     private void presswindow (MouseEvent event) {
         x = event.getSceneX();
         y =event.getSceneY();
+    }
+    @FXML
+    private void exit2(ActionEvent event) throws IOException {
+        account.adminSwitch();
+        System.exit(0);
     }
 
 }

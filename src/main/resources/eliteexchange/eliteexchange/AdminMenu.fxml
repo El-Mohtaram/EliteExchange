@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eliteexchange.eliteexchange.StageController">
+<AnchorPane fx:id="exit2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eliteexchange.eliteexchange.StageController">
    <children>
       <Label layoutX="36.0" layoutY="25.0" text="Admin Menu">
          <font>
@@ -15,5 +15,6 @@
       <Button fx:id="addStock" layoutX="79.0" layoutY="112.0" mnemonicParsing="false" onAction="#AddstockScene" text="Add stock" />
       <Button fx:id="DeleteStock" layoutX="172.0" layoutY="112.0" mnemonicParsing="false" onAction="#DeleteStock" text="Delete stock" />
       <Button layoutX="274.0" layoutY="112.0" mnemonicParsing="false" text="User Managment" />
+      <Button fx:id="exit" layoutX="506.0" layoutY="13.0" mnemonicParsing="false" onAction="#exit2" prefHeight="14.0" prefWidth="24.0" text="X" />
    </children>
 </AnchorPane>
