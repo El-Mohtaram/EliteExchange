@@ -20,9 +20,9 @@ public class Admin {
             while ((line = br.readLine()) != null) {
                 values = line.split(",");
                 System.out.println(userslist.size());
-                if (values.length > 3) {
+                if (values.length >4) {
                     if (values[2].equals("user")) {
-                        userslist.add(values[0] + "," + values[3]);
+                        userslist.add(values[0] + "," + values[4]);
                     }
                 } else if (values[2].equals("user")) {
                     userslist.add(values[0]);
@@ -100,7 +100,7 @@ public class Admin {
             for (int i = 0; i < fileContent.size(); i++) {
                 if (fileContent.get(i).equals(oldContent)) {
                     fileContent.remove(i);
-                    fileContent.add(i, values[0] + "," +values[1] + "," +values[2] + "," + "banned");
+                    fileContent.add(i, values[0] + "," +values[1] + "," +values[2] + "," +values[3]+","+ "banned");
                     for (int j = 0; j < userslist.size(); j++) {
                         if (userslist.get(j).equals(user)) {
                             nameuser = userslist.get(j);
@@ -144,7 +144,7 @@ public class Admin {
             for (int i = 0; i < fileContent.size(); i++) {
                 if (fileContent.get(i).equals(oldContent)) {
                     fileContent.remove(i);
-                    fileContent.add(i, values[0] + "," + values[1] + "," + values[2]);
+                    fileContent.add(i, values[0] + "," + values[1] + "," + values[2]+","+values[3]);
                     for (int j = 0; j < userslist.size(); j++) {
                         if (userslist.get(j).equals(user)) {
                             nameuser = userstate[0];

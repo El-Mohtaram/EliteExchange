@@ -329,18 +329,27 @@ stock.RestoreData();
         Admin.createuserslist();
         System.out.println(userlist.getValue());
         Admin.blockuser(userlist.getValue());
+        for (int i = 0; i <Admin.userslist.size() ; i++) {
+            userlist.getItems().set(i,Admin.userslist.get(i));
+        }
     }
     @FXML
     private void unblockuser(){
         Admin.createuserslist();
         System.out.println(userlist.getValue());
         Admin.unblockuser(userlist.getValue());
+        for (int i = 0; i <Admin.userslist.size() ; i++) {
+            userlist.getItems().set(i,Admin.userslist.get(i));
+        }
     }
     @FXML
     private void deleteusers(){
         Admin.createuserslist();
         System.out.println(userlist.getValue());
         Admin.deleteuser(userlist.getValue());
+        for (int i = 0; i <Admin.userslist.size() ; i++) {
+            userlist.getItems().set(i,Admin.userslist.get(i));
+        }
     }
 
 
