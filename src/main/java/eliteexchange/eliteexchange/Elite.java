@@ -23,7 +23,8 @@ public class Elite extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         scene.setFill(Color.TRANSPARENT);
         Image icon = new Image(getClass().getResourceAsStream("icon.png"));
-        stage.getIcons().add(icon);
+        stage.getIcons().add(
+                icon);
         String css = getClass().getResource("menu.css").toExternalForm();
         stage.setTitle("EliteExchange 0.3.2b");
         scene.getStylesheets().add(css);
