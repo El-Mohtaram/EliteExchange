@@ -2,6 +2,9 @@ package eliteexchange.eliteexchange;
 import ApplicationElite.Account;
 import ApplicationElite.Admin;
 import ApplicationElite.Securities;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,10 +25,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.EventObject;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
+import javafx.util.Duration;
 import org.controlsfx.control.action.Action;
 
 import javafx.fxml.Initializable;
@@ -38,6 +46,8 @@ public class StageController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    @FXML
+    private Label datee;
     @FXML
     private Button delete;
     @FXML
@@ -89,6 +99,19 @@ public class StageController implements Initializable {
     private Button signupConfirm;
     @FXML
     private Button loginConfirm;
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1), event -> updateDateTimeLabel())
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
+    private void updateDateTimeLabel() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = LocalDateTime.now().format(formatter);
+        datee.setText(formattedDateTime);
+    }
     @FXML
     private void mainscene(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
@@ -239,20 +262,6 @@ public class StageController implements Initializable {
         stage.show();
     }
 
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        if (stocklist != null) {
-            for(int i=2;i<stock.stockList1.length;i++)
-                stocklist.getItems().add(stock.stockList1[i]);
-        }
-        if(userlist != null){
-            for (int i = 0; i <Admin.userslist.size() ; i++) {
-                userlist.getItems().add(Admin.userslist.get(i));
-            }
-        }
-
-
-    }
     @FXML
     void deleteButton(ActionEvent event) {
         System.out.println(stocklist.getValue());
@@ -286,9 +295,16 @@ public class StageController implements Initializable {
         System.exit(0);
     }
     @FXML
-private void deleteusers(){
+    private void deleteusers(){
         System.out.println(userlist.getValue());
         Admin.deleteuser(userlist.getValue());
+    }
+    @FXML
+    private void printdate(){
+        while(true){
+            String cd= new SimpleDateFormat("yyyy.MM.dd HH.mm.ss").format(new Date());
+            datee.setText(cd);
+        }
     }
 
 }

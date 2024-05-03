@@ -146,8 +146,7 @@ public class Account {
         if(username1.length()==0||password.length()==0)
         return "Please fill all data";
       else return "Username or password is incorrect, please try again";
-    
-        
+
     }
     public String userOrAdmin()
     {

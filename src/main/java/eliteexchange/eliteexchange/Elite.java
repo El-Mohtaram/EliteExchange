@@ -10,6 +10,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Elite extends Application {
 
@@ -27,6 +29,7 @@ public class Elite extends Application {
         scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();
+
     }
 
     public static void main(String[] args) {
@@ -34,5 +37,6 @@ public class Elite extends Application {
         Account account=new Account();
         account.RestoreData();
         launch();
+
     }
 }
