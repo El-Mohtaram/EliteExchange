@@ -1,1 +1,4 @@
-username,stock,price
+Company,NumberOfStocks,Start_price
+amazon,3000,700.0
+Microsoft,5000,1500.0
+Apple,6000,2500.0
