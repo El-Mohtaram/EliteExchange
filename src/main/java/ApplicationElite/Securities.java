@@ -35,6 +35,7 @@ public void Add(String Name,int number,float price,String dataPath,ArrayList <St
     public void RestoreData(String dataPath,ArrayList <String> company,ArrayList <Integer> NumberOfSecurities,ArrayList <Float> Prices,ObservableList<DataShow> stockData)
     {
         company.clear();
+        Prices.clear();
         NumberOfSecurities.clear();
 
         try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
