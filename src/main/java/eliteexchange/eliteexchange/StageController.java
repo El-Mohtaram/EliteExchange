@@ -12,12 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -31,8 +26,6 @@ import java.util.function.UnaryOperator;
 import org.controlsfx.control.action.Action;
 
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 
 public class StageController implements Initializable {
 
@@ -42,10 +35,12 @@ public class StageController implements Initializable {
     private Scene scene;
     private Parent root;
     @FXML
+    private Hyperlink signup ;
+    @FXML
     private Button delete;
     @FXML
     private Button exit;
- @FXML
+    @FXML
     private TableView<DataShow> Addtable;
     @FXML
     private Button market;
@@ -106,8 +101,7 @@ public class StageController implements Initializable {
     @FXML
     private Button login;
     private double x,y;
-    @FXML
-    private Button signup;
+
     @FXML
     private Button signupConfirm;
     @FXML
@@ -169,7 +163,6 @@ public class StageController implements Initializable {
 
     @FXML
     private void SignupPressed(ActionEvent event) throws IOException {
-
         Parent root = FXMLLoader.load(getClass().getResource("Signup.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -324,7 +317,7 @@ stock.RestoreData();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-stock.RestoreData();
+            stock.RestoreData();
     }
 
 

@@ -6,7 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
     public class Stock extends Securities  {
-    private String csvFile ="C:\\Users\\ram tech\\Desktop\\Elite\\EliteExchange\\src\\main\\java\\data\\Market.csv";
+    private String csvFile ="src/main/java/data/Market.csv";
     private static ArrayList <String> StockName=new ArrayList<>();
     private  static ArrayList <Integer> NumberOfStocks=new ArrayList<>();
     private  static ArrayList <Float> Prices=new ArrayList<>();
