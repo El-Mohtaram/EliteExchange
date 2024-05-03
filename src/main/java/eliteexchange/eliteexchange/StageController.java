@@ -237,7 +237,7 @@ public class StageController implements Initializable {
        
     }
     @FXML
-    void addStock(ActionEvent event) {/////////////////////
+    void addStock(ActionEvent event) {
         stock.addStock(companyName.getText(),Integer.parseInt(numberOfStocks.getText()),Float.parseFloat(startprice.getText()));
         stock.RestoreData();
         Addtable.setItems(stock.returnList());
