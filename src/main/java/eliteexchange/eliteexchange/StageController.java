@@ -110,11 +110,11 @@ public class StageController implements Initializable {
                 userlist.getItems().add(Admin.userslist.get(i));
             }
         }
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(1), event -> updateDateTimeLabel())
-        );
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
+//        Timeline timeline = new Timeline(
+//                new KeyFrame(Duration.seconds(1), event -> updateDateTimeLabel())
+//        );
+//        timeline.setCycleCount(Animation.INDEFINITE);
+//        timeline.play();
     }
     private void updateDateTimeLabel() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -308,6 +308,17 @@ public class StageController implements Initializable {
         System.out.println(userlist.getValue());
         Admin.deleteuser(userlist.getValue());
     }
+    @FXML
+    private void blockuser(){
+        System.out.println(userlist.getValue());
+        Admin.blockuser(userlist.getValue());
+    }
+    @FXML
+    private void unblockuser(){
+        System.out.println(userlist.getValue());
+        Admin.unblockuser(userlist.getValue());
+    }
+
     @FXML
     private void printdate(){
         while(true){
