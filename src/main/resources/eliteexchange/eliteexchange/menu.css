@@ -29,20 +29,20 @@
 #close:hover {
     -fx-fill: #d50000;
 }
-#username,#password{
+#username,#password,#confirmpassword{
     -fx-background-color: transparent;
     -fx-border-color: #474d57 ;
     -fx-text-fill: #eaecef;
     -fx-border-width:  0px 0px 2px 0px ;
 }
-#username:hover ,#password:hover {
+#username:hover ,#password:hover,#confirmpassword:hover {
     -fx-border-color:#f0b90b;
   }
-#loginConfirm{
+#loginConfirm,#signupConfirm{
     -fx-background-color: #fcd535;
     -fx-cursor: hand;
 }
-#loginConfirm:hover {
+#loginConfirm:hover,#signupConfirm:hover {
     -fx-background-color: #cfaf30;
 }
 #min:hover{
@@ -57,6 +57,6 @@
 #title{
     -fx-font-family: "Alien League";
 }
-#text,#textc,#password,#username,#signup{
+#text,#textc,#confirmpassword,#text1,#text3,#password,#username,#signup,#signupConfirm,#signedup{
     -fx-font-family: "Yaahowu Bold";
 }

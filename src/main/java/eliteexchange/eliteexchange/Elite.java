@@ -12,9 +12,8 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 public class Elite extends Application {
-
+    public static String css;
     @Override
     public void start(Stage stage) throws IOException {
         //stage.initStyle(StageStyle.TRANSPARENT); //i love attalah
@@ -24,7 +23,7 @@ public class Elite extends Application {
         scene.setFill(Color.TRANSPARENT);
         Image icon = new Image(getClass().getResourceAsStream("icon.png"));
         stage.getIcons().add(icon);
-        String css = getClass().getResource("menu.css").toExternalForm();
+        css = getClass().getResource("menu.css").toExternalForm();
         stage.setTitle("EliteExchange 0.3.2b");
         scene.getStylesheets().add(css);
         stage.setScene(scene);
