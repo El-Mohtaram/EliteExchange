@@ -108,6 +108,7 @@ public class StageController implements Initializable {
     private Button loginConfirm;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         if(company!=null)
         company.setCellValueFactory(new PropertyValueFactory<>("company"));
         if(startPrice!=null)
@@ -127,6 +128,10 @@ public class StageController implements Initializable {
 //        );
 //        timeline.setCycleCount(Animation.INDEFINITE);
 //        timeline.play();
+        // Add shutdown hook
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            account.adminSwitch();
+        }));
     }
     private void updateDateTimeLabel() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -235,7 +240,7 @@ public class StageController implements Initializable {
     void addStock(ActionEvent event) {
         stock.addStock(companyName.getText(),Integer.parseInt(numberOfStocks.getText()),Float.parseFloat(startprice.getText()));
         stock.RestoreData();
-Addtable.setItems(stock.returnList());
+        Addtable.setItems(stock.returnList());
     }
 
     @FXML
@@ -263,7 +268,6 @@ Addtable.setItems(stock.returnList());
 
     @FXML
     private void exit(MouseEvent event) throws IOException {
-        account.adminSwitch();
         System.exit(0);
     }
     @FXML

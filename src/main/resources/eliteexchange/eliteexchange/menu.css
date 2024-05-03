@@ -1,3 +1,12 @@
+@font-face {
+    font-family: 'Alien League';
+    src: url('AlienLeague.TTF');
+}
+@font-face {
+    font-family: 'Yaahowu Bold';
+    src: url('YaahowuBold.ttf');
+}
+
 .root {
     -fx-background-radius: 10; /* Adjust the value to increase or decrease the roundness */
 }
@@ -44,4 +53,10 @@
 }
 #close:pressed{
     -fx-fill: #930000
+}
+#title{
+    -fx-font-family: "Alien League";
+}
+#text,#textc,#password,#username,#signup{
+    -fx-font-family: "Yaahowu Bold";
 }
