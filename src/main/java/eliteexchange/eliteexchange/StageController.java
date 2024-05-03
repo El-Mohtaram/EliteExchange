@@ -319,6 +319,21 @@ stock.RestoreData();
             stage.show();
             stock.RestoreData();
     }
+    @FXML
+    private void blockuser(){
+        System.out.println(userlist.getValue());
+        Admin.blockuser(userlist.getValue());
+    }
+    @FXML
+    private void unblockuser(){
+        System.out.println(userlist.getValue());
+        Admin.unblockuser(userlist.getValue());
+    }
+    @FXML
+    private void deleteusers(){
+        System.out.println(userlist.getValue());
+        Admin.deleteuser(userlist.getValue());
+    }
 
 
 }
