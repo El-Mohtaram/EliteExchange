@@ -101,11 +101,20 @@ public class StageController implements Initializable {
     private Button loginConfirm;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(1), event -> updateDateTimeLabel())
-        );
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
+        if (stocklist != null) {
+            for(int i=2;i<stock.stockList1.length;i++)
+                stocklist.getItems().add(stock.stockList1[i]);
+        }
+        if(userlist != null){
+            for (int i = 0; i <Admin.userslist.size() ; i++) {
+                userlist.getItems().add(Admin.userslist.get(i));
+            }
+        }
+//        Timeline timeline = new Timeline(
+//                new KeyFrame(Duration.seconds(1), event -> updateDateTimeLabel())
+//        );
+//        timeline.setCycleCount(Animation.INDEFINITE);
+//        timeline.play();
     }
     private void updateDateTimeLabel() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
