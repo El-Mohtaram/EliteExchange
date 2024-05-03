@@ -19,6 +19,7 @@ public class Account {
     private String ConfirmPassword;
     static private String userOrAdmin;
     static private String adminInOrOut;
+    static public boolean BannedOrNot;
     static private float balance=0;
  
    
@@ -78,6 +79,12 @@ public class Account {
           adminInOrOut=values[3];
             while ((line = br.readLine()) != null) {
                  values = line.split(",");
+
+                if((values.length>3)&&values[3].equals("banned")){
+                    BannedOrNot=true;
+                }
+                else BannedOrNot = false;
+
                 if (username1.equals(values[0]) && password.equals(values[1])) {
                     userOrAdmin=values[2];
                     return true;
@@ -85,7 +92,7 @@ public class Account {
                 
                 
             }
-           
+
             return false;
         } catch (IOException e) {
             e.printStackTrace();
@@ -140,8 +147,7 @@ public class Account {
         if(username1.length()==0||password.length()==0)
         return "Please fill all data";
       else return "Username or password is incorrect, please try again";
-    
-        
+
     }
     public String userOrAdmin()
     {

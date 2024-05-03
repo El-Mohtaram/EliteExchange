@@ -1,6 +1,8 @@
 package eliteexchange.eliteexchange;
 import ApplicationElite.Account;
+import ApplicationElite.Admin;
 import ApplicationElite.DataShow;
+import ApplicationElite.Securities;
 import ApplicationElite.Stock;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,8 +23,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.EventObject;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
+
+import org.controlsfx.control.action.Action;
+
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -30,37 +38,12 @@ import javafx.scene.control.TableView;
 public class StageController implements Initializable {
 
     Account account =new Account();
-      
-
     Stock stock=new Stock();
     private Stage stage;
     private Scene scene;
     private Parent root;
     @FXML
-    private TableView<DataShow> MarketList;
-
-    @FXML
-    private TableColumn<DataShow, Float> changePrice;
-
-    @FXML
-    private TableColumn<DataShow, String> company;
-
-    @FXML
-    private TableColumn<DataShow, Float> currentPrice;
-
-    @FXML
-    private TableColumn<DataShow, Float> startPrice;
-    @FXML
-    private TableColumn<DataShow, Float> numberofStocks;
-    @FXML
-    private TextField startprice;
-
-
-
-    @FXML
     private Button delete;
-    @FXML
-    private Button market;
     @FXML
     private Button exit;
  @FXML
@@ -71,9 +54,7 @@ public class StageController implements Initializable {
     private Button deleteStock;
 
     @FXML
-    private TextField stockValue;
-
-
+    private ComboBox<String> stocklist;
 
     @FXML
     private Button addStock;
@@ -114,6 +95,25 @@ public class StageController implements Initializable {
     private Button signupConfirm;
     @FXML
     private Button loginConfirm;
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+    
+        if(userlist != null){
+            for (int i = 0; i <Admin.userslist.size() ; i++) {
+                userlist.getItems().add(Admin.userslist.get(i));
+            }
+        }
+//        Timeline timeline = new Timeline(
+//                new KeyFrame(Duration.seconds(1), event -> updateDateTimeLabel())
+//        );
+//        timeline.setCycleCount(Animation.INDEFINITE);
+//        timeline.play();
+    }
+    private void updateDateTimeLabel() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = LocalDateTime.now().format(formatter);
+        datee.setText(formattedDateTime);
+    }
     @FXML
     private void mainscene(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
@@ -172,7 +172,10 @@ public class StageController implements Initializable {
     private void LoginConfirmPressed(ActionEvent event) throws IOException {
         account.setUserName(username.getText());
         account.setPassword(password.getText());
-        if(account.CheckLoginData() && account.userOrAdmin().equals("user")){
+        if(account.CheckLoginData() && account.userOrAdmin().equals("user")&&Account.BannedOrNot){
+            messagelabel.setText("your account had been banned");
+        }
+       else if(account.CheckLoginData() && account.userOrAdmin().equals("user")){
             stock.RestoreData();
             Parent root = FXMLLoader.load(getClass().getResource("userMenue.fxml"));
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -182,6 +185,7 @@ public class StageController implements Initializable {
         }
         else
         if(account.CheckLoginData() && account.userOrAdmin().equals("admin")&& account.admin_log_in_out().equals("no")){
+            Admin.createuserslist();
             account.adminSwitch();
             stock.RestoreData();
             Parent root = FXMLLoader.load(getClass().getResource("AdminMenu.fxml"));
@@ -237,31 +241,15 @@ Addtable.setItems(stock.returnList());
     }
     @FXML
     void DeleteStock(ActionEvent event) throws IOException {
-
-
-
         Parent root = FXMLLoader.load(getClass().getResource("deleteScene.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
-
     }
 
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-       if(company!=null)
-        company.setCellValueFactory(new PropertyValueFactory<>("company"));
-        if(startPrice!=null)
-        startPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        if(numberofStocks!=null)
-        numberofStocks.setCellValueFactory(new PropertyValueFactory<>("number"));
-        if(Addtable!=null)
-        Addtable.setItems(stock.returnList());
+ 
 
-    }
-   
     @FXML
     private void exit(MouseEvent event) throws IOException {
         account.adminSwitch();
@@ -288,34 +276,6 @@ Addtable.setItems(stock.returnList());
         account.adminSwitch();
         System.exit(0);
     }
-  
-
- 
-    @FXML
-    void deleteStock(ActionEvent event) {
-       // int selectedID = Addtable.getSelectionModel().getSelectedIndex();
-       // Addtable.getItems().remove(selectedID);
-        DataShow selectedStock = Addtable.getSelectionModel().getSelectedItem();
-        if (selectedStock != null) {
-            String selectedName = selectedStock.getCompany();
-            System.out.println("Selected stock name: " + selectedName);
-            stock.DeleteStock(selectedName);
-             int selectedID = Addtable.getSelectionModel().getSelectedIndex();
-        Addtable.getItems().remove(selectedID);
-        }
-    }
-    @FXML
-    void MarketPressed(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("Market.fxml"));
-            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-stock.RestoreData();
-    }
-
-  
-
 
 }
 
