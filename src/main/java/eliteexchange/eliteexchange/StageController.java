@@ -179,7 +179,10 @@ public class StageController implements Initializable {
     private void LoginConfirmPressed(ActionEvent event) throws IOException {
         account.setUserName(username.getText());
         account.setPassword(password.getText());
-        if(account.CheckLoginData() && account.userOrAdmin().equals("user")){
+        if(account.CheckLoginData() && account.userOrAdmin().equals("user")&&Account.BannedOrNot){
+            messagelabel.setText("your account had been banned");
+        }
+       else if(account.CheckLoginData() && account.userOrAdmin().equals("user")){
             stock.RestoreData();
             Parent root = FXMLLoader.load(getClass().getResource("userMenue.fxml"));
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();

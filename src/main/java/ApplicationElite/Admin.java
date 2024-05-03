@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Admin {
-    Account account = new Account();
     public static ArrayList<String> userslist = new ArrayList<>();
 
     public static void createuserslist() {
