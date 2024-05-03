@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -9,9 +11,9 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eliteexchange.eliteexchange.StageController">
    <children>
       <TextField fx:id="companyName" layoutX="181.0" layoutY="151.0" />
-      <Label layoutX="60.0" layoutY="56.0" text="Add Stock">
+      <Label layoutX="42.0" layoutY="70.0" text="Stock Managment">
          <font>
-            <Font size="41.0" />
+            <Font size="31.0" />
          </font>
       </Label>
       <Label layoutX="46.0" layoutY="150.0" text="Company name">
@@ -25,9 +27,9 @@
          </font>
       </Label>
       <TextField fx:id="numberOfStocks" layoutX="181.0" layoutY="225.0" prefHeight="25.0" prefWidth="87.0" />
-      <Button fx:id="add" layoutX="435.0" layoutY="306.0" mnemonicParsing="false" onAction="#confirmAdd" text="Add">
+      <Button fx:id="addStock" layoutX="60.0" layoutY="298.0" mnemonicParsing="false" onAction="#addStock" prefHeight="25.0" prefWidth="158.0" text="Add">
          <font>
-            <Font size="22.0" />
+            <Font size="15.0" />
          </font>
       </Button>
       <Button fx:id="back" layoutX="20.0" layoutY="21.0" mnemonicParsing="false" onAction="#BackPressed" text="back">
@@ -36,7 +38,7 @@
          </font>
       </Button>
       <TextField fx:id="stockValue" layoutX="181.0" layoutY="188.0" prefHeight="25.0" prefWidth="87.0" />
-      <TextField fx:id="startPrice" layoutX="181.0" layoutY="261.0" prefHeight="25.0" prefWidth="87.0" />
+      <TextField fx:id="startprice" layoutX="181.0" layoutY="261.0" prefHeight="25.0" prefWidth="87.0" />
       <Label layoutX="71.0" layoutY="186.0" text="Stock value">
          <font>
             <Font size="19.0" />
@@ -57,5 +59,14 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <TableView fx:id="Addtable" layoutX="342.0" layoutY="51.0" prefHeight="226.0" prefWidth="257.0">
+        <columns>
+          <TableColumn fx:id="company" prefWidth="94.0" text="Company" />
+          <TableColumn fx:id="startPrice" minWidth="9.0" prefWidth="67.0" text="Start price" />
+            <TableColumn fx:id="numberofStocks" prefWidth="125.0" text="Number" />
+        </columns>
+      </TableView>
+      <Button fx:id="deleteStock" layoutX="425.0" layoutY="286.0" mnemonicParsing="false" onAction="#deleteStock" prefHeight="25.0" prefWidth="103.0" text="Delete" />
+      <Button fx:id="exit" layoutX="540.0" layoutY="9.0" mnemonicParsing="false" onAction="#exit2" prefHeight="25.0" prefWidth="31.0" text="x" />
    </children>
 </AnchorPane>

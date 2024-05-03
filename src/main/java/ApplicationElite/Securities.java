@@ -2,6 +2,10 @@ package ApplicationElite;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -11,189 +15,122 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 public class Securities {
     Account account=new Account();
-    private float balance;
-    private final String csvFile = "src/main/java/data/stock.csv";
-  private static ArrayList <String> StockName=new ArrayList<>();
- private  static ArrayList <Integer> NumberOfStocks=new ArrayList<>();
- public static String[] stockList1;
-
-
-
-public void AddStock(String Name,int number)
-{
-   
-    String dataOverwrite="";
-    String  oldContent="";
-StockName.add(Name);
-NumberOfStocks.add(number);
-System.out.println(StockName.get(0));
-    
-
-try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-    String line;
-    br.readLine();
-    while ((line = br.readLine()) != null) {
-        String[] values = line.split(",");
-        if (account.username1.equals(values[0])) {
-            System.out.println("found");
-             oldContent = line;
-             dataOverwrite=values[0]+","+values[1];
-         for(int i=0; i<StockName.size();i++)
-         {
-              dataOverwrite= dataOverwrite+","+NumberOfStocks.get(i)+"|"+StockName.get(i);
-         }
-        }
+   // private final String csvFile = "C:\Users\ram tech\Desktop\Elite\EliteExchange\src\main\java\data\Market.csv";
+ protected static String[] DatakList;
+public void Add(String Name,int number,float price,String dataPath,ArrayList <String> company,ArrayList <Integer> NumberOfSecurities,ArrayList <Float> Price)
+{ 
+    company.add(Name);
+    NumberOfSecurities.add(number);
+    Price.add(price);
+    try {
+        FileWriter fileWriter = new FileWriter(dataPath,true);
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        printWriter.println(Name + "," + number+","+price);
+        printWriter.close();
+    }
+    catch(IOException e){
+        e.printStackTrace();
     }
 }
-        
- catch (IOException e) {
-    e.printStackTrace();
-}
-    
-    
-    
-        
-        String newContent = dataOverwrite;
-        
-        try {
-            List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/data/stock.csv"));
-            
-            for (int i = 0; i < fileContent.size(); i++) {
-                if (fileContent.get(i).equals(oldContent)) {
-                    fileContent.set(i, newContent);
-                    break; // Assuming you want to replace the first occurrence only
-                }
-            }
-            
-            Files.write(Paths.get("src/main/java/data/stock.csv"), fileContent);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public void RestoreData()
+    public void RestoreData(String dataPath,ArrayList <String> company,ArrayList <Integer> NumberOfSecurities,ArrayList <Float> Prices,ObservableList<DataShow> stockData)
     {
+        company.clear();
+        NumberOfSecurities.clear();
 
-        
-        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/stock.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
+            br.readLine();
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (account.username1.equals(values[0])) {
-                    stockList1=values;
-                    int j=0;
-                    for(int i=2;i<values.length;i++)
-                    {
-                         String[] separatedValues=values[i].split("\\|");
-                         StockName.add(j,separatedValues[1]);
-                         NumberOfStocks.add(j,Integer.parseInt(separatedValues[0]));
-                         j++;
-                    }
-                   
-                    break;
+                         company.add(values[0]);
+                         NumberOfSecurities.add(Integer.parseInt(values[1]));
+                         Prices.add(Float.parseFloat(values[2]));            
                     
                 }
-               
-              
-            }
+                stockData.clear();
+                for (int i = 0; i < company.size(); i++) {
+                    stockData.add(new DataShow(company.get(i),NumberOfSecurities.get(i),Prices.get(i)));
+                }
+                System.out.println(stockData.size());
+                System.out.println(company.size());
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
    
-    public void DeleteStock(String Name)
+    public void Delete(String Name ,String dataPath,ArrayList <String> company,ArrayList <Integer> NumberOfSecurities,ArrayList <Float> Prices)
 {
-   
-    String dataOverwrite="";
-    String  oldContent="";
+    List<String> lines = new ArrayList<>();
+    
 
     
 int index=0;
-try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-    String line;
-    br.readLine();
+try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
+    String line=br.readLine();
+    lines.add(line);
     while ((line = br.readLine()) != null) {
         String[] values = line.split(",");
-       
-        if (account.username1.equals(values[0])) {
-            dataOverwrite=values[0]+","+values[1];
-            oldContent = line;
-            for(int i=2;i<values.length;i++)
-            {
-                if(Name.equals(values[i]))
-                {
-                    System.out.println(StockName.get(i-2));
-                    NumberOfStocks.remove(i-2);
-                    StockName.remove(i-2);
-                    System.out.println("done");
-                }
-                
-               else dataOverwrite=dataOverwrite+","+values[i];
+        if (!Name.equals(values[0])) 
+            lines.add(line);
+            else{
+                company.remove(index);
+                NumberOfSecurities.remove(index);
+                Prices.remove(index);
             }
+            index++;
         }
-        index++;
+      
        
-    }
-   
-   
-}
-        
+    } 
  catch (IOException e) {
     e.printStackTrace();
 }
-System.out.println(dataOverwrite);
-    
-    
-    
-        
-        String newContent = dataOverwrite;
-        
+      
         try {
-            List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/data/stock.csv"));
-            
-            for (int i = 0; i < fileContent.size(); i++) {
-                if (fileContent.get(i).equals(oldContent)) {
-                    fileContent.set(i, newContent);
-                    break; // Assuming you want to replace the first occurrence only
-                }
+         
+            FileWriter writer = new FileWriter(dataPath);
+            for (String updatedLine : lines) {
+                writer.write(updatedLine + "\n");
             }
+            writer.close();
             
-            Files.write(Paths.get("src/main/java/data/stock.csv"), fileContent);
+                
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
-    public void RestoreData2()
+    public void RestoreData2(String dataPath,ArrayList <String> company,ArrayList <Integer> NumberOfSecurities,ArrayList<Float>Prices,ObservableList<DataShow> stockData)
     {
 
-        
-        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/stock.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
+            br.readLine();
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (account.username1.equals(values[0])) {
-                    stockList1=values;
-                    int j=0;
-                    for(int i=2;i<values.length;i++)
+                int j=0;
+                    for(int i=0;i<values.length;i++)
                     {
-                         String[] separatedValues=values[i].split("\\|");
-                         StockName.set(j,separatedValues[1]);
-                         NumberOfStocks.set(j,Integer.parseInt(separatedValues[0]));
+                         company.set(j,values[0]);
+                         NumberOfSecurities.set(j,Integer.parseInt(values[1]));
+                         Prices.set(j,Float.parseFloat(values[2]));
                          j++;
                     }
-                   
-                    break;
                     
                 }
-               
-              
-            }
+            
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
+        stockData.clear();
+        for (int i = 0; i < company.size(); i++) {
+            stockData.set(i,new DataShow(company.get(i),NumberOfSecurities.get(i),Prices.get(i)));
+        }
 
     }
-
 }
 
 
