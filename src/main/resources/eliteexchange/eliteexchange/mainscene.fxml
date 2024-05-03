@@ -41,9 +41,9 @@
    <center>
       <AnchorPane prefHeight="381.0" prefWidth="595.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="datee" layoutX="271.0" layoutY="45.0" prefHeight="51.0" prefWidth="277.0" text="Elite Exchange" textFill="#ebb50c">
+            <Label fx:id="title" layoutX="271.0" layoutY="45.0" prefHeight="51.0" prefWidth="277.0" text="Elite Exchange" textFill="#ebb50c">
                <font>
-                  <Font name="Alien League" size="39.0" />
+                  <Font size="39.0" />
                </font></Label>
             <ImageView fitHeight="49.0" fitWidth="49.0" layoutX="211.0" layoutY="43.0">
                <image>
@@ -60,9 +60,9 @@
                   <Font name="Yaahowu Bold" size="12.0" />
                </font>
             </PasswordField>
-            <Label layoutX="248.0" layoutY="103.0" prefHeight="17.0" prefWidth="139.0" text="Log in" textFill="#eaecef">
+            <Label fx:id="text" layoutX="248.0" layoutY="103.0" prefHeight="17.0" prefWidth="139.0" text="Log in" textFill="#eaecef">
                <font>
-                  <Font name="Yaahowu Bold" size="29.0" />
+                  <Font size="29.0" />
                </font>
             </Label>
             <FontAwesomeIconView fill="#eaecef" glyphName="USER" layoutX="265.0" layoutY="187.0" selectionFill="#eaecef" size="25" />
@@ -83,7 +83,7 @@
                   <Font name="Yaahowu Bold" size="12.0" />
                </font>
             </Hyperlink>
-            <Label layoutX="276.0" layoutY="327.0" text="Don't have an account?" textFill="#eaecee">
+            <Label fx:id="textc" layoutX="276.0" layoutY="327.0" text="Don't have an account?" textFill="#eaecee">
                <font>
                   <Font name="Yaahowu Bold" size="12.0" />
                </font>
