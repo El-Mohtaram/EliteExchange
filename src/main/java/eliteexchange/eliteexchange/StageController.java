@@ -315,6 +315,7 @@ stock.RestoreData();
     }
     @FXML
     void usermanagementscene(ActionEvent event) throws IOException{
+        Admin.createuserslist();
         Parent root = FXMLLoader.load(getClass().getResource("Usermanagement.fxml"));
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -324,16 +325,19 @@ stock.RestoreData();
     }
     @FXML
     private void blockuser(){
+        Admin.createuserslist();
         System.out.println(userlist.getValue());
         Admin.blockuser(userlist.getValue());
     }
     @FXML
     private void unblockuser(){
+        Admin.createuserslist();
         System.out.println(userlist.getValue());
         Admin.unblockuser(userlist.getValue());
     }
     @FXML
     private void deleteusers(){
+        Admin.createuserslist();
         System.out.println(userlist.getValue());
         Admin.deleteuser(userlist.getValue());
     }

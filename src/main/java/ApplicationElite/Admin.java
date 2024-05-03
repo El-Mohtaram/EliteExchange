@@ -12,6 +12,7 @@ public class Admin {
     public static ArrayList<String> userslist = new ArrayList<>();
 
     public static void createuserslist() {
+        userslist.clear();
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/AccountData.csv"))) {
             String line;
             line = br.readLine();
@@ -75,15 +76,16 @@ public class Admin {
 
     public static void blockuser(String user) {
         String oldContent = "";
-
+        String[] values={};
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/AccountData.csv"))) {
             String line;
             br.readLine();
             while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
+                 values = line.split(",");
 
                 if (user.equals(values[0])) {
                     oldContent = line;
+                    break;
                 }
             }
 
@@ -98,7 +100,7 @@ public class Admin {
             for (int i = 0; i < fileContent.size(); i++) {
                 if (fileContent.get(i).equals(oldContent)) {
                     fileContent.remove(i);
-                    fileContent.add(i, oldContent + "," + "banned");
+                    fileContent.add(i, values[0] + "," +values[1] + "," +values[2] + "," + "banned");
                     for (int j = 0; j < userslist.size(); j++) {
                         if (userslist.get(j).equals(user)) {
                             nameuser = userslist.get(j);
@@ -127,6 +129,7 @@ public class Admin {
                 values = line.split(",");
                 if (userstate[0].equals(values[0])) {
                     oldContent = line;
+                    break;
                 }
             }
 
