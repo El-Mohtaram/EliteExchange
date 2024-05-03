@@ -42,10 +42,10 @@ public class Account {
     }
     public boolean CheckMatchPassword()
     {
+        if(username1.contains(" ")||password.contains(" ")||ConfirmPassword.contains(" "))
+            return false;
         if(password.length()==0||username1.length()==0) return false;
         if(this.password.equals(this.ConfirmPassword))
-        
-            
         {
 
             if(!username.contains(username1)  && password.length()>=3)
@@ -134,13 +134,16 @@ public class Account {
     {
         if(username1.length()==0||password.length()==0||ConfirmPassword.length()==0)
         return "Please fill all data";
+        else if(username1.contains(" ")) return "invalid username";
+        else if(password.contains(" ")) return "invalid Password";
         else if(password.length()<3)
         return "Password should be at least 3 characters";
         else if(!password.equals(ConfirmPassword))
         return "Password mismatch please try again!";
         else if(username.contains(username1)) return "This username is already taken";
+        else
         return "";
-        
+
     }
     public String LoginMessages()
     {

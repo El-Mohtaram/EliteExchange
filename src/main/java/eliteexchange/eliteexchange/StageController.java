@@ -81,13 +81,11 @@ public class StageController implements Initializable {
     @FXML
     private Button BuyStock;
 
-
-
     @FXML
     private Button Sellstock;
 
     @FXML
-    Label messagelabel,datee;
+    Label messagelabel,datee,signedup1;
 
     @FXML
     private Button back;
@@ -99,7 +97,7 @@ public class StageController implements Initializable {
     private PasswordField confirmpassword;
 
     @FXML
-    private Button login;
+    private Hyperlink login;
     private double x,y;
 
     @FXML
@@ -159,10 +157,11 @@ public class StageController implements Initializable {
 
     @FXML
     private void LoginPressed(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("mainscene.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        scene.getStylesheets().add(Elite.css);
         stage.show();
     }
 
@@ -172,6 +171,7 @@ public class StageController implements Initializable {
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        scene.getStylesheets().add(Elite.css);
         stage.show();
     }
 
@@ -182,8 +182,7 @@ public class StageController implements Initializable {
         account.setPassword(password.getText());
         account.setCheckPassword(confirmpassword.getText());
         if(account.CheckMatchPassword()&&password.getText().length()>=3){
-
-            messagelabel.setText("SignUp success");
+            signedup1.setText("Signed up success");
             account.ImportUserData();
         }
         else {
@@ -196,7 +195,7 @@ public class StageController implements Initializable {
         account.setUserName(username.getText());
         account.setPassword(password.getText());
         if(account.CheckLoginData() && account.userOrAdmin().equals("user")&&Account.BannedOrNot){
-            messagelabel.setText("your account had been banned");
+            messagelabel.setText("your account has been banned");
         }
        else if(account.CheckLoginData() && account.userOrAdmin().equals("user")){
             stock.RestoreData();
