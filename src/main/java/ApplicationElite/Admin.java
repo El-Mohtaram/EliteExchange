@@ -12,6 +12,7 @@ public class Admin {
     public static ArrayList<String> userslist = new ArrayList<>();
 
     public static void createuserslist() {
+        userslist.clear();
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/AccountData.csv"))) {
             String line;
             line = br.readLine();
