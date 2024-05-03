@@ -19,14 +19,66 @@ public class Securities {
  protected static String[] DatakList;
 public void Add(String Name,int number,float price,String dataPath,ArrayList <String> company,ArrayList <Integer> NumberOfSecurities,ArrayList <Float> Price)
 { 
-    company.add(Name);
-    NumberOfSecurities.add(number);
-    Price.add(price);
+    String updatedAmount="";
     try {
+         if(company.contains(Name)) {
+            for(int i=0;i<company.size();i++)
+            {
+                if(company.get(i).equals(Name))
+                {
+                NumberOfSecurities.set(i,NumberOfSecurities.get(i)+number);
+                updatedAmount=""+NumberOfSecurities.get(i);
+                System.out.println(updatedAmount);
+                break;
+                }
+            }
+                    String dataOverwrite="";
+                    String  oldContent=""; 
+                try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
+                    String line;
+                    br.readLine();
+                    while ((line = br.readLine()) != null) {
+                        String[] values = line.split(",");
+                        if (Name.equals(values[0])) {
+                            System.out.println("found");
+                             oldContent = line;
+                             System.out.println(line);
+                              dataOverwrite= values[0]+","+updatedAmount+","+values[2];
+                              System.out.println(dataOverwrite);
+                         
+                        }
+                    }
+                }
+                        
+                 catch (IOException e) {
+                    e.printStackTrace();
+                }  
+                        try {
+                            List<String> fileContent = Files.readAllLines(Paths.get(dataPath));
+                            
+                            for (int i = 0; i < fileContent.size(); i++) {
+                                if (fileContent.get(i).equals(oldContent)) {
+                                    fileContent.set(i, dataOverwrite);
+                                    break; // Assuming you want to replace the first occurrence only
+                                }
+                            }
+                            
+                            Files.write(Paths.get(dataPath), fileContent);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    ////////////////////////////
+        else{
+            company.add(Name);
+            NumberOfSecurities.add(number);
+            Price.add(price);
         FileWriter fileWriter = new FileWriter(dataPath,true);
         PrintWriter printWriter = new PrintWriter(fileWriter);
         printWriter.println(Name + "," + number+","+price);
         printWriter.close();
+        }
+        
     }
     catch(IOException e){
         e.printStackTrace();
@@ -45,7 +97,8 @@ public void Add(String Name,int number,float price,String dataPath,ArrayList <St
                 String[] values = line.split(",");
                          company.add(values[0]);
                          NumberOfSecurities.add(Integer.parseInt(values[1]));
-                         Prices.add(Float.parseFloat(values[2]));            
+                         Prices.add(Float.parseFloat(values[2])); 
+                                  
                     
                 }
                 stockData.clear();
