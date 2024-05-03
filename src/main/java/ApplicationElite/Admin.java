@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Admin {
-    Account account = new Account();
     public static ArrayList<String> userslist = new ArrayList<>();
 
     public static void createuserslist() {
@@ -20,7 +19,12 @@ public class Admin {
             while ((line = br.readLine()) != null) {
                 values = line.split(",");
                 System.out.println(userslist.size());
-                if (values[2].equals("user")) {
+                if(values.length>3){
+                    if (values[2].equals("user")) {
+                        userslist.add(values[0]+","+values[3]);
+                    }
+                }
+              else  if (values[2].equals("user")) {
                     userslist.add(values[0]);
                 }
             }
@@ -35,8 +39,6 @@ public class Admin {
     public static void deleteuser(String user) {
         String  oldContent="";
 
-
-        int index=0;
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/AccountData.csv"))) {
             String line;
             br.readLine();
@@ -75,6 +77,99 @@ public class Admin {
         e.printStackTrace();
     }
 }
+    public static void blockuser(String user){
+        String  oldContent="";
+
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/AccountData.csv"))) {
+            String line;
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+
+                if (user.equals(values[0])) {
+                    oldContent = line;}
+            }
+
+
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        try
+        {
+            String nameuser;
+            List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/data/AccountData.csv"));
+            System.out.println(fileContent.get(2));
+            for (int i = 0; i < fileContent.size(); i++) {
+                if (fileContent.get(i).equals(oldContent)) {
+                    fileContent.remove(i);
+                    fileContent.add(i,oldContent+","+"banned");
+                    for (int j = 0; j <userslist.size() ; j++) {
+                        if(userslist.get(j).equals(user)) {
+                            nameuser=userslist.get(j);
+                            userslist.remove(j) ;
+                            userslist.add(j,nameuser+","+"banned");
+                        }
+                    }
+                    break; // Assuming you want to replace the first occurrence only
+                }
+            }
+
+            Files.write(Paths.get("src/main/java/data/AccountData.csv"), fileContent);
+        } catch(IOException e)
+
+        {
+            e.printStackTrace();
+        }
+    }
+    public static void unblockuser(String user){
+        String  oldContent="";
+        String[] userstate=user.split(",");
+        String line="";
+        String[] values= {};
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/AccountData.csv"))) {
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                 values = line.split(",");
+                if (userstate[0].equals(values[0])) {
+                    oldContent = line;}
+            }
+
+
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        try
+        {
+            String nameuser;
+            List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/data/AccountData.csv"));
+            System.out.println(fileContent.get(2));
+            for (int i = 0; i < fileContent.size(); i++) {
+                if (fileContent.get(i).equals(oldContent)) {
+                    fileContent.remove(i);
+                    fileContent.add(i,values[0]+","+values[1]+","+values[2]);
+                    for (int j = 0; j <userslist.size() ; j++) {
+                        if(userslist.get(j).equals(user)) {
+                            nameuser=userstate[0];
+                            userslist.remove(j) ;
+                            userslist.add(j,nameuser);
+                        }
+                    }
+                    break; // Assuming you want to replace the first occurrence only
+                }
+            }
+
+            Files.write(Paths.get("src/main/java/data/AccountData.csv"), fileContent);
+        } catch(IOException e)
+
+        {
+            e.printStackTrace();
+        }
+
+    }
 }
 
 

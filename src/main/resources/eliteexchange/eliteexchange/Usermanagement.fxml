@@ -14,12 +14,12 @@
             <Font name="System Bold" size="23.0" />
          </font>
       </Label>
-      <Button fx:id="blockuserbutton" layoutX="153.0" layoutY="187.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="86.0" text="block">
+      <Button fx:id="blockuserbutton" layoutX="153.0" layoutY="187.0" mnemonicParsing="false" onAction="#blockuser" prefHeight="50.0" prefWidth="86.0" text="block">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Button>
-      <Button fx:id="unblockuserbutton" layoutX="262.0" layoutY="187.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="94.0" text="unblock">
+      <Button fx:id="unblockuserbutton" layoutX="262.0" layoutY="187.0" mnemonicParsing="false" onAction="#unblockuser" prefHeight="50.0" prefWidth="94.0" text="unblock">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -29,5 +29,7 @@
             <Font name="System Bold" size="23.0" />
          </font>
       </Button>
+      <Button layoutX="14.0" layoutY="26.0" mnemonicParsing="false" onAction="#BackPressed" text="back" />
+      <Button layoutX="467.0" layoutY="26.0" mnemonicParsing="false" onAction="#usermanagementscene" text="reload" />
    </children>
 </AnchorPane>

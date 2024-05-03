@@ -12,7 +12,6 @@ import java.nio.file.Paths;
 
 public class Account {
     private static ArrayList<String>username=new ArrayList<>();
-    public static ArrayList<String>userslist=new ArrayList<>();
     private final String csvFile = "src/main/java/data/AccountData.csv";
     private final String csvFile2 = "src/main/java/data/stock.csv";
     private String password;
@@ -20,6 +19,7 @@ public class Account {
     private String ConfirmPassword;
     static private String userOrAdmin;
     static private String adminInOrOut;
+    static public boolean BannedOrNot;
     static private float balance=0;
  
    
@@ -79,11 +79,12 @@ public class Account {
           adminInOrOut=values[3];
             while ((line = br.readLine()) != null) {
                  values = line.split(",");
-                System.out.println(userslist.size());
-                 if(values[2].equals("user")){
-                     userslist.add(values[0]);
-                     System.out.println(userslist.get(0));
-                 }
+
+                if((values.length>3)&&values[3].equals("banned")){
+                    BannedOrNot=true;
+                }
+                else BannedOrNot = false;
+
                 if (username1.equals(values[0]) && password.equals(values[1])) {
                     userOrAdmin=values[2];
                     return true;
