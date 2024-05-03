@@ -28,7 +28,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.EventObject;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
-
 import org.controlsfx.control.action.Action;
 
 import javafx.fxml.Initializable;
@@ -48,13 +47,32 @@ public class StageController implements Initializable {
     private Button exit;
  @FXML
     private TableView<DataShow> Addtable;
+    @FXML
+    private Button market;
+    @FXML
+    private TableView<DataShow> MarketList;
 
+    @FXML
+    private TableColumn<DataShow, Float> changePrice;
+
+    @FXML
+    private TableColumn<DataShow, String> company;
+
+    @FXML
+    private TableColumn<DataShow, Float> currentPrice;
+
+    @FXML
+    private TableColumn<DataShow, Float> startPrice;
+    @FXML
+    private TableColumn<DataShow, Float> numberofStocks;
+    @FXML
+    private TextField startprice;
 
     @FXML
     private Button deleteStock;
 
     @FXML
-    private ComboBox<String> stocklist;
+    private ComboBox<String> userlist;
 
     @FXML
     private Button addStock;
@@ -68,14 +86,13 @@ public class StageController implements Initializable {
     @FXML
     private Button BuyStock;
 
-    @FXML
-    private Button DeleteStock;
+
 
     @FXML
     private Button Sellstock;
 
     @FXML
-    Label messagelabel;
+    Label messagelabel,datee;
 
     @FXML
     private Button back;
@@ -97,6 +114,14 @@ public class StageController implements Initializable {
     private Button loginConfirm;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(company!=null)
+        company.setCellValueFactory(new PropertyValueFactory<>("company"));
+        if(startPrice!=null)
+        startPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        if(numberofStocks!=null)
+        numberofStocks.setCellValueFactory(new PropertyValueFactory<>("number"));
+        if(Addtable!=null)
+        Addtable.setItems(stock.returnList());
     
         if(userlist != null){
             for (int i = 0; i <Admin.userslist.size() ; i++) {
@@ -239,14 +264,7 @@ Addtable.setItems(stock.returnList());
             stage.show();
         }
     }
-    @FXML
-    void DeleteStock(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("deleteScene.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+ 
 
  
 
@@ -276,6 +294,39 @@ Addtable.setItems(stock.returnList());
         account.adminSwitch();
         System.exit(0);
     }
+    
+    @FXML
+    void deleteStock(ActionEvent event) {
+       // int selectedID = Addtable.getSelectionModel().getSelectedIndex();
+       // Addtable.getItems().remove(selectedID);
+        DataShow selectedStock = Addtable.getSelectionModel().getSelectedItem();
+        if (selectedStock != null) {
+            String selectedName = selectedStock.getCompany();
+            System.out.println("Selected stock name: " + selectedName);
+            stock.DeleteStock(selectedName);
+             int selectedID = Addtable.getSelectionModel().getSelectedIndex();
+        Addtable.getItems().remove(selectedID);
+        }
+    }
+    @FXML
+    void MarketPressed(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("Market.fxml"));
+            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+stock.RestoreData();
+    }
+    @FXML
+    void usermanagementscene(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("Usermanagement.fxml"));
+            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+stock.RestoreData();
+    }
+
 
 }
 
