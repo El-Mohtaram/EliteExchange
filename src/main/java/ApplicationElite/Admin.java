@@ -215,6 +215,7 @@ public class Admin {
 public void acceptRequest(String request)
 {
     String[] values2=request.split(" ");
+    transaction(request,0);
     //String newcontent="";
 String oldContent = "";
 String[] values={};
@@ -294,5 +295,42 @@ try {
 } catch (IOException e) {
     e.printStackTrace();
 }
+}
+public void transaction(String request,int state){
+    String[] values2=request.split(" ");
+    String oldContent = "";
+    String[] values={};
+    try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/TransactionHistory.csv"))) {
+        String line;
+        while ((line = br.readLine()) != null) {
+            values = line.split(",");
+            if (values2[0].equals(values[0])) {
+                oldContent = line;
+                break;
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    try {
+        List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/data/TransactionHistory.csv"));
+        for (int i = 0; i < fileContent.size(); i++) {
+            if (fileContent.get(i).equals(oldContent)) {
+                fileContent.remove(i);
+                if(state ==1)
+                    fileContent.add(i,oldContent+", your request to "+values2[3]+" "+ values2[4]+"$"+" had been refused");
+                else if(values2[3].equals("deposite"))
+                fileContent.add(i,oldContent+", you had "+values2[3]+"d "+values2[4]+"$");
+                else if(values2[3].equals("withdrawal"))
+                    fileContent.add(i,oldContent+", you had "+values2[3]+"ed "+values2[4]+"$");
+
+            }
+
+        }
+
+        Files.write(Paths.get("src/main/java/data/TransactionHistory.csv"), fileContent);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
 }
 }

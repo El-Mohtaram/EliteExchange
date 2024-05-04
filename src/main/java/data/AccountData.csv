@@ -1,7 +1,9 @@
-username,password,user/admin,yes
+username,password,user/admin,no
 hashem,100,admin
 messi,100,user,2000.0
-rooney,5000,user,7000.0
+rooney,5000,user,7200.0
 ozil,aaa,user,0.0
 reus,aaa,user,0.0
 zzz,aaa,user,0.0
+dias,123,user,0.0
+abotrika,222,user,-740091.0

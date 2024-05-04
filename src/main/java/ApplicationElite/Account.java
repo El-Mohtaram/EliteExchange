@@ -56,7 +56,11 @@ public class Account {
                 FileWriter fileWriter = new FileWriter(csvFile,true);
                 PrintWriter printWriter = new PrintWriter(fileWriter);
                 printWriter.println(username1 + "," + password+",user"+","+balance);
+                FileWriter    fileWrite = new FileWriter("src/main/java/data/TransactionHistory.csv",true);
+                PrintWriter    printWrite = new PrintWriter(fileWrite);
+                printWrite.println(username1);
                 printWriter.close();
+                printWrite.close();
                 
             }
             catch(IOException e){

@@ -2,10 +2,7 @@ package eliteexchange.eliteexchange;
 import ApplicationElite.Account;
 import ApplicationElite.Admin;
 import ApplicationElite.DataShow;
-import ApplicationElite.Securities;
 import ApplicationElite.Stock;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,11 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.EventObject;
 import java.util.ResourceBundle;
-import java.util.function.UnaryOperator;
-import org.controlsfx.control.action.Action;
-
 import javafx.fxml.Initializable;
 
 public class StageController implements Initializable {
@@ -33,32 +26,16 @@ public class StageController implements Initializable {
     Stock stock=new Stock();
     private Stage stage;
     private Scene scene;
-    private Parent root;
-    @FXML
-    private Hyperlink signup ;
-    @FXML
-    private Button delete;
-    @FXML
-    private Button exit;
     @FXML
     private TableView<DataShow> Addtable;
     @FXML
     private TableView<DataShow> requestsTable;
-    @FXML
-    private Button market;
-    @FXML
-    private TableView<DataShow> MarketList;
 
-    @FXML
-    private TableColumn<DataShow, Float> changePrice;
     @FXML
     private TableColumn<DataShow, String> requestColumn;
 
     @FXML
     private TableColumn<DataShow, String> company;
-
-    @FXML
-    private TableColumn<DataShow, Float> currentPrice;
 
     @FXML
     private TableColumn<DataShow, Float> startPrice;
@@ -70,13 +47,7 @@ public class StageController implements Initializable {
     private TextField amount;
 
     @FXML
-    private Button deleteStock;
-
-    @FXML
     private ComboBox<String> userlist;
-
-    @FXML
-    private Button addStock;
 
     @FXML
     private TextField companyName;
@@ -87,16 +58,7 @@ public class StageController implements Initializable {
     private Label requestMessage,balance;
 
     @FXML
-    private Button BuyStock;
-
-    @FXML
-    private Button Sellstock;
-
-    @FXML
     Label messagelabel,datee,signedup1;
-
-    @FXML
-    private Button back;
     @FXML
     private TextField username;
     @FXML
@@ -104,14 +66,8 @@ public class StageController implements Initializable {
     @FXML
     private PasswordField confirmpassword;
 
-    @FXML
-    private Hyperlink login;
-    private double x,y;
 
-    @FXML
-    private Button signupConfirm;
-    @FXML
-    private Button loginConfirm;
+    private double x,y;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(balance!=null)
@@ -419,10 +375,20 @@ requestMessage.setText("Your Request has been sent to the admin successfully");
             String selectedName = selectedRequest.getRequests();
             System.out.println(selectedName);
         admin.deleteRequest(selectedName);
+        admin.transaction(selectedName,1);
         int selectedID = requestsTable.getSelectionModel().getSelectedIndex();
         requestsTable.getItems().remove(selectedID);
         admin.RestoreData();
     }
+}
+@FXML
+    private void transactionhistoryscene(ActionEvent event) throws IOException {
+    Parent root = FXMLLoader.load(getClass().getResource("transactionhistory.fxml"));
+    stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+
 }
 }
 
