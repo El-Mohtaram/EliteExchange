@@ -17,6 +17,7 @@ public class Admin {
     public static ArrayList<String> userslist = new ArrayList<>();
     private String csvfile="src/main/java/data/financialRequests.csv";
     private static ArrayList<String>requests=new ArrayList<>();
+    private static ObservableList<DataShow>transaction=FXCollections.observableArrayList();
      static private ObservableList<DataShow> requestsTable = FXCollections.observableArrayList();
 
     public static void createuserslist() {
@@ -160,7 +161,7 @@ public class Admin {
                             userslist.add(j, nameuser);
                         }
                     }
-                    break; // Assuming you want to replace the first occurrence only
+                    break; 
                 }
             }
 
@@ -287,6 +288,7 @@ try {
         if (fileContent.get(i).equals(oldContent)) {
             System.out.println(oldContent);
             fileContent.remove(i);
+            break;
             }
            
         }
@@ -320,9 +322,9 @@ public void transaction(String request,int state){
                 if(state ==1)
                     fileContent.add(i,oldContent+", your request to "+values2[3]+" "+ values2[4]+"$"+" had been refused");
                 else if(values2[3].equals("deposite"))
-                fileContent.add(i,oldContent+", you had "+values2[3]+"d "+values2[4]+"$");
+                fileContent.add(i,oldContent+", you "+values2[3]+"d "+values2[4]+"$");
                 else if(values2[3].equals("withdrawal"))
-                    fileContent.add(i,oldContent+", you had "+values2[3]+"ed "+values2[4]+"$");
+                    fileContent.add(i,oldContent+", you "+values2[3]+"ed "+values2[4]+"$");
 
             }
 
@@ -333,4 +335,36 @@ public void transaction(String request,int state){
         e.printStackTrace();
     }
 }
+public void refreshTransactionHistory()
+{
+    transaction.clear();
+    try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/TransactionHistory.csv"))) {
+        String line;
+        br.readLine();
+        while ((line = br.readLine()) != null) {
+           String[] values = line.split(",");
+            if (account.username1.equals(values[0])) {
+                System.out.println("found");
+                for(int i=1;i<values.length;i++)
+                {
+                    transaction.add(new DataShow(values[i],0));
+                    System.out.println(values[i]);
+                    System.out.println(transaction.get(i-1));
+                }
+                break;
+            }
+        }
+    
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    
+}
+public  ObservableList<DataShow> historyList()
+{
+    return transaction;
+}
+
+
+
 }

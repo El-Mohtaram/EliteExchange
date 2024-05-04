@@ -27,7 +27,7 @@ public class StageController implements Initializable {
     private Stage stage;
     private Scene scene;
     @FXML
-    private TableView<DataShow> Addtable;
+    private TableView<DataShow> Addtable,historyTable;
     @FXML
     private TableView<DataShow> requestsTable;
 
@@ -35,7 +35,7 @@ public class StageController implements Initializable {
     private TableColumn<DataShow, String> requestColumn;
 
     @FXML
-    private TableColumn<DataShow, String> company;
+    private TableColumn<DataShow, String> company,historyColumn;
 
     @FXML
     private TableColumn<DataShow, Float> startPrice;
@@ -86,10 +86,15 @@ public class StageController implements Initializable {
         requestColumn.setCellValueFactory(new PropertyValueFactory<>("requests"));
         if(requestsTable!=null)
         requestsTable.setItems(admin.returnList());
+        if(historyTable!=null)
+        historyTable.setItems(admin.historyList());
+         if(historyColumn!=null)
+         historyColumn.setCellValueFactory(new PropertyValueFactory<>("history"));
     
         if(userlist != null){
             for (int i = 0; i <Admin.userslist.size() ; i++) {
                 userlist.getItems().add(Admin.userslist.get(i));
+            
             }
         }
 //        Timeline timeline = new Timeline(
@@ -342,8 +347,14 @@ requestMessage.setText("Your Request has been sent to the admin successfully");
     @FXML
     private void withdrawal()
     {
+        if(Float.parseFloat(amount.getText())>account.getBalance())
+        {
+            requestMessage.setText("You have insufficient balance");
+        }
+        else{
 admin.addRequests(Float.parseFloat(amount.getText()), "withdrawal");
 requestMessage.setText("Your Request has been sent to the admin successfully");
+        }
     }
     @FXML
     private void adminRequests(ActionEvent event) throws IOException
@@ -387,6 +398,7 @@ requestMessage.setText("Your Request has been sent to the admin successfully");
 }
 @FXML
     private void transactionhistoryscene(ActionEvent event) throws IOException {
+    admin.refreshTransactionHistory();
     Parent root = FXMLLoader.load(getClass().getResource("transactionhistory.fxml"));
     stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);

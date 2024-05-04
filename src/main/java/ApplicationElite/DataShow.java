@@ -6,9 +6,14 @@ public class DataShow {
    // public int number;
   private float price;
 private int number;
+private String history;
 public DataShow(String requests)
 {
 this.requests=requests;
+}
+public DataShow(String history,int x)
+{
+this.history=history;
 }
     public DataShow(String company,int number, float price)
     {
@@ -29,6 +34,10 @@ this.number=number;
     public String getRequests()
     {
         return requests;
+    }
+    public String getHistory()
+    {
+        return history;
     }
     
 }
