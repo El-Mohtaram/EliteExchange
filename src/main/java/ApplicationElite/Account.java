@@ -3,6 +3,7 @@ package ApplicationElite;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class Account {
     private final String csvFile = "src/main/java/data/AccountData.csv";
     private final String csvFile2 = "src/main/java/data/stock.csv";
     private String password;
-    protected static String username1;
+    public static String username1;
     private String ConfirmPassword;
     static private String userOrAdmin;
     static private String adminInOrOut;
@@ -87,6 +88,7 @@ public class Account {
 
                 if (username1.equals(values[0]) && password.equals(values[1])) {
                     userOrAdmin=values[2];
+                    balance=Float.parseFloat(values[3]);
                     return true;
                 }
                 
@@ -118,12 +120,8 @@ public class Account {
             
 
             while ((line = br.readLine()) != null) {
-                // Split the line by comma
                 String[] values = line.split(",");
-                // Add the username and password to their respective lists
-                username.add(values[0]);
-               // passwordList.add(values[1]);
-              
+                username.add(values[0]);    
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -194,9 +192,27 @@ dataOverwrite=dataOverwrite+","+values[i];
     {
         return balance;
     }
+    public void setBalance(float balance)
+    {
+        Account.balance=balance;
+    }
+    public void refreshBalance() throws FileNotFoundException, IOException
+    {
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (username1.equals(values[0])) 
+                {
+                    balance=Float.parseFloat(values[3]);
+                    break;
+                }
+    }
+}
 
    
 
+}
 }
 
 

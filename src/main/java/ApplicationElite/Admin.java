@@ -1,5 +1,4 @@
 package ApplicationElite;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -241,12 +240,13 @@ try {
             fileContent.remove(i);
             if(values2[3].equals("deposite")){
 float newBalance=Float.parseFloat(values2[4])+Float.parseFloat(values[3]);
-System.out.println(newBalance);
+account.setBalance(newBalance);
             fileContent.add(i, values[0] + "," +values[1] + "," +values[2] + "," +newBalance);
             }
             else
             {
                 float newBalance=Float.parseFloat(values[3])-Float.parseFloat(values2[4]);
+                account.setBalance(newBalance);
                             fileContent.add(i, values[0] + "," +values[1] + "," +values[2] + "," +newBalance);
                             }
         

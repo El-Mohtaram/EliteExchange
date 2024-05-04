@@ -22,7 +22,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="balanceText" layoutX="41.0" layoutY="49.0" text="Balance:">
+      <Label fx:id="balance" layoutX="41.0" layoutY="49.0" text="Balance:">
          <font>
             <Font size="15.0" />
          </font>
