@@ -118,8 +118,6 @@ public void Add(String Name,int number,float price,String dataPath,ArrayList <St
 {
     List<String> lines = new ArrayList<>();
     
-
-    
 int index=0;
 try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
     String line=br.readLine();

@@ -83,6 +83,8 @@ public class StageController implements Initializable {
 
     @FXML
     private TextField numberOfStocks;
+    @FXML
+    private Label requestMessage,balance;
 
     @FXML
     private Button BuyStock;
@@ -112,7 +114,8 @@ public class StageController implements Initializable {
     private Button loginConfirm;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        if(balance!=null)
+        balance.setText("Balance: "+account.getBalance()+"$");
         if(company!=null)
         company.setCellValueFactory(new PropertyValueFactory<>("company"));
         if(startPrice!=null)
@@ -368,16 +371,19 @@ stock.RestoreData();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+            
     }
     @FXML
     private void deposite()
     {
 admin.addRequests(Float.parseFloat(amount.getText()), "deposite");
+requestMessage.setText("Your Request has been sent to the admin successfully");
     }
     @FXML
     private void withdrawal()
     {
 admin.addRequests(Float.parseFloat(amount.getText()), "withdrawal");
+requestMessage.setText("Your Request has been sent to the admin successfully");
     }
     @FXML
     private void adminRequests(ActionEvent event) throws IOException
@@ -389,9 +395,38 @@ admin.addRequests(Float.parseFloat(amount.getText()), "withdrawal");
         stage.show();
         admin.RestoreData();
     }
-
-
+    @FXML
+    public void accept()
+    {
+        
+        DataShow selectedRequest = requestsTable.getSelectionModel().getSelectedItem();
+        if (selectedRequest!= null) {
+            String selectedName = selectedRequest.getRequests();
+            System.out.println(selectedName);
+        admin.acceptRequest(selectedName);
+        admin.deleteRequest(selectedName);
+        int selectedID = requestsTable.getSelectionModel().getSelectedIndex();
+        requestsTable.getItems().remove(selectedID);
+        admin.RestoreData();
+    }
+    }
+    @FXML
+    public void refuse()
+    {
+        
+        DataShow selectedRequest = requestsTable.getSelectionModel().getSelectedItem();
+        if (selectedRequest!= null) {
+            String selectedName = selectedRequest.getRequests();
+            System.out.println(selectedName);
+        admin.deleteRequest(selectedName);
+        int selectedID = requestsTable.getSelectionModel().getSelectedIndex();
+        requestsTable.getItems().remove(selectedID);
+        admin.RestoreData();
+    }
 }
+}
+
+
 
 
 

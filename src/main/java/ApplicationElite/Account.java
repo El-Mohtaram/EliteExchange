@@ -20,7 +20,7 @@ public class Account {
     static private String userOrAdmin;
     static private String adminInOrOut;
     static public boolean BannedOrNot;
-    static protected  float balance=0;
+    static private  float balance=0.0f;
  
    
    
@@ -189,6 +189,10 @@ dataOverwrite=dataOverwrite+","+values[i];
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public float getBalance()
+    {
+        return balance;
     }
 
    
