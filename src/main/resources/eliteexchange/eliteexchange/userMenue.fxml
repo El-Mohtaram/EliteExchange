@@ -27,7 +27,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Button layoutX="198.0" layoutY="271.0" mnemonicParsing="false" text="Deposite / Withdraw" />
+      <Button fx:id="wd" layoutX="198.0" layoutY="271.0" mnemonicParsing="false" onAction="#DandW" text="Deposite / Withdraw" />
       <Button layoutX="353.0" layoutY="271.0" mnemonicParsing="false" text="Transaction history" />
       <Button fx:id="market" layoutX="69.0" layoutY="271.0" mnemonicParsing="false" onAction="#MarketPressed" prefHeight="30.0" prefWidth="90.0" text="Market" />
    </children>

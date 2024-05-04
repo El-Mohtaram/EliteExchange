@@ -20,7 +20,7 @@ public class Account {
     static private String userOrAdmin;
     static private String adminInOrOut;
     static public boolean BannedOrNot;
-    static private float balance=0;
+    static protected  float balance=0;
  
    
    

@@ -28,7 +28,7 @@ import org.controlsfx.control.action.Action;
 import javafx.fxml.Initializable;
 
 public class StageController implements Initializable {
-
+   Admin admin=new Admin();
     Account account =new Account();
     Stock stock=new Stock();
     private Stage stage;
@@ -43,12 +43,16 @@ public class StageController implements Initializable {
     @FXML
     private TableView<DataShow> Addtable;
     @FXML
+    private TableView<DataShow> requestsTable;
+    @FXML
     private Button market;
     @FXML
     private TableView<DataShow> MarketList;
 
     @FXML
     private TableColumn<DataShow, Float> changePrice;
+    @FXML
+    private TableColumn<DataShow, String> requestColumn;
 
     @FXML
     private TableColumn<DataShow, String> company;
@@ -62,6 +66,8 @@ public class StageController implements Initializable {
     private TableColumn<DataShow, Float> numberofStocks;
     @FXML
     private TextField startprice;
+    @FXML
+    private TextField amount;
 
     @FXML
     private Button deleteStock;
@@ -115,6 +121,10 @@ public class StageController implements Initializable {
         numberofStocks.setCellValueFactory(new PropertyValueFactory<>("number"));
         if(Addtable!=null)
         Addtable.setItems(stock.returnList());
+        if(requestColumn!=null)
+        requestColumn.setCellValueFactory(new PropertyValueFactory<>("requests"));
+        if(requestsTable!=null)
+        requestsTable.setItems(admin.returnList());
     
         if(userlist != null){
             for (int i = 0; i <Admin.userslist.size() ; i++) {
@@ -349,6 +359,35 @@ stock.RestoreData();
         for (int i = 0; i <Admin.userslist.size() ; i++) {
             userlist.getItems().set(i,Admin.userslist.get(i));
         }
+    }
+    @FXML
+    private void DandW(ActionEvent event) throws IOException
+    {
+        Parent root = FXMLLoader.load(getClass().getResource("WDscene.fxml"));
+            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+    }
+    @FXML
+    private void deposite()
+    {
+admin.addRequests(Float.parseFloat(amount.getText()), "deposite");
+    }
+    @FXML
+    private void withdrawal()
+    {
+admin.addRequests(Float.parseFloat(amount.getText()), "withdrawal");
+    }
+    @FXML
+    private void adminRequests(ActionEvent event) throws IOException
+    {
+        Parent root = FXMLLoader.load(getClass().getResource("RequestScene.fxml"));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        admin.RestoreData();
     }
 
 
