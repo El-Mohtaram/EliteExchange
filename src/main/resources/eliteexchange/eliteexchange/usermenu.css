@@ -1,0 +1,20 @@
+#min, #close {
+    -fx-fill: #181a20; /* Initial gradient */
+    -fx-transition: -fx-fill 0.6s ease;
+}
+/*#pest:hover {*/
+/*    -fx-fill: blue; !* Color on hover *!*/
+/*}*/
+/* Change icon color on mouse hover */
+#close:hover {
+    -fx-fill: #d50000;
+}
+#min:hover{
+    -fx-fill: #eaecef;
+}
+#min:pressed{
+    -fx-fill: grey;
+}
+#close:pressed{
+    -fx-fill: #930000
+}

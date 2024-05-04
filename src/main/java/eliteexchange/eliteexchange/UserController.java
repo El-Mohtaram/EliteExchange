@@ -4,6 +4,7 @@ import ApplicationElite.Admin;
 import ApplicationElite.DataShow;
 import ApplicationElite.Securities;
 import ApplicationElite.Stock;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
@@ -23,12 +25,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.EventObject;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
+
+import javafx.util.Duration;
 import org.controlsfx.control.action.Action;
 
 import javafx.fxml.Initializable;
 
-public class StageController implements Initializable {
-   Admin admin=new Admin();
+public class UserController implements Initializable {
+    Admin admin=new Admin();
     Account account =new Account();
     Stock stock=new Stock();
     private Stage stage;
@@ -107,42 +111,40 @@ public class StageController implements Initializable {
     @FXML
     private Hyperlink login;
     private double x,y;
-
     @FXML
-    private Button signupConfirm;
+    private AnchorPane slider;
     @FXML
-    private Button loginConfirm;
+    private Label Menu;
+    @FXML
+    private Label MenuClose;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(balance!=null)
-        balance.setText("Balance: "+account.getBalance()+"$");
-        if(company!=null)
-        company.setCellValueFactory(new PropertyValueFactory<>("company"));
-        if(startPrice!=null)
-        startPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        if(numberofStocks!=null)
-        numberofStocks.setCellValueFactory(new PropertyValueFactory<>("number"));
-        if(Addtable!=null)
-        Addtable.setItems(stock.returnList());
-        if(requestColumn!=null)
-        requestColumn.setCellValueFactory(new PropertyValueFactory<>("requests"));
-        if(requestsTable!=null)
-        requestsTable.setItems(admin.returnList());
-    
-        if(userlist != null){
-            for (int i = 0; i <Admin.userslist.size() ; i++) {
-                userlist.getItems().add(Admin.userslist.get(i));
-            }
-        }
-//        Timeline timeline = new Timeline(
-//                new KeyFrame(Duration.seconds(1), event -> updateDateTimeLabel())
-//        );
-//        timeline.setCycleCount(Animation.INDEFINITE);
-//        timeline.play();
-        // Add shutdown hook
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            account.adminSwitch();
-        }));
+    slider.setTranslateX(-213);
+        Menu.setOnMouseClicked(event ->{
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.4));
+            slide.setNode(slider);
+            slide.setToX(0);
+            slide.play();
+            slider.setTranslateX(-213);
+            slide.setOnFinished((ActionEvent e)-> {
+                Menu.setVisible(false);
+                MenuClose.setVisible(true);
+            });
+    });
+        MenuClose.setOnMouseClicked(event ->{
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.4));
+            slide.setNode(slider);
+            slide.setToX(-213);
+            slide.play();
+            slider.setTranslateX(0);
+            slide.setOnFinished((ActionEvent e)-> {
+                Menu.setVisible(true);
+                MenuClose.setVisible(false);
+            });
+        });
+
     }
     private void updateDateTimeLabel() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -210,12 +212,14 @@ public class StageController implements Initializable {
         if(account.CheckLoginData() && account.userOrAdmin().equals("user")&&Account.BannedOrNot){
             messagelabel.setText("your account has been banned");
         }
-       else if(account.CheckLoginData() && account.userOrAdmin().equals("user")){
+        else if(account.CheckLoginData() && account.userOrAdmin().equals("user")){
             stock.RestoreData();
             Parent root = FXMLLoader.load(getClass().getResource("userMenue.fxml"));
+            String cssuser = getClass().getResource("usermenu.css").toExternalForm();
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
+            scene.getStylesheets().add(cssuser);
             stage.show();
         }
         else
@@ -239,14 +243,14 @@ public class StageController implements Initializable {
     }
     @FXML
     void AddstockScene(ActionEvent event) throws IOException {
-  
-        Parent root = FXMLLoader.load(getClass().getResource("AddScene.fxml")); 
+
+        Parent root = FXMLLoader.load(getClass().getResource("AddScene.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stock.RestoreData();
         stage.show();
-       
+
     }
     @FXML
     void addStock(ActionEvent event) {
@@ -274,12 +278,13 @@ public class StageController implements Initializable {
             stage.show();
         }
     }
- 
 
- 
+
+
 
     @FXML
     private void exit(MouseEvent event) throws IOException {
+        account.adminSwitch();
         System.exit(0);
     }
     @FXML
@@ -300,41 +305,40 @@ public class StageController implements Initializable {
     }
     @FXML
     private void exit2(ActionEvent event) throws IOException {
-        account.adminSwitch();
         System.exit(0);
     }
-    
+
     @FXML
     void deleteStock(ActionEvent event) {
-       // int selectedID = Addtable.getSelectionModel().getSelectedIndex();
-       // Addtable.getItems().remove(selectedID);
+        // int selectedID = Addtable.getSelectionModel().getSelectedIndex();
+        // Addtable.getItems().remove(selectedID);
         DataShow selectedStock = Addtable.getSelectionModel().getSelectedItem();
         if (selectedStock != null) {
             String selectedName = selectedStock.getCompany();
             System.out.println("Selected stock name: " + selectedName);
             stock.DeleteStock(selectedName);
-             int selectedID = Addtable.getSelectionModel().getSelectedIndex();
-        Addtable.getItems().remove(selectedID);
+            int selectedID = Addtable.getSelectionModel().getSelectedIndex();
+            Addtable.getItems().remove(selectedID);
         }
     }
     @FXML
     void MarketPressed(ActionEvent event) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("Market.fxml"));
-            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-stock.RestoreData();
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        stock.RestoreData();
     }
     @FXML
     void usermanagementscene(ActionEvent event) throws IOException{
         Admin.createuserslist();
         Parent root = FXMLLoader.load(getClass().getResource("Usermanagement.fxml"));
-            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-            stock.RestoreData();
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        stock.RestoreData();
     }
     @FXML
     private void blockuser(){
@@ -367,23 +371,23 @@ stock.RestoreData();
     private void DandW(ActionEvent event) throws IOException
     {
         Parent root = FXMLLoader.load(getClass().getResource("WDscene.fxml"));
-            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-            
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
     }
     @FXML
     private void deposite()
     {
-admin.addRequests(Float.parseFloat(amount.getText()), "deposite");
-requestMessage.setText("Your Request has been sent to the admin successfully");
+        admin.addRequests(Float.parseFloat(amount.getText()), "deposite");
+        requestMessage.setText("Your Request has been sent to the admin successfully");
     }
     @FXML
     private void withdrawal()
     {
-admin.addRequests(Float.parseFloat(amount.getText()), "withdrawal");
-requestMessage.setText("Your Request has been sent to the admin successfully");
+        admin.addRequests(Float.parseFloat(amount.getText()), "withdrawal");
+        requestMessage.setText("Your Request has been sent to the admin successfully");
     }
     @FXML
     private void adminRequests(ActionEvent event) throws IOException
@@ -398,32 +402,32 @@ requestMessage.setText("Your Request has been sent to the admin successfully");
     @FXML
     public void accept()
     {
-        
+
         DataShow selectedRequest = requestsTable.getSelectionModel().getSelectedItem();
         if (selectedRequest!= null) {
             String selectedName = selectedRequest.getRequests();
             System.out.println(selectedName);
-        admin.acceptRequest(selectedName);
-        admin.deleteRequest(selectedName);
-        int selectedID = requestsTable.getSelectionModel().getSelectedIndex();
-        requestsTable.getItems().remove(selectedID);
-        admin.RestoreData();
-    }
+            admin.acceptRequest(selectedName);
+            admin.deleteRequest(selectedName);
+            int selectedID = requestsTable.getSelectionModel().getSelectedIndex();
+            requestsTable.getItems().remove(selectedID);
+            admin.RestoreData();
+        }
     }
     @FXML
     public void refuse()
     {
-        
+
         DataShow selectedRequest = requestsTable.getSelectionModel().getSelectedItem();
         if (selectedRequest!= null) {
             String selectedName = selectedRequest.getRequests();
             System.out.println(selectedName);
-        admin.deleteRequest(selectedName);
-        int selectedID = requestsTable.getSelectionModel().getSelectedIndex();
-        requestsTable.getItems().remove(selectedID);
-        admin.RestoreData();
+            admin.deleteRequest(selectedName);
+            int selectedID = requestsTable.getSelectionModel().getSelectedIndex();
+            requestsTable.getItems().remove(selectedID);
+            admin.RestoreData();
+        }
     }
-}
 }
 
 
