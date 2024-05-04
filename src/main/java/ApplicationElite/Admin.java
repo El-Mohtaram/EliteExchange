@@ -2,14 +2,23 @@ package ApplicationElite;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class Admin {
+    Account account=new Account();
     public static ArrayList<String> userslist = new ArrayList<>();
+    private String csvfile="src/main/java/data/financialRequests.csv";
+    private static ArrayList<String>requests=new ArrayList<>();
+     static private ObservableList<DataShow> requestsTable = FXCollections.observableArrayList();
 
     public static void createuserslist() {
         userslist.clear();
@@ -20,9 +29,9 @@ public class Admin {
             while ((line = br.readLine()) != null) {
                 values = line.split(",");
                 System.out.println(userslist.size());
-                if (values.length > 3) {
+                if (values.length >4) {
                     if (values[2].equals("user")) {
-                        userslist.add(values[0] + "," + values[3]);
+                        userslist.add(values[0] + "," + values[4]);
                     }
                 } else if (values[2].equals("user")) {
                     userslist.add(values[0]);
@@ -100,7 +109,7 @@ public class Admin {
             for (int i = 0; i < fileContent.size(); i++) {
                 if (fileContent.get(i).equals(oldContent)) {
                     fileContent.remove(i);
-                    fileContent.add(i, values[0] + "," +values[1] + "," +values[2] + "," + "banned");
+                    fileContent.add(i, values[0] + "," +values[1] + "," +values[2] + "," +values[3]+","+ "banned");
                     for (int j = 0; j < userslist.size(); j++) {
                         if (userslist.get(j).equals(user)) {
                             nameuser = userslist.get(j);
@@ -144,7 +153,7 @@ public class Admin {
             for (int i = 0; i < fileContent.size(); i++) {
                 if (fileContent.get(i).equals(oldContent)) {
                     fileContent.remove(i);
-                    fileContent.add(i, values[0] + "," + values[1] + "," + values[2]);
+                    fileContent.add(i, values[0] + "," + values[1] + "," + values[2]+","+values[3]);
                     for (int j = 0; j < userslist.size(); j++) {
                         if (userslist.get(j).equals(user)) {
                             nameuser = userstate[0];
@@ -162,6 +171,128 @@ public class Admin {
         }
 
     }
+    public void addRequests(float amount,String process)
+    {
+  try {
+                FileWriter fileWriter = new FileWriter(csvfile,true);
+                PrintWriter printWriter = new PrintWriter(fileWriter);
+                printWriter.println(account.username1 +","+amount+","+process);
+                requests.add(account.username1+" wants to "+process+" "+amount+" $");
+                printWriter.close();
+                
+            }
+            catch(IOException e){
+                e.printStackTrace();
+            }
+    }
+    public void RestoreData()
+    {
+        requests.clear();
+        try (BufferedReader br = new BufferedReader(new FileReader(csvfile))) {
+            br.readLine();
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values=line.split(",");
+              requests.add(values[0]+" wants to "+values[2]+" "+values[1]+" $");
+                              }
+
+                requestsTable.clear();
+                for (int i = 0; i < requests.size(); i++) {
+                    requestsTable.add(new DataShow(requests.get(i)));
+                }
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public ObservableList<DataShow> returnList()
+{
+  
+    return requestsTable;
 }
+/////////////////////////////////////
+public void acceptRequest(String request)
+{
+    String[] values2=request.split(" ");
+    //String newcontent="";
+String oldContent = "";
+String[] values={};
+try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/AccountData.csv"))) {
+    String line;
+    br.readLine();
+    while ((line = br.readLine()) != null) {
+         values = line.split(",");
+        if (values2[0].equals(values[0])) {
+            oldContent = line;
+            System.out.println(oldContent);
+            break;
+        }
+    }
 
+} catch (IOException e) {
+    e.printStackTrace();
+}
+try {
+    List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/data/AccountData.csv"));
+    for (int i = 0; i < fileContent.size(); i++) {
+        if (fileContent.get(i).equals(oldContent)) {
+            System.out.println(oldContent);
+            fileContent.remove(i);
+            if(values2[3].equals("deposite")){
+float newBalance=Float.parseFloat(values2[4])+Float.parseFloat(values[3]);
+System.out.println(newBalance);
+            fileContent.add(i, values[0] + "," +values[1] + "," +values[2] + "," +newBalance);
+            }
+            else
+            {
+                float newBalance=Float.parseFloat(values[3])-Float.parseFloat(values2[4]);
+                            fileContent.add(i, values[0] + "," +values[1] + "," +values[2] + "," +newBalance);
+                            }
+        
+            }
+           
+        }
 
+    Files.write(Paths.get("src/main/java/data/AccountData.csv"), fileContent);
+} catch (IOException e) {
+    e.printStackTrace();
+}
+}
+///////////////////////////////////////////////////
+public void deleteRequest(String request)
+{
+    String[] values2=request.split(" ");
+String oldContent = "";
+String[] values={};
+try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/financialRequests.csv"))) {
+    String line;
+    br.readLine();
+    while ((line = br.readLine()) != null) {
+         values = line.split(",");
+        if (values2[0].equals(values[0])&& values2[3].equals(values[2])&&values2[4].equals(values[1])) {
+            oldContent = line;
+            System.out.println(oldContent);
+            break;
+        }
+    }
+
+} catch (IOException e) {
+    e.printStackTrace();
+}
+try {
+    List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/data/financialRequests.csv"));
+    for (int i = 0; i < fileContent.size(); i++) {
+        if (fileContent.get(i).equals(oldContent)) {
+            System.out.println(oldContent);
+            fileContent.remove(i);
+            }
+           
+        }
+
+    Files.write(Paths.get("src/main/java/data/financialRequests.csv"), fileContent);
+} catch (IOException e) {
+    e.printStackTrace();
+}
+}
+}

@@ -20,7 +20,7 @@ public class Account {
     static private String userOrAdmin;
     static private String adminInOrOut;
     static public boolean BannedOrNot;
-    static private float balance=0;
+    static private  float balance=0.0f;
  
    
    
@@ -55,7 +55,7 @@ public class Account {
             try {
                 FileWriter fileWriter = new FileWriter(csvFile,true);
                 PrintWriter printWriter = new PrintWriter(fileWriter);
-                printWriter.println(username1 + "," + password+",user");
+                printWriter.println(username1 + "," + password+",user"+","+balance);
                 printWriter.close();
                 
             }
@@ -104,7 +104,7 @@ public class Account {
     try {
         FileWriter fileWriter = new FileWriter(csvFile2,true);
         PrintWriter printWriter = new PrintWriter(fileWriter);
-        printWriter.println(username1 + "," + balance);
+        printWriter.println(username1 + "," );
         printWriter.close();
     }
     catch(IOException e){
@@ -189,6 +189,10 @@ dataOverwrite=dataOverwrite+","+values[i];
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public float getBalance()
+    {
+        return balance;
     }
 
    

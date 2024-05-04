@@ -1,8 +1,7 @@
 username,password,user/admin,yes
 hashem,100,admin
-ahmed,123,user
-cr7,123,user
-messi,100,user
-rooney,5000,user
-kaka,254,user
-henry,125,user
+messi,100,user,2000.0
+rooney,5000,user,7000.0
+ozil,aaa,user,0.0
+reus,aaa,user,0.0
+zzz,aaa,user,0.0
