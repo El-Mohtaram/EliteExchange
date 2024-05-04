@@ -13,7 +13,7 @@
             <Font size="33.0" />
          </font>
       </Label>
-      <Label fx:id="balance" layoutX="61.0" layoutY="28.0" text="Balance">
+      <Label fx:id="balance" layoutX="351.0" layoutY="10.0" text="Balance">
          <font>
             <Font size="23.0" />
          </font>
@@ -36,5 +36,6 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackPressed" text="Back" />
    </children>
 </AnchorPane>

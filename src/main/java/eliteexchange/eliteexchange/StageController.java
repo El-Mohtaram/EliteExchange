@@ -55,7 +55,7 @@ public class StageController implements Initializable {
     @FXML
     private TextField numberOfStocks;
     @FXML
-    private Label requestMessage,balance;
+    private Label requestMessage,balance, welcomeText;
 
     @FXML
     Label messagelabel,datee,signedup1;
@@ -70,6 +70,8 @@ public class StageController implements Initializable {
     private double x,y;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(welcomeText!=null)
+        welcomeText.setText("Welcome "+account.username1+"!");
         if(balance!=null)
         balance.setText("Balance: "+account.getBalance()+"$");
         if(company!=null)
@@ -322,11 +324,13 @@ stock.RestoreData();
     @FXML
     private void DandW(ActionEvent event) throws IOException
     {
+        account.refreshBalance();
         Parent root = FXMLLoader.load(getClass().getResource("WDscene.fxml"));
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+
             
     }
     @FXML

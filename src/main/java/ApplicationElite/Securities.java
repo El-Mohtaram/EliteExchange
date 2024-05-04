@@ -38,13 +38,13 @@ public void Add(String Name,int number,float price,String dataPath,ArrayList <St
                     String line;
                     br.readLine();
                     while ((line = br.readLine()) != null) {
-                        String[] values = line.split(",");
-                        if (Name.equals(values[0])) {
-                            System.out.println("found");
-                             oldContent = line;
-                             System.out.println(line);
-                              dataOverwrite= values[0]+","+updatedAmount+","+values[2];
-                              System.out.println(dataOverwrite);
+               String[] values = line.split(",");
+              if (Name.equals(values[0])) {
+                  System.out.println("found");
+                oldContent = line;
+             System.out.println(line);
+                  dataOverwrite= values[0]+","+updatedAmount+","+values[2];
+                     System.out.println(dataOverwrite);
                          
                         }
                     }
