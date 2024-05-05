@@ -52,7 +52,7 @@
                                  </VBox.margin>
                               </JFXButton>
                               <JFXButton fx:id="wd" onAction="#DandW" prefHeight="90.0" prefWidth="213.0" text="Deposit,Withdraw" />
-                              <JFXButton fx:id="TransHistory" onAction="#trans" prefHeight="90.0" prefWidth="213.0" text="Trans History" />
+                              <JFXButton fx:id="TransHistory" onAction="#transactionhistoryscene" prefHeight="90.0" prefWidth="213.0" text="Trans History" />
                               <JFXButton prefHeight="90.0" prefWidth="213.0" />
                               <JFXButton prefHeight="90.0" prefWidth="213.0" />
                               <JFXButton prefHeight="90.0" prefWidth="213.0" />
