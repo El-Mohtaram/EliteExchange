@@ -168,6 +168,18 @@ public class StageController implements Initializable {
         stage.show();
     }
 
+    @FXML
+    void LogoutButtonPressed(ActionEvent event) throws IOException {
+        account.adminSwitch();
+        Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        String MainScenecss = getClass().getResource("menu.css").toExternalForm();
+        scene.getStylesheets().add(MainScenecss);
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
     @FXML
     private void LoginPressed(ActionEvent event) throws IOException {
@@ -229,6 +241,8 @@ public class StageController implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("AdminMenu.fxml"));
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
+            String Admincss =  getClass().getResource("AdminMenu.css").toExternalForm();
+            scene.getStylesheets().add(Admincss);
             stage.setScene(scene);
             stage.show();
         }
@@ -274,12 +288,12 @@ public class StageController implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("AdminMenu.fxml"));
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
+            String Admincss =  getClass().getResource("AdminMenu.css").toExternalForm();
+            scene.getStylesheets().add(Admincss);
             stage.setScene(scene);
             stage.show();
         }
     }
- 
-
  
 
     @FXML

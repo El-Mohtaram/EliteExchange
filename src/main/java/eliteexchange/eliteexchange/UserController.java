@@ -250,23 +250,6 @@ public class UserController implements Initializable {
             messagelabel.setText(account.LoginMessages());
         }
     }
-    @FXML
-    void AddstockScene(ActionEvent event) throws IOException {
-
-        Parent root = FXMLLoader.load(getClass().getResource("AddScene.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stock.RestoreData();
-        stage.show();
-
-    }
-    @FXML
-    void addStock(ActionEvent event) {
-        stock.addStock(companyName.getText(),Integer.parseInt(numberOfStocks.getText()),Float.parseFloat(startprice.getText()));
-        stock.RestoreData();
-        Addtable.setItems(stock.returnList());
-    }
 
     @FXML
     void BackPressed(ActionEvent event) throws IOException {
@@ -317,19 +300,7 @@ public class UserController implements Initializable {
         System.exit(0);
     }
 
-    @FXML
-    void deleteStock(ActionEvent event) {
-        // int selectedID = Addtable.getSelectionModel().getSelectedIndex();
-        // Addtable.getItems().remove(selectedID);
-        DataShow selectedStock = Addtable.getSelectionModel().getSelectedItem();
-        if (selectedStock != null) {
-            String selectedName = selectedStock.getCompany();
-            System.out.println("Selected stock name: " + selectedName);
-            stock.DeleteStock(selectedName);
-            int selectedID = Addtable.getSelectionModel().getSelectedIndex();
-            Addtable.getItems().remove(selectedID);
-        }
-    }
+
     @FXML
     void MarketPressed(ActionEvent event) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("Market.fxml"));
@@ -339,43 +310,8 @@ public class UserController implements Initializable {
         stage.show();
         stock.RestoreData();
     }
-    @FXML
-    void usermanagementscene(ActionEvent event) throws IOException{
-        Admin.createuserslist();
-        Parent root = FXMLLoader.load(getClass().getResource("Usermanagement.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        stock.RestoreData();
-    }
-    @FXML
-    private void blockuser(){
-        Admin.createuserslist();
-        System.out.println(userlist.getValue());
-        Admin.blockuser(userlist.getValue());
-        for (int i = 0; i <Admin.userslist.size() ; i++) {
-            userlist.getItems().set(i,Admin.userslist.get(i));
-        }
-    }
-    @FXML
-    private void unblockuser(){
-        Admin.createuserslist();
-        System.out.println(userlist.getValue());
-        Admin.unblockuser(userlist.getValue());
-        for (int i = 0; i <Admin.userslist.size() ; i++) {
-            userlist.getItems().set(i,Admin.userslist.get(i));
-        }
-    }
-    @FXML
-    private void deleteusers(){
-        Admin.createuserslist();
-        System.out.println(userlist.getValue());
-        Admin.deleteuser(userlist.getValue());
-        for (int i = 0; i <Admin.userslist.size() ; i++) {
-            userlist.getItems().set(i,Admin.userslist.get(i));
-        }
-    }
+
+
     @FXML
     private void DandW(ActionEvent event) throws IOException
     {
@@ -398,45 +334,7 @@ public class UserController implements Initializable {
         admin.addRequests(Float.parseFloat(amount.getText()), "withdrawal");
         requestMessage.setText("Your Request has been sent to the admin successfully");
     }
-    @FXML
-    private void adminRequests(ActionEvent event) throws IOException
-    {
-        Parent root = FXMLLoader.load(getClass().getResource("RequestScene.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        admin.RestoreData();
-    }
-    @FXML
-    public void accept()
-    {
 
-        DataShow selectedRequest = requestsTable.getSelectionModel().getSelectedItem();
-        if (selectedRequest!= null) {
-            String selectedName = selectedRequest.getRequests();
-            System.out.println(selectedName);
-            admin.acceptRequest(selectedName);
-            admin.deleteRequest(selectedName);
-            int selectedID = requestsTable.getSelectionModel().getSelectedIndex();
-            requestsTable.getItems().remove(selectedID);
-            admin.RestoreData();
-        }
-    }
-    @FXML
-    public void refuse()
-    {
-
-        DataShow selectedRequest = requestsTable.getSelectionModel().getSelectedItem();
-        if (selectedRequest!= null) {
-            String selectedName = selectedRequest.getRequests();
-            System.out.println(selectedName);
-            admin.deleteRequest(selectedName);
-            int selectedID = requestsTable.getSelectionModel().getSelectedIndex();
-            requestsTable.getItems().remove(selectedID);
-            admin.RestoreData();
-        }
-    }
     @FXML
     private void trans(ActionEvent event) throws IOException {
         aw.setVisible(true);
