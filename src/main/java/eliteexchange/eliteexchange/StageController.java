@@ -115,8 +115,7 @@ public class StageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(balance!=null)
-        balance.setText("Balance: "+account.getBalance()+"$");
+
         if(company!=null)
         company.setCellValueFactory(new PropertyValueFactory<>("company"));
         if(startPrice!=null)
@@ -391,18 +390,8 @@ stock.RestoreData();
             stage.show();
             
     }
-    @FXML
-    private void deposite()
-    {
-admin.addRequests(Float.parseFloat(amount.getText()), "deposite");
-requestMessage.setText("Your Request has been sent to the admin successfully");
-    }
-    @FXML
-    private void withdrawal()
-    {
-admin.addRequests(Float.parseFloat(amount.getText()), "withdrawal");
-requestMessage.setText("Your Request has been sent to the admin successfully");
-    }
+
+
     @FXML
     private void adminRequests(ActionEvent event) throws IOException
     {
