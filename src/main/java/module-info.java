@@ -8,6 +8,7 @@ module eliteexchange.eliteexchange {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires de.jensd.fx.glyphs.fontawesome;
+    requires com.jfoenix;
 
     opens eliteexchange.eliteexchange to javafx.fxml;
     exports eliteexchange.eliteexchange;
