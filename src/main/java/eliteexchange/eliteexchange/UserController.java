@@ -48,7 +48,7 @@ public class UserController implements Initializable {
     @FXML
     private JFXButton TransHistory;//2
     @FXML
-    private TableView<DataShow> Addtable;
+    private TableView<DataShow> Addtable,historyTable;
     @FXML
     private TableView<DataShow> requestsTable;
     @FXML
@@ -68,7 +68,7 @@ public class UserController implements Initializable {
     @FXML
     private TableColumn<DataShow, Float> startPrice;
     @FXML
-    private TableColumn<DataShow, Float> numberofStocks;
+    private TableColumn<DataShow, Float> numberofStocks,historyColumn;
     @FXML
     private TextField startprice;
     @FXML
@@ -126,6 +126,10 @@ public class UserController implements Initializable {
     private ImageView aw;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(historyTable!=null)
+            historyTable.setItems(admin.historyList());
+        if(historyColumn!=null)
+            historyColumn.setCellValueFactory(new PropertyValueFactory<>("history"));
         aw.setVisible(false);
         MenuClose.setVisible(false);
     slider.setTranslateX(-213);
@@ -336,8 +340,13 @@ public class UserController implements Initializable {
     }
 
     @FXML
-    private void trans(ActionEvent event) throws IOException {
-        aw.setVisible(true);
+    private void transactionhistoryscene(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("transactionhistory.fxml"));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
     }
 }
 
