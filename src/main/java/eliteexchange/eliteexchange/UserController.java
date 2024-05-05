@@ -57,7 +57,7 @@ public class UserController implements Initializable {
     @FXML
     private TableColumn<DataShow, Float> changePrice;
     @FXML
-    private TableColumn<DataShow, String> requestColumn;
+    private TableColumn<DataShow, String> requestColumn,historyColumn;
 
     @FXML
     private TableColumn<DataShow, String> company;
@@ -68,7 +68,7 @@ public class UserController implements Initializable {
     @FXML
     private TableColumn<DataShow, Float> startPrice;
     @FXML
-    private TableColumn<DataShow, Float> numberofStocks,historyColumn;
+    private TableColumn<DataShow, Float> numberofStocks;
     @FXML
     private TextField startprice;
     @FXML
@@ -126,13 +126,17 @@ public class UserController implements Initializable {
     private ImageView aw;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(balance!=null)
+            balance.setText("Balance: "+account.getBalance()+"$");
         if(historyTable!=null)
             historyTable.setItems(admin.historyList());
         if(historyColumn!=null)
             historyColumn.setCellValueFactory(new PropertyValueFactory<>("history"));
-        aw.setVisible(false);
+        if(MenuClose!=null)
         MenuClose.setVisible(false);
+        if(slider!=null)
     slider.setTranslateX(-213);
+        if(Menu!=null)
         Menu.setOnMouseClicked(event ->{
             TranslateTransition slide = new TranslateTransition();
             slide.setDuration(Duration.seconds(0.4));
@@ -145,6 +149,7 @@ public class UserController implements Initializable {
                 MenuClose.setVisible(true);
             });
     });
+        if(MenuClose!=null)
         MenuClose.setOnMouseClicked(event ->{
             TranslateTransition slide = new TranslateTransition();
             slide.setDuration(Duration.seconds(0.4));
@@ -335,12 +340,19 @@ public class UserController implements Initializable {
     @FXML
     private void withdrawal()
     {
-        admin.addRequests(Float.parseFloat(amount.getText()), "withdrawal");
-        requestMessage.setText("Your Request has been sent to the admin successfully");
+        if(Float.parseFloat(amount.getText())>account.getBalance())
+        {
+            requestMessage.setText("You have insufficient balance");
+        }
+        else{
+            admin.addRequests(Float.parseFloat(amount.getText()), "withdrawal");
+            requestMessage.setText("Your Request has been sent to the admin successfully");
+        }
     }
 
     @FXML
     private void transactionhistoryscene(ActionEvent event) throws IOException {
+        admin.refreshTransactionHistory();
         Parent root = FXMLLoader.load(getClass().getResource("transactionhistory.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
