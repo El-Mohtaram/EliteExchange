@@ -46,7 +46,7 @@ public class UserController implements Initializable {
     @FXML
     private Button exit;
     @FXML
-    private JFXButton TransHistory;
+    private JFXButton TransHistory;//2
     @FXML
     private TableView<DataShow> Addtable;
     @FXML
