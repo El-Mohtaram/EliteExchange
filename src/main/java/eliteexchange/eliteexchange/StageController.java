@@ -112,6 +112,7 @@ public class StageController implements Initializable {
     private Button signupConfirm;
     @FXML
     private Button loginConfirm;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(balance!=null)
@@ -216,6 +217,8 @@ public class StageController implements Initializable {
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
+            String usercss = getClass().getResource("usermenu.css").toExternalForm();
+            stage.getScene().getStylesheets().add(usercss);
             stage.show();
         }
         else
@@ -224,7 +227,6 @@ public class StageController implements Initializable {
             account.adminSwitch();
             stock.RestoreData();
             Parent root = FXMLLoader.load(getClass().getResource("AdminMenu.fxml"));
-
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -263,6 +265,8 @@ public class StageController implements Initializable {
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
+            String usercss = getClass().getResource("usermenu.css").toExternalForm();
+            stage.getScene().getStylesheets().add(usercss);
             stage.show();
         }
         else

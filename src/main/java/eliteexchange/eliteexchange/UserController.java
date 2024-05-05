@@ -4,6 +4,7 @@ import ApplicationElite.Admin;
 import ApplicationElite.DataShow;
 import ApplicationElite.Securities;
 import ApplicationElite.Stock;
+import com.jfoenix.controls.JFXButton;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -25,7 +27,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.EventObject;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
-
 import javafx.util.Duration;
 import org.controlsfx.control.action.Action;
 
@@ -45,11 +46,11 @@ public class UserController implements Initializable {
     @FXML
     private Button exit;
     @FXML
+    private JFXButton TransHistory;
+    @FXML
     private TableView<DataShow> Addtable;
     @FXML
     private TableView<DataShow> requestsTable;
-    @FXML
-    private Button market;
     @FXML
     private TableView<DataShow> MarketList;
 
@@ -117,8 +118,16 @@ public class UserController implements Initializable {
     private Label Menu;
     @FXML
     private Label MenuClose;
+    @FXML
+    private JFXButton market;
+    @FXML
+    private JFXButton wd;
+    @FXML
+    private ImageView aw;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        aw.setVisible(false);
+        MenuClose.setVisible(false);
     slider.setTranslateX(-213);
         Menu.setOnMouseClicked(event ->{
             TranslateTransition slide = new TranslateTransition();
@@ -427,6 +436,10 @@ public class UserController implements Initializable {
             requestsTable.getItems().remove(selectedID);
             admin.RestoreData();
         }
+    }
+    @FXML
+    private void trans(ActionEvent event) throws IOException {
+        aw.setVisible(true);
     }
 }
 
