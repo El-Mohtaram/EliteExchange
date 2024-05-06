@@ -40,6 +40,7 @@ public class StageController implements Initializable {
     private Button delete;
     @FXML
     private Button exit;
+    private static ActionEvent refreshmanagement;
     @FXML
     private TableView<DataShow> Addtable;
     @FXML
@@ -345,6 +346,7 @@ stock.RestoreData();
     }
     @FXML
     void usermanagementscene(ActionEvent event) throws IOException{
+        System.out.println(event);
         Admin.createuserslist();
         Parent root = FXMLLoader.load(getClass().getResource("Usermanagement.fxml"));
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -354,7 +356,7 @@ stock.RestoreData();
             stock.RestoreData();
     }
     @FXML
-    private void blockuser(){
+    private void blockuser() throws IOException {
         Admin.createuserslist();
         System.out.println(userlist.getValue());
         Admin.blockuser(userlist.getValue());
@@ -363,7 +365,7 @@ stock.RestoreData();
         }
     }
     @FXML
-    private void unblockuser(){
+    private void unblockuser() throws IOException {
         Admin.createuserslist();
         System.out.println(userlist.getValue());
         Admin.unblockuser(userlist.getValue());
@@ -372,7 +374,7 @@ stock.RestoreData();
         }
     }
     @FXML
-    private void deleteusers(){
+    private void deleteusers() throws IOException {
         Admin.createuserslist();
         System.out.println(userlist.getValue());
         Admin.deleteuser(userlist.getValue());
@@ -428,6 +430,7 @@ stock.RestoreData();
         admin.deleteRequest(selectedName);
         int selectedID = requestsTable.getSelectionModel().getSelectedIndex();
         requestsTable.getItems().remove(selectedID);
+        admin.transaction(selectedName,1);
         admin.RestoreData();
     }
 }
