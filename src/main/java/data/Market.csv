@@ -1,6 +1,7 @@
-Company,NumberOfStocks,Start_price
-Microsoft,5000,1500.0
-amazona,500,700.0
-zby,215,6541.0
-El-Ismaily,1500,0.0
-pepsi,5,9.0
+company,numberOfStocks,Prices
+amazon,1000,693.2648
+apple,2000,802.0687
+pepsi,1000,590.85126
+coca,2000,602.264
+Samsung,2000,599.33093
+google,2000,608.8528
