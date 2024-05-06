@@ -43,7 +43,7 @@ public void UpdatePrices(){
 
      }
     try {
-        String filePath = "C:\\Users\\ram tech\\IdeaProjects\\EliteExchange\\src\\main\\java\\data\\Market.csv"; // Replace with your actual file path
+        String filePath = csvFile; // Replace with your actual file path
         int targetColumn = 2; // Example column number
         ArrayList<String> newValues = new ArrayList<>();
 
@@ -54,7 +54,7 @@ public void UpdatePrices(){
 
         }
 
-        BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\ram tech\\IdeaProjects\\EliteExchange\\src\\main\\java\\data\\Market.csv"));
+        BufferedReader reader = new BufferedReader(new FileReader(csvFile));
         List<String> lines = new ArrayList<>();
         String line;
         while ((line = reader.readLine()) != null) {
@@ -71,7 +71,7 @@ public void UpdatePrices(){
             System.out.println(lines.get(i));
         }
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\ram tech\\IdeaProjects\\EliteExchange\\src\\main\\java\\data\\Market.csv"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile));
         for (String updatedLine : lines) {
             writer.write(updatedLine);
             writer.newLine();
