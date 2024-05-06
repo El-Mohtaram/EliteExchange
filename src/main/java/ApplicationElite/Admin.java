@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -298,73 +300,73 @@ try {
     e.printStackTrace();
 }
 }
-public void transaction(String request,int state){
-    String[] values2=request.split(" ");
-    String oldContent = "";
-    String[] values={};
-    try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/TransactionHistory.csv"))) {
-        String line;
-        while ((line = br.readLine()) != null) {
-            values = line.split(",");
-            if (values2[0].equals(values[0])) {
-                oldContent = line;
-                break;
-            }
-        }
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-    try {
-        List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/data/TransactionHistory.csv"));
-        for (int i = 0; i < fileContent.size(); i++) {
-            if (fileContent.get(i).equals(oldContent)) {
-                fileContent.remove(i);
-                if(state ==1)
-                    fileContent.add(i,oldContent+", your request to "+values2[3]+" "+ values2[4]+"$"+" had been refused");
-                else if(values2[3].equals("deposite"))
-                fileContent.add(i,oldContent+", you "+values2[3]+"d "+values2[4]+"$");
-                else if(values2[3].equals("withdrawal"))
-                    fileContent.add(i,oldContent+", you "+values2[3]+"ed "+values2[4]+"$");
-
-            }
-
-        }
-
-        Files.write(Paths.get("src/main/java/data/TransactionHistory.csv"), fileContent);
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-}
-public void refreshTransactionHistory()
-{
-    transaction.clear();
-    try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/TransactionHistory.csv"))) {
-        String line;
-        br.readLine();
-        while ((line = br.readLine()) != null) {
-           String[] values = line.split(",");
-            if (account.username1.equals(values[0])) {
-                System.out.println("found");
-                for(int i=1;i<values.length;i++)
-                {
-                    transaction.add(new DataShow(values[i],0));
-                    System.out.println(values[i]);
-                    System.out.println(transaction.get(i-1));
+    public void transaction(String request,int state){
+        LocalDateTime currentDateTime = LocalDateTime.now(); // Get the current date and time
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"); // Define the desired format
+        String formattedDateTime = currentDateTime.format(formatter); // Format the date and time
+        String[] values2=request.split(" ");
+        String oldContent = "";
+        String[] values={};
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/TransactionHistory.csv"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                values = line.split(",");
+                if (values2[0].equals(values[0])) {
+                    oldContent = line;
+                    break;
                 }
-                break;
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    
-    } catch (IOException e) {
-        e.printStackTrace();
+        try {
+            List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/data/TransactionHistory.csv"));
+            for (int i = 0; i < fileContent.size(); i++) {
+                if (fileContent.get(i).equals(oldContent)) {
+                    fileContent.remove(i);
+                    if(state ==1)
+                        fileContent.add(i,oldContent+", your request to "+values2[3]+" "+ values2[4]+"$"+" had been refused  "+formattedDateTime);
+                    else if(values2[3].equals("deposite"))
+                        fileContent.add(i,oldContent+", you  "+values2[3]+"d "+values2[4]+"$  "+formattedDateTime);
+                else if(values2[3].equals("withdrawal"))
+                        fileContent.add(i,oldContent+", you  "+values2[3]+"ed "+values2[4]+"$  "+formattedDateTime);
+
+
+                }
+
+            }
+            Files.write(Paths.get("src/main/java/data/TransactionHistory.csv"), fileContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    
-}
-public  ObservableList<DataShow> historyList()
-{
-    return transaction;
-}
+    public void refreshTransactionHistory()
+    {
+        transaction.clear();
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/TransactionHistory.csv"))) {
+            String line;
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (account.username1.equals(values[0])) {
+                    System.out.println("found");
+                    for(int i=1;i<values.length;i++)
+                    {
+                        transaction.add(new DataShow(values[i],0));
+                        System.out.println(values[i]);
+                        System.out.println(transaction.get(i-1));
+                    }
+                    break;
+                }
+            }
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-
+    }
+    public  ObservableList<DataShow> historyList()
+    {
+        return transaction;
+    }
 }

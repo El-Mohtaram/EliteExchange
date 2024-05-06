@@ -16,8 +16,7 @@
       </Label>
       <TableView fx:id="historyTable" layoutX="47.0" layoutY="99.0" prefHeight="239.0" prefWidth="498.0">
         <columns>
-          <TableColumn fx:id="historyColumn" prefWidth="404.00006103515625" text="Transaction" />
-            <TableColumn prefWidth="92.80002441406248" text="date" />
+          <TableColumn fx:id="historyColumn" prefWidth="497.6000122070312" text="Transaction" />
         </columns>
       </TableView>
       <Button fx:id="ba" layoutX="21.0" layoutY="16.0" mnemonicParsing="false" onAction="#BackPressed" text="Back" />
