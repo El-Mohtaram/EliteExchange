@@ -1,22 +1,20 @@
 package ApplicationElite;
-
 import java.io.*;
 import java.util.*;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
     public class Stock extends Securities  {
     private String csvFile ="src/main/java/data/Market.csv";
-    private HashMap<String,Float> stocks=new LinkedHashMap<>();
+        private String csvFile2 ="src/main/java/data/stock.csv";
+    private static HashMap<String,Float> stocks=new LinkedHashMap<>();
+        private static HashMap<String,Integer> userStocks=new LinkedHashMap<>();
     private  static ArrayList <Integer> NumberOfStocks=new ArrayList<>();
     public static String[] stockList=DatakList;
      static private ObservableList<DataShow> stockData = FXCollections.observableArrayList();
 
  public void addStock(String name,int number,float f)
- {
-    Add(name,number,f,csvFile,stocks,NumberOfStocks);
- }
+ {Add(name,number,f,csvFile,stocks,NumberOfStocks);}
 public void RestoreData()
 {
     RestoreData(csvFile, stocks, NumberOfStocks,stockData);
@@ -59,7 +57,7 @@ public void UpdatePrices(){
         String line;
         while ((line = reader.readLine()) != null) {
             lines.add(line);
-            System.out.println(line);
+
         }
         reader.close();
 
@@ -68,7 +66,7 @@ public void UpdatePrices(){
             String[] columns = lines.get(i).split(","); // Assuming CSV columns are comma-separated
             columns[targetColumn] = newValues.get(i-1);
             lines.set(i, String.join(",", columns));
-            System.out.println(lines.get(i));
+
         }
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile));
@@ -84,8 +82,19 @@ public void UpdatePrices(){
         e.printStackTrace();
 
 }
-
+}
+public boolean BuyStock(int amount,String company)
+{
+    refreshUserSecurities(csvFile2,userStocks,account.getUsername());
+    if(buyCheck(csvFile,amount,company))
+    {
+        buy(company,amount,csvFile2,userStocks);
+        removeAmountInMarket(csvFile,amount,company,NumberOfStocks);
+        return true;
+    }
+    else return  false;
 
 }
+
 
 }

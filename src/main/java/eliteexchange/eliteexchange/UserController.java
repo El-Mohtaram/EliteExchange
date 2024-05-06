@@ -33,14 +33,14 @@ import org.controlsfx.control.action.Action;
 import javafx.fxml.Initializable;
 
 public class UserController implements Initializable {
-    Admin admin=new Admin();
-    Account account =new Account();
-    Stock stock=new Stock();
+    Admin admin = new Admin();
+    Account account = new Account();
+    Stock stock = new Stock();
     private Stage stage;
     private Scene scene;
     private Parent root;
     @FXML
-    private Hyperlink signup ;
+    private Hyperlink signup;
     @FXML
     private Button delete;
     @FXML
@@ -48,7 +48,7 @@ public class UserController implements Initializable {
     @FXML
     private JFXButton TransHistory;//2
     @FXML
-    private TableView<DataShow> Addtable,historyTable;
+    private TableView<DataShow> Addtable, historyTable;
     @FXML
     private TableView<DataShow> requestsTable;
     @FXML
@@ -57,7 +57,7 @@ public class UserController implements Initializable {
     @FXML
     private TableColumn<DataShow, Float> changePrice;
     @FXML
-    private TableColumn<DataShow, String> requestColumn,historyColumn;
+    private TableColumn<DataShow, String> requestColumn, historyColumn;
 
     @FXML
     private TableColumn<DataShow, String> company;
@@ -81,7 +81,7 @@ public class UserController implements Initializable {
     private ComboBox<String> userlist;
 
     @FXML
-    private Button addStock;
+    private Button addStock, buy;
 
     @FXML
     private TextField companyName;
@@ -89,7 +89,7 @@ public class UserController implements Initializable {
     @FXML
     private TextField numberOfStocks;
     @FXML
-    private Label requestMessage,balance;
+    private Label requestMessage, balance,buyMessage;
 
     @FXML
     private Button BuyStock;
@@ -98,7 +98,7 @@ public class UserController implements Initializable {
     private Button Sellstock;
 
     @FXML
-    Label messagelabel,datee,signedup1;
+    Label messagelabel, datee, signedup1;
 
     @FXML
     private Button back;
@@ -111,7 +111,7 @@ public class UserController implements Initializable {
 
     @FXML
     private Hyperlink login;
-    private double x,y;
+    private double x, y;
     @FXML
     private AnchorPane slider;
     @FXML
@@ -124,55 +124,58 @@ public class UserController implements Initializable {
     private JFXButton wd;
     @FXML
     private ImageView aw;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(balance!=null)
-            balance.setText("Balance: "+account.getBalance()+"$");
-        if(historyTable!=null)
+        if (balance != null)
+            balance.setText("Balance: " + account.getBalance() + "$");
+        if (historyTable != null)
             historyTable.setItems(admin.historyList());
-        if(historyColumn!=null)
+        if (historyColumn != null)
             historyColumn.setCellValueFactory(new PropertyValueFactory<>("history"));
-        if(MenuClose!=null)
-        MenuClose.setVisible(false);
-        if(slider!=null)
-    slider.setTranslateX(-213);
-        if(Menu!=null)
-        Menu.setOnMouseClicked(event ->{
-            TranslateTransition slide = new TranslateTransition();
-            slide.setDuration(Duration.seconds(0.4));
-            slide.setNode(slider);
-            slide.setToX(0);
-            slide.play();
+        if (MenuClose != null)
+            MenuClose.setVisible(false);
+        if (slider != null)
             slider.setTranslateX(-213);
-            slide.setOnFinished((ActionEvent e)-> {
-                Menu.setVisible(false);
-                MenuClose.setVisible(true);
+        if (Menu != null)
+            Menu.setOnMouseClicked(event -> {
+                TranslateTransition slide = new TranslateTransition();
+                slide.setDuration(Duration.seconds(0.4));
+                slide.setNode(slider);
+                slide.setToX(0);
+                slide.play();
+                slider.setTranslateX(-213);
+                slide.setOnFinished((ActionEvent e) -> {
+                    Menu.setVisible(false);
+                    MenuClose.setVisible(true);
+                });
             });
-    });
-        if(MenuClose!=null)
-        MenuClose.setOnMouseClicked(event ->{
-            TranslateTransition slide = new TranslateTransition();
-            slide.setDuration(Duration.seconds(0.4));
-            slide.setNode(slider);
-            slide.setToX(-213);
-            slide.play();
-            slider.setTranslateX(0);
-            slide.setOnFinished((ActionEvent e)-> {
-                Menu.setVisible(true);
-                MenuClose.setVisible(false);
+        if (MenuClose != null)
+            MenuClose.setOnMouseClicked(event -> {
+                TranslateTransition slide = new TranslateTransition();
+                slide.setDuration(Duration.seconds(0.4));
+                slide.setNode(slider);
+                slide.setToX(-213);
+                slide.play();
+                slider.setTranslateX(0);
+                slide.setOnFinished((ActionEvent e) -> {
+                    Menu.setVisible(true);
+                    MenuClose.setVisible(false);
+                });
             });
-        });
 
     }
+
     private void updateDateTimeLabel() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = LocalDateTime.now().format(formatter);
         datee.setText(formattedDateTime);
     }
+
     @FXML
     private void mainscene(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -181,7 +184,7 @@ public class UserController implements Initializable {
     @FXML
     void BackbuttonPressed(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -191,7 +194,7 @@ public class UserController implements Initializable {
     @FXML
     private void LoginPressed(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("mainscene.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         scene.getStylesheets().add(Elite.css);
@@ -201,7 +204,7 @@ public class UserController implements Initializable {
     @FXML
     private void SignupPressed(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Signup.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         scene.getStylesheets().add(Elite.css);
@@ -214,73 +217,63 @@ public class UserController implements Initializable {
         account.setUserName(username.getText());
         account.setPassword(password.getText());
         account.setCheckPassword(confirmpassword.getText());
-        if(account.CheckMatchPassword()&&password.getText().length()>=3){
+        if (account.CheckMatchPassword() && password.getText().length() >= 3) {
             signedup1.setText("Signed up success");
             account.ImportUserData();
-        }
-        else {
+        } else {
             messagelabel.setText(account.SignUpMessages());
 
         }
     }
+
     @FXML
     private void LoginConfirmPressed(ActionEvent event) throws IOException {
         account.setUserName(username.getText());
         account.setPassword(password.getText());
-        if(account.CheckLoginData() && account.userOrAdmin().equals("user")&&Account.BannedOrNot){
+        if (account.CheckLoginData() && account.userOrAdmin().equals("user") && Account.BannedOrNot) {
             messagelabel.setText("your account has been banned");
-        }
-        else if(account.CheckLoginData() && account.userOrAdmin().equals("user")){
+        } else if (account.CheckLoginData() && account.userOrAdmin().equals("user")) {
             stock.RestoreData();
             Parent root = FXMLLoader.load(getClass().getResource("userMenue.fxml"));
             String cssuser = getClass().getResource("usermenu.css").toExternalForm();
-            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             scene.getStylesheets().add(cssuser);
             stage.show();
-        }
-        else
-        if(account.CheckLoginData() && account.userOrAdmin().equals("admin")&& account.admin_log_in_out().equals("no")){
+        } else if (account.CheckLoginData() && account.userOrAdmin().equals("admin") && account.admin_log_in_out().equals("no")) {
             Admin.createuserslist();
             account.adminSwitch();
             stock.RestoreData();
             Parent root = FXMLLoader.load(getClass().getResource("AdminMenu.fxml"));
 
-            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        }
-        else if(account.CheckLoginData() && account.userOrAdmin().equals("admin")&& account.admin_log_in_out().equals("yes"))
+        } else if (account.CheckLoginData() && account.userOrAdmin().equals("admin") && account.admin_log_in_out().equals("yes"))
             messagelabel.setText("Admin already logged in!");
-        else
-        {
+        else {
             messagelabel.setText(account.LoginMessages());
         }
     }
 
     @FXML
     void BackPressed(ActionEvent event) throws IOException {
-        if(account.userOrAdmin().equals("user"))
-        {
+        if (account.userOrAdmin().equals("user")) {
             Parent root = FXMLLoader.load(getClass().getResource("userMenue.fxml"));
-            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        }
-        else
-        {
+        } else {
             Parent root = FXMLLoader.load(getClass().getResource("AdminMenu.fxml"));
-            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
         }
     }
-
-
 
 
     @FXML
@@ -288,22 +281,26 @@ public class UserController implements Initializable {
         account.adminSwitch();
         System.exit(0);
     }
+
     @FXML
     private void min(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setIconified(true);
     }
+
     @FXML
-    private void dragwindow (MouseEvent event) {
+    private void dragwindow(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setY(event.getScreenY() - y);
         stage.setX(event.getScreenX() - x);
     }
+
     @FXML
-    private void presswindow (MouseEvent event) {
+    private void presswindow(MouseEvent event) {
         x = event.getSceneX();
-        y =event.getSceneY();
+        y = event.getSceneY();
     }
+
     @FXML
     private void exit2(ActionEvent event) throws IOException {
         System.exit(0);
@@ -311,9 +308,9 @@ public class UserController implements Initializable {
 
 
     @FXML
-    void MarketPressed(ActionEvent event) throws IOException{
+    void MarketPressed(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Market.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -322,29 +319,26 @@ public class UserController implements Initializable {
 
 
     @FXML
-    private void DandW(ActionEvent event) throws IOException
-    {
+    private void DandW(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("WDscene.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
 
     }
+
     @FXML
-    private void deposite()
-    {
+    private void deposite() {
         admin.addRequests(Float.parseFloat(amount.getText()), "deposite");
         requestMessage.setText("Your Request has been sent to the admin successfully");
     }
+
     @FXML
-    private void withdrawal()
-    {
-        if(Float.parseFloat(amount.getText())>account.getBalance())
-        {
+    private void withdrawal() {
+        if (Float.parseFloat(amount.getText()) > account.getBalance()) {
             requestMessage.setText("You have insufficient balance");
-        }
-        else{
+        } else {
             admin.addRequests(Float.parseFloat(amount.getText()), "withdrawal");
             requestMessage.setText("Your Request has been sent to the admin successfully");
         }
@@ -354,14 +348,14 @@ public class UserController implements Initializable {
     private void transactionhistoryscene(ActionEvent event) throws IOException {
         admin.refreshTransactionHistory();
         Parent root = FXMLLoader.load(getClass().getResource("transactionhistory.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
 
     }
-}
 
+}
 
 
 

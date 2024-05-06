@@ -76,7 +76,7 @@ public class StageController implements Initializable {
     private ComboBox<String> userlist;
 
     @FXML
-    private Button addStock;
+    private Button addStock,buy;
 
     @FXML
     private TextField companyName;
@@ -84,7 +84,7 @@ public class StageController implements Initializable {
     @FXML
     private TextField numberOfStocks;
     @FXML
-    private Label requestMessage,balance;
+    private Label requestMessage,balance,buyMessage;
 
     @FXML
     private Button BuyStock;
@@ -431,6 +431,20 @@ stock.RestoreData();
         admin.RestoreData();
     }
 }
+    @FXML
+    private void buy() {
+
+        DataShow selectedStock = Addtable.getSelectionModel().getSelectedItem();
+        if (selectedStock != null) {
+            String selectedName = selectedStock.getCompany();
+            if(stock.BuyStock(Integer.parseInt(amount.getText()), selectedName)) {
+                account.updateBalance();
+                stock.RestoreData();
+                buyMessage.setText("Bought Successfully");
+            }
+            else buyMessage.setText("Not enough amount");
+        }
+    }
 }
 
 

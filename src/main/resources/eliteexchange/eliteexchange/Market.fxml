@@ -10,24 +10,29 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eliteexchange.eliteexchange.StageController">
    <children>
-      <Label layoutX="77.0" layoutY="55.0" prefHeight="40.0" prefWidth="100.0" text="Market">
+      <Label layoutX="226.0" layoutY="15.0" prefHeight="40.0" prefWidth="100.0" text="Market">
          <font>
             <Font size="29.0" />
          </font>
       </Label>
       <Button fx:id="back" layoutX="33.0" layoutY="21.0" mnemonicParsing="false" onAction="#BackPressed" prefHeight="31.0" prefWidth="51.0" text="Back" />
-      <TableView fx:id="Addtable" layoutX="66.0" layoutY="113.0" prefHeight="200.0" prefWidth="472.0">
+      <TableView fx:id="Addtable" layoutX="64.0" layoutY="58.0" prefHeight="200.0" prefWidth="472.0">
         <columns>
           <TableColumn fx:id="company" prefWidth="75.0" text="Company" />
           <TableColumn fx:id="startPrice" prefWidth="75.0" text="Start price" />
             <TableColumn fx:id="numberofStocks" prefWidth="121.0" text="Available stocks" />
         </columns>
       </TableView>
-      <Button layoutX="382.0" layoutY="322.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Buy" />
-      <TextField layoutX="226.0" layoutY="322.0" />
-      <Label layoutX="41.0" layoutY="319.0" text="Number of stocks">
+      <Button fx:id="buy" layoutX="375.0" layoutY="269.0" mnemonicParsing="false" onAction="#buy" prefHeight="25.0" prefWidth="51.0" text="Buy" />
+      <TextField fx:id="amount" layoutX="262.0" layoutY="269.0" prefHeight="25.0" prefWidth="113.0" promptText="Enter amount" />
+      <Label layoutX="78.0" layoutY="266.0" text="Number of stocks">
          <font>
             <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="buyMessage" layoutX="45.0" layoutY="336.0" textFill="#2aab40">
+         <font>
+            <Font size="24.0" />
          </font>
       </Label>
    </children>

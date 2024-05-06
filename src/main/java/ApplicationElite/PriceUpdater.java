@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
             scheduler.scheduleAtFixedRate(() -> {
                stocks.RestoreData();
                stocks.UpdatePrices();
-                System.out.println("hello");
+
 
             }, 0, 10, TimeUnit.SECONDS);
         }

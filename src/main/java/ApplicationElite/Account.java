@@ -213,9 +213,47 @@ dataOverwrite=dataOverwrite+","+values[i];
     }
 }
 
-   
+
 
 }
+    public String getUsername()
+    {
+        return username1;
+    }
+    public void updateBalance()
+    {
+        String oldContent="";
+        String dataOverwrite="";
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            String line;
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (username1.equals(values[0])) {
+                    oldContent = line;
+                    dataOverwrite = values[0]+","+values[1]+","+"user"+","+getBalance();
+
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            List<String> fileContent = Files.readAllLines(Paths.get(csvFile));
+
+            for (int i = 0; i < fileContent.size(); i++) {
+                if (fileContent.get(i).equals(oldContent)) {
+                    fileContent.set(i, dataOverwrite);
+                    break;
+                }
+            }
+
+            Files.write(Paths.get(csvFile), fileContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
 
