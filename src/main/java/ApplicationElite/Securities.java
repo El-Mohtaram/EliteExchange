@@ -16,6 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 public class Securities {
     Account account = new Account();
+    Admin admin=new Admin();
+    static public String history="";
     // private final String csvFile = "C:\Users\ram tech\Desktop\Elite\EliteExchange\src\main\java\data\Market.csv";
     protected static String[] DatakList;
 
@@ -296,6 +298,7 @@ public class Securities {
                   if(amount>Integer.parseInt(values[1])||account.getBalance()<totalPrice)
                       return false;
                   else account.setBalance(account.getBalance()-totalPrice);
+                 admin.transaction( account.getUsername()+" "+amount+" "+Name+" "+totalPrice,2);
                 }
             }
         } catch (IOException e) {
