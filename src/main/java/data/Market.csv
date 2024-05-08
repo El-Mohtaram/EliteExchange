@@ -1,7 +1,7 @@
-company,numberOfStocks,Prices,close
+company,numberOfStocks,Prices,open
 amazon,980,709.799
 apple,1991,807.5979
 pepsi,994,589.7773
-coca,2000,607.519
+coca,1975,607.519
 Samsung,1989,594.1946
 google,1997,612.616

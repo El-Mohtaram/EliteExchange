@@ -141,14 +141,17 @@ public class UserController implements Initializable {
             historyColumn.setCellValueFactory(new PropertyValueFactory<>("history"));
         if (MenuClose != null)
             MenuClose.setVisible(false);
+        if(immenuclose!=null) {
             immenuclose.setRotate(90);
             immenuclose.setVisible(false);
+        }
         if (slider != null)
             slider.setTranslateX(-213);
         if (Menu != null)
             Menu.setOnMouseClicked(event -> {
                 menuopen();
             });
+        if(immenu != null)
         immenu.setOnMouseClicked(event -> {
             menuopen();
         });
@@ -156,6 +159,7 @@ public class UserController implements Initializable {
             MenuClose.setOnMouseClicked(event -> {
                 menuclose();
             });
+        if(immenuclose!= null)
         immenuclose.setOnMouseClicked(event -> {
             menuclose();
         });
