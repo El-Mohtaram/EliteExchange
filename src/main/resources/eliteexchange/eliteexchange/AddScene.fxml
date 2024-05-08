@@ -5,6 +5,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -68,5 +70,10 @@
       </TableView>
       <Button fx:id="deleteStock" layoutX="425.0" layoutY="286.0" mnemonicParsing="false" onAction="#deleteStock" prefHeight="25.0" prefWidth="103.0" text="Delete" />
       <Button fx:id="exit" layoutX="540.0" layoutY="9.0" mnemonicParsing="false" onAction="#exit2" prefHeight="25.0" prefWidth="31.0" text="x" />
+      <ToggleButton fx:id="marketStatues" layoutX="189.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeMarketStatues" text="Open market">
+         <toggleGroup>
+            <ToggleGroup fx:id="aaa" />
+         </toggleGroup>
+      </ToggleButton>
    </children>
 </AnchorPane>

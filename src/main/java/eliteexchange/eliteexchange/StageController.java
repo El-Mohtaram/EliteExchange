@@ -35,6 +35,11 @@ public class StageController implements Initializable {
     private Scene scene;
     private Parent root;
     @FXML
+    private ToggleButton marketStatues;
+
+    @FXML
+    private ToggleGroup aaa;
+    @FXML
     private Hyperlink signup ;
     @FXML
     private Button delete;
@@ -116,7 +121,11 @@ public class StageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+     if(marketStatues!=null)
+     {
+      marketStatues.setToggleGroup(aaa);
+        marketStatues.setOnAction(this::changeMarketStatues);
+}
         if(company!=null)
         company.setCellValueFactory(new PropertyValueFactory<>("company"));
         if(startPrice!=null)
@@ -256,7 +265,7 @@ public class StageController implements Initializable {
     @FXML
     void AddstockScene(ActionEvent event) throws IOException {
   
-        Parent root = FXMLLoader.load(getClass().getResource("AddScene.fxml")); 
+        Parent root = FXMLLoader.load(getClass().getResource("AddScene.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -440,13 +449,28 @@ stock.RestoreData();
         DataShow selectedStock = Addtable.getSelectionModel().getSelectedItem();
         if (selectedStock != null) {
             String selectedName = selectedStock.getCompany();
-            if(stock.BuyStock(Integer.parseInt(amount.getText()), selectedName)) {
-                account.updateBalance();
-                stock.RestoreData();
-                buyMessage.setText("Bought Successfully");
+            if(admin.marketOpenOrClose()) {
+                if (stock.BuyStock(Integer.parseInt(amount.getText()), selectedName)) {
+                    account.updateBalance();
+                    stock.RestoreData();
+                    buyMessage.setText("Bought Successfully");
+                } else buyMessage.setText("Not enough amount");
             }
-            else buyMessage.setText("Not enough amount");
+            else buyMessage.setText("Sorry, market is closed");
         }
+    }
+    @FXML
+    private void changeMarketStatues(ActionEvent event){
+if(marketStatues.isSelected())
+{
+    marketStatues.setText("Close Market");
+    admin.openMarket();
+}
+else
+{
+    marketStatues.setText("Open Market");
+    admin .closeMarket();
+}
     }
 }
 
