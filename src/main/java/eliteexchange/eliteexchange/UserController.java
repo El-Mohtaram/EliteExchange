@@ -5,6 +5,7 @@ import ApplicationElite.DataShow;
 import ApplicationElite.Securities;
 import ApplicationElite.Stock;
 import com.jfoenix.controls.JFXButton;
+import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -75,6 +76,11 @@ public class UserController implements Initializable {
     private TextField amount;
 
     @FXML
+    private ImageView immenu;
+
+    @FXML
+    private ImageView immenuclose;
+    @FXML
     private Button deleteStock;
 
     @FXML
@@ -135,37 +141,65 @@ public class UserController implements Initializable {
             historyColumn.setCellValueFactory(new PropertyValueFactory<>("history"));
         if (MenuClose != null)
             MenuClose.setVisible(false);
+            immenuclose.setRotate(90);
+            immenuclose.setVisible(false);
         if (slider != null)
             slider.setTranslateX(-213);
         if (Menu != null)
             Menu.setOnMouseClicked(event -> {
-                TranslateTransition slide = new TranslateTransition();
-                slide.setDuration(Duration.seconds(0.4));
-                slide.setNode(slider);
-                slide.setToX(0);
-                slide.play();
-                slider.setTranslateX(-213);
-                slide.setOnFinished((ActionEvent e) -> {
-                    Menu.setVisible(false);
-                    MenuClose.setVisible(true);
-                });
+                menuopen();
             });
+        immenu.setOnMouseClicked(event -> {
+            menuopen();
+        });
         if (MenuClose != null)
             MenuClose.setOnMouseClicked(event -> {
-                TranslateTransition slide = new TranslateTransition();
-                slide.setDuration(Duration.seconds(0.4));
-                slide.setNode(slider);
-                slide.setToX(-213);
-                slide.play();
-                slider.setTranslateX(0);
-                slide.setOnFinished((ActionEvent e) -> {
-                    Menu.setVisible(true);
-                    MenuClose.setVisible(false);
-                });
+                menuclose();
             });
-
+        immenuclose.setOnMouseClicked(event -> {
+            menuclose();
+        });
     }
-
+    private void menuopen(){
+    TranslateTransition slide = new TranslateTransition();
+    RotateTransition menutr = new RotateTransition();
+    slide.setDuration(Duration.seconds(0.4));
+    slide.setNode(slider);
+    slide.setToX(0);
+    menutr.setDuration(Duration.seconds(0.4));
+    menutr.setNode(immenu);
+    menutr.setToAngle(90);
+    menutr.play();
+    slide.play();
+    slider.setTranslateX(-213);
+    slide.setOnFinished((ActionEvent e) -> {
+        Menu.setVisible(false);
+        immenu.setVisible(false);
+        immenu.setRotate(0);
+        MenuClose.setVisible(true);
+        immenuclose.setVisible(true);
+    });
+    }
+    private void menuclose(){
+        TranslateTransition slide = new TranslateTransition();
+        RotateTransition menutr = new RotateTransition();
+        slide.setDuration(Duration.seconds(0.4));
+        slide.setNode(slider);
+        slide.setToX(-213);
+        menutr.setDuration(Duration.seconds(0.4));
+        menutr.setNode(immenuclose);
+        menutr.setToAngle(0);
+        menutr.play();
+        slide.play();
+        slider.setTranslateX(0);
+        slide.setOnFinished((ActionEvent e) -> {
+            Menu.setVisible(true);
+            immenu.setVisible(true);
+            MenuClose.setVisible(false);
+            immenuclose.setVisible(false);
+            immenuclose.setRotate(90);
+        });
+    }
     private void updateDateTimeLabel() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = LocalDateTime.now().format(formatter);
@@ -178,6 +212,7 @@ public class UserController implements Initializable {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        scene.getStylesheets().add(Elite.css);
         stage.show();
     }
 
@@ -187,6 +222,7 @@ public class UserController implements Initializable {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        scene.getStylesheets().add(Elite.css);
         stage.show();
     }
 
