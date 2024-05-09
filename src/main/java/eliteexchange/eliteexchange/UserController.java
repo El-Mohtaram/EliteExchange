@@ -49,7 +49,7 @@ public class UserController implements Initializable {
     @FXML
     private JFXButton TransHistory;//2
     @FXML
-    private TableView<DataShow> Addtable, historyTable;
+    private TableView<DataShow> Addtable, historyTable,userStockList;
     @FXML
     private TableView<DataShow> requestsTable;
     @FXML
@@ -61,13 +61,15 @@ public class UserController implements Initializable {
     private TableColumn<DataShow, String> requestColumn, historyColumn;
 
     @FXML
-    private TableColumn<DataShow, String> company;
+    private TableColumn<DataShow, String> company,ownedCompanyCol;
 
     @FXML
     private TableColumn<DataShow, Float> currentPrice;
+    @FXML
+    private TableColumn<DataShow, Integer> stocksOwned;
 
     @FXML
-    private TableColumn<DataShow, Float> startPrice;
+    private TableColumn<DataShow, Float> startPrice,totalPrice;
     @FXML
     private TableColumn<DataShow, Float> numberofStocks;
     @FXML
@@ -87,7 +89,7 @@ public class UserController implements Initializable {
     private ComboBox<String> userlist;
 
     @FXML
-    private Button addStock, buy;
+    private Button addStock, buy,sell;
 
     @FXML
     private TextField companyName;
@@ -95,7 +97,7 @@ public class UserController implements Initializable {
     @FXML
     private TextField numberOfStocks;
     @FXML
-    private Label requestMessage, balance,buyMessage;
+    private Label requestMessage, balance,buyMessage,SellMessage;
 
     @FXML
     private Button BuyStock;
@@ -133,6 +135,14 @@ public class UserController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (userStockList != null)
+            userStockList.setItems(stock.returnUserList());
+        if(totalPrice!=null)
+            totalPrice.setCellValueFactory((new PropertyValueFactory<>("price")));
+        if(stocksOwned!=null)
+            stocksOwned.setCellValueFactory((new PropertyValueFactory<>("number")));
+        if(ownedCompanyCol!=null)
+            ownedCompanyCol.setCellValueFactory((new PropertyValueFactory<>("company")));
         if (balance != null)
             balance.setText("Balance: " + account.getBalance() + "$");
         if (historyTable != null)
@@ -393,6 +403,21 @@ public class UserController implements Initializable {
         stage.setScene(scene);
         stage.show();
 
+    }
+    @FXML
+    public void sell(){
+        DataShow selectedStock = userStockList.getSelectionModel().getSelectedItem();
+        if (selectedStock != null) {
+            String selectedName = selectedStock.getCompany();
+            if(admin.marketOpenOrClose()) {
+                if (stock.SellStock(Integer.parseInt(amount.getText()),selectedName)) {
+                    account.updateBalance();
+                    stock.RestoreData();
+                    SellMessage.setText("Sold Successfully");
+                } else SellMessage.setText("Not enough amount");
+            }
+            else buyMessage.setText("Sorry, market is closed");
+        }
     }
 
 }

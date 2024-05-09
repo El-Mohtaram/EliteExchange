@@ -3,15 +3,15 @@ package ApplicationElite;
 public class DataShow {
     private String requests;
    private String company;
-   // public int number;
   private float price;
 private int number;
 private String history;
+
 public DataShow(String requests)
 {
 this.requests=requests;
 }
-public DataShow(String history,int x)
+public DataShow(String history,float x)
 {
 this.history=history;
 }

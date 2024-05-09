@@ -472,6 +472,15 @@ else
     admin .closeMarket();
 }
     }
+    @FXML
+    public void yourStocks(ActionEvent event) throws IOException {
+        stock.refreshUserStockList();
+        Parent root = FXMLLoader.load(getClass().getResource("UserStocks.fxml"));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }
 
 
