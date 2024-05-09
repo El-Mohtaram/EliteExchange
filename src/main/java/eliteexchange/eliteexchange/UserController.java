@@ -411,6 +411,7 @@ public class UserController implements Initializable {
             String selectedName = selectedStock.getCompany();
             if(admin.marketOpenOrClose()) {
                 if (stock.SellStock(Integer.parseInt(amount.getText()),selectedName)) {
+                    stock.refreshUserStockList();
                     account.updateBalance();
                     stock.RestoreData();
                     SellMessage.setText("Sold Successfully");
