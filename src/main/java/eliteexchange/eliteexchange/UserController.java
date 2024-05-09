@@ -49,7 +49,7 @@ public class UserController implements Initializable {
     @FXML
     private JFXButton TransHistory;//2
     @FXML
-    private TableView<DataShow> Addtable, historyTable;
+    private TableView<DataShow> Addtable, historyTable,userStockList;
     @FXML
     private TableView<DataShow> requestsTable;
     @FXML
@@ -61,13 +61,15 @@ public class UserController implements Initializable {
     private TableColumn<DataShow, String> requestColumn, historyColumn;
 
     @FXML
-    private TableColumn<DataShow, String> company;
+    private TableColumn<DataShow, String> company,ownedCompanyCol;
 
     @FXML
     private TableColumn<DataShow, Float> currentPrice;
+    @FXML
+    private TableColumn<DataShow, Integer> stocksOwned;
 
     @FXML
-    private TableColumn<DataShow, Float> startPrice;
+    private TableColumn<DataShow, Float> startPrice,totalPrice;
     @FXML
     private TableColumn<DataShow, Float> numberofStocks;
     @FXML
@@ -87,7 +89,7 @@ public class UserController implements Initializable {
     private ComboBox<String> userlist;
 
     @FXML
-    private Button addStock, buy;
+    private Button addStock, buy,sell;
 
     @FXML
     private TextField companyName;
@@ -95,7 +97,7 @@ public class UserController implements Initializable {
     @FXML
     private TextField numberOfStocks;
     @FXML
-    private Label requestMessage, balance,buyMessage;
+    private Label requestMessage, balance,buyMessage,SellMessage;
 
     @FXML
     private Button BuyStock;
@@ -145,6 +147,14 @@ public class UserController implements Initializable {
         );
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+        if (userStockList != null)
+            userStockList.setItems(stock.returnUserList());
+        if(totalPrice!=null)
+            totalPrice.setCellValueFactory((new PropertyValueFactory<>("price")));
+        if(stocksOwned!=null)
+            stocksOwned.setCellValueFactory((new PropertyValueFactory<>("number")));
+        if(ownedCompanyCol!=null)
+            ownedCompanyCol.setCellValueFactory((new PropertyValueFactory<>("company")));
         if (balance != null)
             balance.setText("Balance: " + account.getBalance() + "$");
         if (historyTable != null)
@@ -156,7 +166,7 @@ public class UserController implements Initializable {
             MenuClose.setVisible(false);
         if (MenuClose != null)
             immenuclose.setRotate(90);
-        if (MenuClose != null)
+        if (immenuclose != null)
             immenuclose.setVisible(false);
         if (slider != null)
             slider.setTranslateX(-213);
@@ -164,15 +174,15 @@ public class UserController implements Initializable {
             Menu.setOnMouseClicked(event -> {
                 menuopen();
             });
-        if (Menu != null)
-            immenu.setOnMouseClicked(event -> {
+        if(immenu != null)
+        immenu.setOnMouseClicked(event -> {
             menuopen();
         });
         if (MenuClose != null)
             MenuClose.setOnMouseClicked(event -> {
                 menuclose();
             });
-        if (MenuClose != null)
+        if(immenuclose!= null)
         immenuclose.setOnMouseClicked(event -> {
             menuclose();
         });
@@ -221,6 +231,11 @@ public class UserController implements Initializable {
             immenuclose.setVisible(false);
             immenuclose.setRotate(90);
         });
+    }
+    private void updateDateTimeLabel() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = LocalDateTime.now().format(formatter);
+        datee.setText(formattedDateTime);
     }
 
     @FXML
@@ -294,7 +309,6 @@ public class UserController implements Initializable {
             stage.setScene(scene);
             scene.getStylesheets().add(cssuser);
             stage.show();
-
         } else if (account.CheckLoginData() && account.userOrAdmin().equals("admin") && account.admin_log_in_out().equals("no")) {
             Admin.createuserslist();
             account.adminSwitch();
@@ -407,6 +421,22 @@ public class UserController implements Initializable {
         stage.setScene(scene);
         stage.show();
 
+    }
+    @FXML
+    public void sell(){
+        DataShow selectedStock = userStockList.getSelectionModel().getSelectedItem();
+        if (selectedStock != null) {
+            String selectedName = selectedStock.getCompany();
+            if(admin.marketOpenOrClose()) {
+                if (stock.SellStock(Integer.parseInt(amount.getText()),selectedName)) {
+                    stock.refreshUserStockList();
+                    account.updateBalance();
+                    stock.RestoreData();
+                    SellMessage.setText("Sold Successfully");
+                } else SellMessage.setText("Not enough amount");
+            }
+            else buyMessage.setText("Sorry, market is closed");
+        }
     }
 
 }

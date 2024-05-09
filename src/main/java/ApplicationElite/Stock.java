@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
     private  static ArrayList <Integer> NumberOfStocks=new ArrayList<>();
     public static String[] stockList=DatakList;
      static private ObservableList<DataShow> stockData = FXCollections.observableArrayList();
+        static private ObservableList<DataShow> userStockList = FXCollections.observableArrayList();
 
  public void addStock(String name,int number,float f)
  {Add(name,number,f,csvFile,stocks,NumberOfStocks);}
@@ -23,12 +24,16 @@ public void DeleteStock(String name)
 {
     Delete(name,csvFile, stocks, NumberOfStocks);
 }
+public void refreshUserStockList(){refreshUserSecurities(userStockList);}
 
 public ObservableList<DataShow> returnList()
 {
-    System.out.println(stockData.size());
     return stockData;
 }
+        public ObservableList<DataShow> returnUserList()
+        {
+            return userStockList;
+        }
 public void UpdatePrices(){
      for(String key: stocks.keySet())
      {
@@ -88,14 +93,29 @@ public boolean BuyStock(int amount,String company)
     refreshUserSecurities(csvFile2,userStocks,account.getUsername());
     if(buyCheck(csvFile,amount,company))
     {
-        buy(company,amount,csvFile2,userStocks);
-        removeAmountInMarket(csvFile,amount,company,NumberOfStocks);
+        buyOrSell(company,amount,csvFile2,userStocks,0);
+        updateAmountInMarket(csvFile,amount,company,NumberOfStocks,0);
         return true;
     }
     else return  false;
 
 }
+        public boolean SellStock(int amount,String company)
+        {
+            refreshUserSecurities(csvFile2,userStocks,account.getUsername());
+            if(sellCheck(csvFile2,amount,company))
+            {
+                buyOrSell(company,amount,csvFile2,userStocks,1);
+                updateAmountInMarket(csvFile,amount,company,NumberOfStocks,1);
+                return true;
+            }
+            else return  false;
 
+        }
+static public float getPrice(String company)
+{
+    return stocks.get(company);
+}
 
 
 }
