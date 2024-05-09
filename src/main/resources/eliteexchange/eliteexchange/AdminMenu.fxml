@@ -15,6 +15,14 @@
    <top>
       <HBox alignment="CENTER_RIGHT" prefHeight="19.0" prefWidth="735.0" style="-fx-background-color: ebb50c;" BorderPane.alignment="CENTER">
          <children>
+            <ImageView fitHeight="19.0" fitWidth="19.0">
+               <image>
+                  <Image url="@icon2.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="975.0" />
+               </HBox.margin>
+            </ImageView>
             <FontAwesomeIconView fx:id="min" fill="#181a20" glyphName="MINUS" onMouseClicked="#min" size="11">
                <HBox.margin>
                   <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />

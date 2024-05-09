@@ -1,0 +1,40 @@
+#min, #close {
+    -fx-fill: #181a20; /* Initial gradient */
+    -fx-transition: -fx-fill 0.6s ease;
+}
+#close:hover {
+    -fx-fill: #d50000;
+}
+#min:hover{
+    -fx-fill: #eaecef;
+}
+#min:pressed{
+    -fx-fill: grey;
+}
+#close:pressed{
+    -fx-fill: #930000
+}
+.glyph-icon{
+    -fx-cursor: hand;
+}
+.glyph-icon:hover{
+    -fx-fill: black;
+    -fx-
+}
+
+#blockuserbutton,#unblockuserbutton,#deleteuserbutton,#userlist{
+    -fx-background-color: #fcd535;
+    -fx-cursor: hand;
+}
+#blockuserbutton:hover,#unblockuserbutton:hover,#deleteuserbutton:hover,#userlist:hover{
+    -fx-background-color: #cfaf30;
+}
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell {
+    -fx-padding: 1 10;
+    -fx-background-color: #fcd535;
+    -fx-cursor: hand;
+}
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:hover {
+    -fx-padding: 1 10;
+    -fx-background-color: #cfaf30;
+}

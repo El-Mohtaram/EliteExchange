@@ -1,4 +1,5 @@
 package eliteexchange.eliteexchange;
+
 import ApplicationElite.Account;
 import ApplicationElite.Admin;
 import ApplicationElite.DataShow;
@@ -21,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -28,6 +30,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.EventObject;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
+
 import javafx.util.Duration;
 import org.controlsfx.control.action.Action;
 
@@ -49,7 +52,7 @@ public class UserController implements Initializable {
     @FXML
     private JFXButton TransHistory;//2
     @FXML
-    private TableView<DataShow> Addtable, historyTable,userStockList;
+    private TableView<DataShow> Addtable, historyTable, userStockList;
     @FXML
     private TableView<DataShow> requestsTable;
     @FXML
@@ -61,7 +64,7 @@ public class UserController implements Initializable {
     private TableColumn<DataShow, String> requestColumn, historyColumn;
 
     @FXML
-    private TableColumn<DataShow, String> company,ownedCompanyCol;
+    private TableColumn<DataShow, String> company, ownedCompanyCol;
 
     @FXML
     private TableColumn<DataShow, Float> currentPrice;
@@ -69,7 +72,7 @@ public class UserController implements Initializable {
     private TableColumn<DataShow, Integer> stocksOwned;
 
     @FXML
-    private TableColumn<DataShow, Float> startPrice,totalPrice;
+    private TableColumn<DataShow, Float> startPrice, totalPrice;
     @FXML
     private TableColumn<DataShow, Float> numberofStocks;
     @FXML
@@ -89,7 +92,7 @@ public class UserController implements Initializable {
     private ComboBox<String> userlist;
 
     @FXML
-    private Button addStock, buy,sell;
+    private Button addStock, buy, sell;
 
     @FXML
     private TextField companyName;
@@ -97,7 +100,7 @@ public class UserController implements Initializable {
     @FXML
     private TextField numberOfStocks;
     @FXML
-    private Label requestMessage, balance,buyMessage,SellMessage;
+    private Label requestMessage, balance, buyMessage, SellMessage;
 
     @FXML
     private Button BuyStock;
@@ -137,11 +140,11 @@ public class UserController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (userStockList != null)
             userStockList.setItems(stock.returnUserList());
-        if(totalPrice!=null)
+        if (totalPrice != null)
             totalPrice.setCellValueFactory((new PropertyValueFactory<>("price")));
-        if(stocksOwned!=null)
+        if (stocksOwned != null)
             stocksOwned.setCellValueFactory((new PropertyValueFactory<>("number")));
-        if(ownedCompanyCol!=null)
+        if (ownedCompanyCol != null)
             ownedCompanyCol.setCellValueFactory((new PropertyValueFactory<>("company")));
         if (balance != null)
             balance.setText("Balance: " + account.getBalance() + "$");
@@ -151,7 +154,7 @@ public class UserController implements Initializable {
             historyColumn.setCellValueFactory(new PropertyValueFactory<>("history"));
         if (MenuClose != null)
             MenuClose.setVisible(false);
-        if(immenuclose!=null) {
+        if (immenuclose != null) {
             immenuclose.setRotate(90);
             immenuclose.setVisible(false);
         }
@@ -161,40 +164,42 @@ public class UserController implements Initializable {
             Menu.setOnMouseClicked(event -> {
                 menuopen();
             });
-        if(immenu != null)
-        immenu.setOnMouseClicked(event -> {
-            menuopen();
-        });
+        if (immenu != null)
+            immenu.setOnMouseClicked(event -> {
+                menuopen();
+            });
         if (MenuClose != null)
             MenuClose.setOnMouseClicked(event -> {
                 menuclose();
             });
-        if(immenuclose!= null)
-        immenuclose.setOnMouseClicked(event -> {
-            menuclose();
+        if (immenuclose != null)
+            immenuclose.setOnMouseClicked(event -> {
+                menuclose();
+            });
+    }
+
+    private void menuopen() {
+        TranslateTransition slide = new TranslateTransition();
+        RotateTransition menutr = new RotateTransition();
+        slide.setDuration(Duration.seconds(0.4));
+        slide.setNode(slider);
+        slide.setToX(0);
+        menutr.setDuration(Duration.seconds(0.4));
+        menutr.setNode(immenu);
+        menutr.setToAngle(90);
+        menutr.play();
+        slide.play();
+        slider.setTranslateX(-213);
+        slide.setOnFinished((ActionEvent e) -> {
+            Menu.setVisible(false);
+            immenu.setVisible(false);
+            immenu.setRotate(0);
+            MenuClose.setVisible(true);
+            immenuclose.setVisible(true);
         });
     }
-    private void menuopen(){
-    TranslateTransition slide = new TranslateTransition();
-    RotateTransition menutr = new RotateTransition();
-    slide.setDuration(Duration.seconds(0.4));
-    slide.setNode(slider);
-    slide.setToX(0);
-    menutr.setDuration(Duration.seconds(0.4));
-    menutr.setNode(immenu);
-    menutr.setToAngle(90);
-    menutr.play();
-    slide.play();
-    slider.setTranslateX(-213);
-    slide.setOnFinished((ActionEvent e) -> {
-        Menu.setVisible(false);
-        immenu.setVisible(false);
-        immenu.setRotate(0);
-        MenuClose.setVisible(true);
-        immenuclose.setVisible(true);
-    });
-    }
-    private void menuclose(){
+
+    private void menuclose() {
         TranslateTransition slide = new TranslateTransition();
         RotateTransition menutr = new RotateTransition();
         slide.setDuration(Duration.seconds(0.4));
@@ -214,6 +219,7 @@ public class UserController implements Initializable {
             immenuclose.setRotate(90);
         });
     }
+
     private void updateDateTimeLabel() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = LocalDateTime.now().format(formatter);
@@ -404,20 +410,20 @@ public class UserController implements Initializable {
         stage.show();
 
     }
+
     @FXML
-    public void sell(){
+    public void sell() {
         DataShow selectedStock = userStockList.getSelectionModel().getSelectedItem();
         if (selectedStock != null) {
             String selectedName = selectedStock.getCompany();
-            if(admin.marketOpenOrClose()) {
-                if (stock.SellStock(Integer.parseInt(amount.getText()),selectedName)) {
+            if (admin.marketOpenOrClose()) {
+                if (stock.SellStock(Integer.parseInt(amount.getText()), selectedName)) {
                     stock.refreshUserStockList();
                     account.updateBalance();
                     stock.RestoreData();
                     SellMessage.setText("Sold Successfully");
                 } else SellMessage.setText("Not enough amount");
-            }
-            else buyMessage.setText("Sorry, market is closed");
+            } else buyMessage.setText("Sorry, market is closed");
         }
     }
 
