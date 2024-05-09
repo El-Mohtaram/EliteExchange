@@ -35,5 +35,6 @@
             <Font size="24.0" />
          </font>
       </Label>
+      <Label fx:id="datee" layoutX="91.0" layoutY="345.0" text="Label" />
    </children>
 </AnchorPane>

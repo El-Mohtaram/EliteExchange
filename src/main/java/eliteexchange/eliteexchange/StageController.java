@@ -4,6 +4,9 @@ import ApplicationElite.Admin;
 import ApplicationElite.DataShow;
 import ApplicationElite.Securities;
 import ApplicationElite.Stock;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +26,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.EventObject;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
+
+import javafx.util.Duration;
 import org.controlsfx.control.action.Action;
 
 import javafx.fxml.Initializable;
@@ -116,7 +121,11 @@ public class StageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1), event -> updateDateTimeLabel())
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
         if(company!=null)
         company.setCellValueFactory(new PropertyValueFactory<>("company"));
         if(startPrice!=null)
@@ -135,20 +144,20 @@ public class StageController implements Initializable {
                 userlist.getItems().add(Admin.userslist.get(i));
             }
         }
-//        Timeline timeline = new Timeline(
-//                new KeyFrame(Duration.seconds(1), event -> updateDateTimeLabel())
-//        );
-//        timeline.setCycleCount(Animation.INDEFINITE);
-//        timeline.play();
+
         // Add shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             account.adminSwitch();
         }));
     }
     private void updateDateTimeLabel() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMM d, yyyy\nhh:mm:ss a");
         String formattedDateTime = LocalDateTime.now().format(formatter);
+        if(datee!=null)
         datee.setText(formattedDateTime);
+        stock.RestoreData();
+        if(numberofStocks!=null)
+            numberofStocks.setCellValueFactory(new PropertyValueFactory<>("number"));
     }
     @FXML
     private void mainscene(ActionEvent event) throws IOException {

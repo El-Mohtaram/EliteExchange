@@ -5,8 +5,8 @@ import ApplicationElite.DataShow;
 import ApplicationElite.Securities;
 import ApplicationElite.Stock;
 import com.jfoenix.controls.JFXButton;
-import javafx.animation.RotateTransition;
-import javafx.animation.TranslateTransition;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -130,18 +130,33 @@ public class UserController implements Initializable {
     private JFXButton wd;
     @FXML
     private ImageView aw;
+    @FXML
+    private FontAwesomeIconView dashboardi;
+    @FXML
+    private JFXButton Dashboardb;
+    @FXML
+    private Label welcomemes;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        welcomemes.setText("Welcome "+account.getUsername());
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1), event -> updateDateTimeLabel())
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
         if (balance != null)
             balance.setText("Balance: " + account.getBalance() + "$");
         if (historyTable != null)
             historyTable.setItems(admin.historyList());
         if (historyColumn != null)
             historyColumn.setCellValueFactory(new PropertyValueFactory<>("history"));
+       // TransHistory.setText("Transaction\nHistory");
         if (MenuClose != null)
             MenuClose.setVisible(false);
+        if (MenuClose != null)
             immenuclose.setRotate(90);
+        if (MenuClose != null)
             immenuclose.setVisible(false);
         if (slider != null)
             slider.setTranslateX(-213);
@@ -149,16 +164,23 @@ public class UserController implements Initializable {
             Menu.setOnMouseClicked(event -> {
                 menuopen();
             });
-        immenu.setOnMouseClicked(event -> {
+        if (Menu != null)
+            immenu.setOnMouseClicked(event -> {
             menuopen();
         });
         if (MenuClose != null)
             MenuClose.setOnMouseClicked(event -> {
                 menuclose();
             });
+        if (MenuClose != null)
         immenuclose.setOnMouseClicked(event -> {
             menuclose();
         });
+    }
+    private void updateDateTimeLabel() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMM d, yyyy\nhh:mm:ss a");
+        String formattedDateTime = LocalDateTime.now().format(formatter);
+        datee.setText(formattedDateTime);
     }
     private void menuopen(){
     TranslateTransition slide = new TranslateTransition();
@@ -199,11 +221,6 @@ public class UserController implements Initializable {
             immenuclose.setVisible(false);
             immenuclose.setRotate(90);
         });
-    }
-    private void updateDateTimeLabel() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDateTime = LocalDateTime.now().format(formatter);
-        datee.setText(formattedDateTime);
     }
 
     @FXML
@@ -277,6 +294,7 @@ public class UserController implements Initializable {
             stage.setScene(scene);
             scene.getStylesheets().add(cssuser);
             stage.show();
+
         } else if (account.CheckLoginData() && account.userOrAdmin().equals("admin") && account.admin_log_in_out().equals("no")) {
             Admin.createuserslist();
             account.adminSwitch();
