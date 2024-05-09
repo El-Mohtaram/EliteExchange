@@ -141,6 +141,7 @@ public class UserController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(welcomemes!=null)
         welcomemes.setText("Welcome "+account.getUsername());
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(1), event -> updateDateTimeLabel())
@@ -231,11 +232,6 @@ public class UserController implements Initializable {
             immenuclose.setVisible(false);
             immenuclose.setRotate(90);
         });
-    }
-    private void updateDateTimeLabel() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDateTime = LocalDateTime.now().format(formatter);
-        datee.setText(formattedDateTime);
     }
 
     @FXML

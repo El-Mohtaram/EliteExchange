@@ -126,11 +126,12 @@ public class StageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(datee!=null){
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(1), event -> updateDateTimeLabel())
         );
         timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
+        timeline.play();}
      if(marketStatues!=null)
      {
       marketStatues.setToggleGroup(aaa);
