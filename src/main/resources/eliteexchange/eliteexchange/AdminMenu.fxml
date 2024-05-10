@@ -53,6 +53,10 @@
             <Button fx:id="UsersManagementButton" layoutX="451.0" layoutY="224.0" mnemonicParsing="false" onAction="#usermanagementscene" prefHeight="26.0" prefWidth="122.0" text="User Management" />
             <Button fx:id="RequestsButton" layoutX="701.0" layoutY="223.0" mnemonicParsing="false" onAction="#adminRequests" prefHeight="26.0" prefWidth="122.0" text="Requests" />
             <Button fx:id="LogoutButton" layoutX="453.0" layoutY="428.0" mnemonicParsing="false" onAction="#LogoutButtonPressed" prefHeight="26.0" prefWidth="122.0" text="Logout" />
+            <FontAwesomeIconView fill="WHITE" glyphName="LINE_CHART" layoutX="241.0" layoutY="205.0" size="25" />
+            <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" layoutX="500.0" layoutY="399.0" size="25" />
+            <FontAwesomeIconView fill="WHITE" glyphName="ADDRESS_BOOK" layoutX="498.0" layoutY="204.0" size="25" />
+            <FontAwesomeIconView fill="WHITE" glyphName="INBOX" layoutX="748.0" layoutY="205.0" size="25" />
          </children>
       </AnchorPane>
    </left>
