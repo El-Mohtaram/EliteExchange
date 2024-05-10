@@ -293,7 +293,7 @@ public class StageController implements Initializable {
     }
 
     @FXML
-    void BackPressed(ActionEvent event) throws IOException {
+    void BackPressed(MouseEvent event) throws IOException {
         if (account.userOrAdmin().equals("user")) {
             Parent root = FXMLLoader.load(getClass().getResource("userMenue.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

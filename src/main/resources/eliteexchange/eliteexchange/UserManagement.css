@@ -14,11 +14,14 @@
 #close:pressed{
     -fx-fill: #930000
 }
-.glyph-icon{
+#RefreshIcon,#ReturnIcon{
     -fx-cursor: hand;
 }
-.glyph-icon:hover{
-    -fx-fill: black;
+#RefreshIcon:hover, #ReturnIcon:hover {
+    -fx-font-size: 100px; /* Set the font size to 100 pixels */
+    -fx-scale-x: 1.2; /* Increase the size of the icon by 20% horizontally */
+    -fx-scale-y: 1.2; /* Increase the size of the icon by 20% vertically */
+    transition: all 0.3s ease; /* Smooth transition for the change */
 }
 
 #blockuserbutton,#unblockuserbutton,#deleteuserbutton,#userlist{
