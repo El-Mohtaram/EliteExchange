@@ -6,8 +6,8 @@ import ApplicationElite.DataShow;
 import ApplicationElite.Securities;
 import ApplicationElite.Stock;
 import com.jfoenix.controls.JFXButton;
-import javafx.animation.RotateTransition;
-import javafx.animation.TranslateTransition;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -135,9 +135,22 @@ public class UserController implements Initializable {
     private JFXButton wd;
     @FXML
     private ImageView aw;
+    @FXML
+    private FontAwesomeIconView dashboardi;
+    @FXML
+    private JFXButton Dashboardb;
+    @FXML
+    private Label welcomemes;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (welcomemes != null)
+            welcomemes.setText("Welcome " + account.getUsername());
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1), event -> updateDateTimeLabel())
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
         if (userStockList != null)
             userStockList.setItems(stock.returnUserList());
         if (totalPrice != null)
@@ -152,12 +165,13 @@ public class UserController implements Initializable {
             historyTable.setItems(admin.historyList());
         if (historyColumn != null)
             historyColumn.setCellValueFactory(new PropertyValueFactory<>("history"));
+        // TransHistory.setText("Transaction\nHistory");
         if (MenuClose != null)
             MenuClose.setVisible(false);
-        if (immenuclose != null) {
+        if (MenuClose != null)
             immenuclose.setRotate(90);
+        if (immenuclose != null)
             immenuclose.setVisible(false);
-        }
         if (slider != null)
             slider.setTranslateX(-213);
         if (Menu != null)
@@ -176,6 +190,12 @@ public class UserController implements Initializable {
             immenuclose.setOnMouseClicked(event -> {
                 menuclose();
             });
+    }
+
+    private void updateDateTimeLabel() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMM d, yyyy\nhh:mm:ss a");
+        String formattedDateTime = LocalDateTime.now().format(formatter);
+        datee.setText(formattedDateTime);
     }
 
     private void menuopen() {
@@ -218,12 +238,6 @@ public class UserController implements Initializable {
             immenuclose.setVisible(false);
             immenuclose.setRotate(90);
         });
-    }
-
-    private void updateDateTimeLabel() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDateTime = LocalDateTime.now().format(formatter);
-        datee.setText(formattedDateTime);
     }
 
     @FXML

@@ -18,6 +18,66 @@
 #close:pressed{
     -fx-fill: #930000
 }
-#MenuClose,#Menu,#market,#wd,#TransHistory{
+#MenuClose,#Menu,#market,#wd,#TransHistory,#AccMangb,#logoutb,#Dashboardb,#Stocksb,#Bondsb,#Optionsb{
+    -fx-font-family: "Yaahowu Bold";
+}
+#Dashboardb{
+    -fx-font-family: "Yaahowu Bold";
+    -fx-font-size: 25;
+}
+#market:hover,#wd:hover,#logoutb:hover,#Stocksb:hover,#Bondsb:hover,#Optionsb:hover,#market:pressed,#logoutb:pressed,#Stocksb:pressed,#Bondsb:pressed,#Optionsb:pressed{
+    -fx-font-family: "Yaahowu Bold";
+    -fx-font-size: 30;
+    -fx-text-fill: #181a20;
+}
+#YrStockb{
+    -fx-font-family: "Yaahowu Bold";
+    -fx-font-size: 22;
+}
+#YrStockb:hover,#YrStockb:pressed{
+    -fx-font-family: "Yaahowu Bold";
+    -fx-font-size: 25;
+    -fx-text-fill: #181a20;
+}
+#Stocksb,#Bondsb,#Optionsb{
+    -fx-font-family: "Yaahowu Bold";
+    -fx-font-size: 25;
+}
+#Dashboardb:hover,#Dashboardb:pressed{
+    -fx-font-family: "Yaahowu Bold";
+    -fx-font-size: 28;
+    -fx-text-fill: #181a20;}
+#market,#logoutb,#wd{
+    -fx-font-family: "Yaahowu Bold";
+    -fx-font-size: 25;
+}
+#AccMangb{
+    -fx-font-family: "Yaahowu Bold";
+    -fx-font-size: 15;
+}
+#TransHistory{
+    -fx-font-size: 15;
+}
+#immenuen,#Menu{
+    -fx-text-fill: #a3a3a3;
+    -fx-font-size: 34;
+}
+#immenuen:hover,#Menu:hover{
+    -fx-text-fill: #181a20;
+    -fx-font-size: 34;
+}
+#TransHistory:hover,#AccMangb:hover,#wd:pressed,#TransHistory:pressed,#AccMangb:pressed{
+    -fx-font-family: "Yaahowu Bold";
+    -fx-font-size: 17;
+    -fx-text-fill: #181a20;
+}
+#datee{
+    -fx-font-size: 19;
+    -fx-text-fill: #181a20;
+    -fx-font-family: "Yaahowu Bold";
+}
+#welcomemes{
+    -fx-font-size: 29;
+    -fx-text-fill: #e8eaed;
     -fx-font-family: "Yaahowu Bold";
 }

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 public class Securities {
     Account account = new Account();
     Admin admin = new Admin();
@@ -172,17 +173,17 @@ public class Securities {
 
     }
 
-    public void buyOrSell(String Name, int number, String dataPath, HashMap<String, Integer> securities,int state) {
+    public void buyOrSell(String Name, int number, String dataPath, HashMap<String, Integer> securities, int state) {
         String updatedAmount = "";
         String dataOverwrite = "";
         String oldContent = "";
 
         if (securities.containsKey(Name)) {
-            if(state==0)
-            securities.replace(Name, securities.get(Name) + number);
+            if (state == 0)
+                securities.replace(Name, securities.get(Name) + number);
 
             else
-                securities.replace(Name,securities.get(Name) - number);
+                securities.replace(Name, securities.get(Name) - number);
             updatedAmount = "" + securities.get(Name) + ">" + Name;
             try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
                 String line;
@@ -196,8 +197,8 @@ public class Securities {
                             String[] values2 = values[i].split(">");
                             if (!values2[1].equals(Name))
                                 dataOverwrite = dataOverwrite + "," + values2[0] + ">" + values2[1];
-                            else if(securities.get(Name) ==0);
-                              else  dataOverwrite = dataOverwrite + "," + updatedAmount;
+                            else if (securities.get(Name) == 0) ;
+                            else dataOverwrite = dataOverwrite + "," + updatedAmount;
 
                         }
                         break;
@@ -222,7 +223,7 @@ public class Securities {
             }
         }
         ////////////////////////////
-        else if(state==0) {
+        else if (state == 0) {
             try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
                 String line;
                 br.readLine();
@@ -259,7 +260,7 @@ public class Securities {
 
     }
 
-    public void updateAmountInMarket(String dataPath, int amount, String Name, ArrayList<Integer> NumberOfSecurities,int state) {
+    public void updateAmountInMarket(String dataPath, int amount, String Name, ArrayList<Integer> NumberOfSecurities, int state) {
         String oldContent = "";
         String dataOverwrite = "";
         try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
@@ -269,9 +270,9 @@ public class Securities {
                 String[] values = line.split(",");
                 if (Name.equals(values[0])) {
                     oldContent = line;
-                    int newAmount=0;
-                    if(state==0)
-                     newAmount = Integer.parseInt(values[1]) - amount;
+                    int newAmount = 0;
+                    if (state == 0)
+                        newAmount = Integer.parseInt(values[1]) - amount;
                     else newAmount = Integer.parseInt(values[1]) + amount;
                     dataOverwrite = values[0] + "," + newAmount + "," + values[2];
                     break;
@@ -315,6 +316,7 @@ public class Securities {
         }
         return true;
     }
+
     public boolean sellCheck(String dataPath, int amount, String Name) {
         try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
             String line;
@@ -325,20 +327,19 @@ public class Securities {
                     for (int i = 1; i < values.length; i++) {
                         String values2[] = values[i].split(">");
 
-                        if (values2[1].equals(Name) && amount <= Integer.parseInt(values2[0]))
-                        {
-                            admin.transaction(account.getUsername() + " " + amount + " " + Name + " " + amount*Stock.getPrice(Name), 3);
-                            account.setBalance(account.getBalance()+amount*Stock.getPrice(Name));
+                        if (values2[1].equals(Name) && amount <= Integer.parseInt(values2[0])) {
+                            admin.transaction(account.getUsername() + " " + amount + " " + Name + " " + amount * Stock.getPrice(Name), 3);
+                            account.setBalance(account.getBalance() + amount * Stock.getPrice(Name));
                             return true;
                         }
                     }
                 }
             }
-            } catch(IOException e){
-                e.printStackTrace();
-            }
-        return false;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return false;
+    }
 
 
     public void refreshUserSecurities(ObservableList<DataShow> securitiesList) {
@@ -352,7 +353,7 @@ public class Securities {
                     for (int i = 1; i < values.length; i++) {
                         String values2[] = values[i].split(">");
                         System.out.println(values[i]);
-                        securitiesList.add( new DataShow(values2[1], Integer.parseInt(values2[0]),Integer.parseInt(values2[0])*Stock.getPrice(values2[1])));
+                        securitiesList.add(new DataShow(values2[1], Integer.parseInt(values2[0]), Integer.parseInt(values2[0]) * Stock.getPrice(values2[1])));
                     }
                     break;
                 }
@@ -364,7 +365,7 @@ public class Securities {
         }
 
     }
-    }
+}
 
 
 
