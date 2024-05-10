@@ -1,5 +1,4 @@
 package eliteexchange.eliteexchange;
-
 import ApplicationElite.Account;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,17 +9,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 public class Elite extends Application {
     public static String css;
-
     @Override
     public void start(Stage stage) throws IOException {
-        stage.initStyle(StageStyle.TRANSPARENT); //i love attalah
+        //stage.initStyle(StageStyle.TRANSPARENT); //i love attalah
         FXMLLoader fxmlLoader = new FXMLLoader(Elite.class.getResource("mainscene.fxml"));
         Group group = new Group();
         Scene scene = new Scene(fxmlLoader.load());
@@ -36,9 +32,11 @@ public class Elite extends Application {
     }
 
     public static void main(String[] args) {
-
-        Account account = new Account();
+        // Enable hardware acceleration for Windows
+        Account account=new Account();
         account.RestoreData();
+        System.setProperty("prism.order", "d3d");
+        System.setProperty("prism.forceGPU", "true");
         launch();
 
     }

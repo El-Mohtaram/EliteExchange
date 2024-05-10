@@ -76,8 +76,18 @@
     -fx-text-fill: #181a20;
     -fx-font-family: "Yaahowu Bold";
 }
+#hidebalance:hover,#showbalance:hover{
+    -fx-cursor: hand;
+}
 #welcomemes{
     -fx-font-size: 29;
     -fx-text-fill: #e8eaed;
+    -fx-font-family: "Yaahowu Bold";
+}
+#balance{
+    -fx-font-family: "Yaahowu Bold";
+    -fx-font-size: 47;
+}
+#balancetit{
     -fx-font-family: "Yaahowu Bold";
 }
