@@ -36,9 +36,11 @@ public class Elite extends Application {
     }
 
     public static void main(String[] args) {
-
-        Account account = new Account();
+        // Enable hardware acceleration for Windows
+        Account account=new Account();
         account.RestoreData();
+        System.setProperty("prism.order", "d3d");
+        System.setProperty("prism.forceGPU", "true");
         launch();
 
     }

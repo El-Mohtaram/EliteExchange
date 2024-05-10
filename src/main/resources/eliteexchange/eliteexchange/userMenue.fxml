@@ -100,9 +100,21 @@
                         <Image url="@aw.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="welcomemes" layoutX="243.0" layoutY="87.0" prefHeight="77.0" prefWidth="480.0" text="AAAAAA" textFill="#e8eaed">
+                  <Label fx:id="welcomemes" layoutX="243.0" layoutY="87.0" prefHeight="77.0" prefWidth="480.0" text="Welcome" textFill="WHITE">
                      <font>
                         <Font size="29.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="balancetit" layoutX="244.0" layoutY="113.0" prefHeight="87.0" prefWidth="489.0" text="Your Estimated Balance" textFill="#e8eaed">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <FontAwesomeIconView fx:id="hidebalance" fill="WHITE" glyphName="EYE" layoutX="472.0" layoutY="163.0" />
+                  <FontAwesomeIconView fx:id="showbalance" fill="#e8eaed" glyphName="EYE_SLASH" layoutX="472.0" layoutY="163.0" />
+                  <Label fx:id="balance" alignment="TOP_LEFT" layoutX="244.0" layoutY="172.0" prefHeight="36.0" text=" " textFill="WHITE">
+                     <font>
+                        <Font name="Yaahowu Bold" size="47.0" />
                      </font>
                   </Label>
                </children></AnchorPane>
