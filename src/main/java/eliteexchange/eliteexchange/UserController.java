@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
@@ -122,10 +123,9 @@ public class UserController implements Initializable {
     private double x, y;
     @FXML
     private AnchorPane slider;
+
     @FXML
-    private Label Menu;
-    @FXML
-    private Label MenuClose;
+    private Label MenuClose,balancetit,Menu;
     @FXML
     private JFXButton market;
     @FXML
@@ -133,7 +133,7 @@ public class UserController implements Initializable {
     @FXML
     private ImageView aw;
     @FXML
-    private FontAwesomeIconView dashboardi;
+    private FontAwesomeIconView showbalance,hidebalance;
     @FXML
     private JFXButton Dashboardb;
     @FXML
@@ -148,6 +148,9 @@ public class UserController implements Initializable {
         );
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+        if(hidebalance!=null){
+            hidebalance.setVisible(false);
+        }
         if (userStockList != null)
             userStockList.setItems(stock.returnUserList());
         if(totalPrice!=null)
@@ -156,8 +159,9 @@ public class UserController implements Initializable {
             stocksOwned.setCellValueFactory((new PropertyValueFactory<>("number")));
         if(ownedCompanyCol!=null)
             ownedCompanyCol.setCellValueFactory((new PropertyValueFactory<>("company")));
-        if (balance != null)
-            balance.setText("Balance: " + account.getBalance() + "$");
+        if (balance != null){
+            balance.setText("******");
+            balance.setTextFill(Color.color(0.9176470588235294, 0.9254901960784314, 0.9372549019607843));}
         if (historyTable != null)
             historyTable.setItems(admin.historyList());
         if (historyColumn != null)
@@ -187,6 +191,24 @@ public class UserController implements Initializable {
         immenuclose.setOnMouseClicked(event -> {
             menuclose();
         });
+        if(balancetit!= null||showbalance!=null)
+                showbalance.setOnMouseClicked(event -> {
+                menuclose();
+                showbalance.setVisible(false);
+                balance.setText(""+account.getBalance());
+                balance.setTextFill(Color.WHITE);
+                balancetit.setTextFill(Color.WHITE);
+                hidebalance.setVisible(true);
+            });
+        if(balancetit!= null||hidebalance!=null)
+            hidebalance.setOnMouseClicked(event -> {
+                menuclose();
+                showbalance.setVisible(true);
+                balance.setText("******");
+                balancetit.setTextFill(Color.color(0.9176470588235294, 0.9254901960784314, 0.9372549019607843));
+                balance.setTextFill(Color.color(0.9176470588235294, 0.9254901960784314, 0.9372549019607843));
+                hidebalance.setVisible(false);
+            });
     }
     private void updateDateTimeLabel() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMM d, yyyy\nhh:mm:ss a");
