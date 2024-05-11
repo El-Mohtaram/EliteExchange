@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -139,6 +140,9 @@ public class UserController implements Initializable {
     @FXML
     private Label welcomemes;
 
+    Image menui = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menu.png");
+    Image menuclosei = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menuclose.png");
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(welcomemes!=null)
@@ -254,6 +258,14 @@ public class UserController implements Initializable {
             immenuclose.setVisible(false);
             immenuclose.setRotate(90);
         });
+    }
+    @FXML
+    private void setImmenuent(MouseEvent event){
+    immenu.setImage(menui);
+    }
+    @FXML
+    private void setImmenuex(MouseEvent event){
+   immenu.setImage(menuclosei);
     }
 
     @FXML
