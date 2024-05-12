@@ -1,9 +1,5 @@
 package eliteexchange.eliteexchange;
-import ApplicationElite.Account;
-import ApplicationElite.Admin;
-import ApplicationElite.DataShow;
-import ApplicationElite.Securities;
-import ApplicationElite.Stock;
+import ApplicationElite.*;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.*;
@@ -38,6 +34,7 @@ public class UserController implements Initializable {
     Admin admin = new Admin();
     Account account = new Account();
     Stock stock = new Stock();
+    Bonds bond=new Bonds();
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -50,7 +47,7 @@ public class UserController implements Initializable {
     @FXML
     private JFXButton TransHistory;//2
     @FXML
-    private TableView<DataShow> Addtable, historyTable,userStockList;
+    private TableView<DataShow> Addtable, historyTable,userStockList,userBondList;
     @FXML
     private TableView<DataShow> requestsTable;
     @FXML
@@ -151,6 +148,8 @@ public class UserController implements Initializable {
         if(hidebalance!=null){
             hidebalance.setVisible(false);
         }
+        if (userBondList != null)
+            userBondList.setItems(bond.returnUserList());
         if (userStockList != null)
             userStockList.setItems(stock.returnUserList());
         if(totalPrice!=null)
@@ -213,6 +212,7 @@ public class UserController implements Initializable {
     private void updateDateTimeLabel() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMM d, yyyy\nhh:mm:ss a");
         String formattedDateTime = LocalDateTime.now().format(formatter);
+        if(datee!=null)
         datee.setText(formattedDateTime);
     }
     private void menuopen(){
@@ -402,14 +402,6 @@ public class UserController implements Initializable {
         stage.show();
         stock.RestoreData();
     }
-    @FXML
-    void BondsPressed(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("BondsScene.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
 
     @FXML
@@ -464,7 +456,40 @@ public class UserController implements Initializable {
             else buyMessage.setText("Sorry, market is closed");
         }
     }
-
+    @FXML
+    public void BondsPressed(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("bondsMarket.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        bond.RefreshBondList();
+        stage.show();
+    }
+ @FXML
+    public void yourBonds(ActionEvent event) throws IOException
+ {
+     bond.refreshUserBondList();
+     Parent root = FXMLLoader.load(getClass().getResource("userBonds.fxml"));
+     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+     scene = new Scene(root);
+     stage.setScene(scene);
+     stage.show();
+ }
+    @FXML
+    public void sellBond() {
+        DataShow selectedBond = userBondList.getSelectionModel().getSelectedItem();
+        if (selectedBond != null) {
+            String selectedName = selectedBond.getCompany();
+            if (admin.marketOpenOrClose()) {
+                if (bond.SellBond(Integer.parseInt(amount.getText()), selectedName)) {
+                    bond.refreshUserBondList();
+                    account.updateBalance();
+                    bond.RefreshBondList();
+                    SellMessage.setText("Sold Successfully");
+                } else SellMessage.setText("Not enough amount");
+            } else buyMessage.setText("Sorry, market is closed");
+        }
+    }
 }
 
 

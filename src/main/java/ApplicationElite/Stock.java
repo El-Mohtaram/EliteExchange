@@ -10,21 +10,22 @@ import javafx.collections.ObservableList;
     private static HashMap<String,Float> stocks=new LinkedHashMap<>();
         private static HashMap<String,Integer> userStocks=new LinkedHashMap<>();
     private  static ArrayList <Integer> NumberOfStocks=new ArrayList<>();
+        private  static ArrayList <Float> x=new ArrayList<>();
     public static String[] stockList=DatakList;
      static private ObservableList<DataShow> stockData = FXCollections.observableArrayList();
         static private ObservableList<DataShow> userStockList = FXCollections.observableArrayList();
 
  public void addStock(String name,int number,float f)
- {Add(name,number,f,csvFile,stocks,NumberOfStocks);}
+ {Add(name,number,f,csvFile,stocks,NumberOfStocks,x,0);}
 public void RestoreData()
 {
-    RestoreData(csvFile, stocks, NumberOfStocks,stockData);
+    RestoreData(csvFile, stocks, NumberOfStocks,stockData,x,0);
 }
 public void DeleteStock(String name)
 {
-    Delete(name,csvFile, stocks, NumberOfStocks);
+    Delete(name,csvFile, stocks, NumberOfStocks,x,0);
 }
-public void refreshUserStockList(){refreshUserSecurities(userStockList);}
+public void refreshUserStockList(){refreshUserSecurities(userStockList,csvFile2);}
 
 public ObservableList<DataShow> returnList()
 {
@@ -94,7 +95,7 @@ public boolean BuyStock(int amount,String company)
     if(buyCheck(csvFile,amount,company))
     {
         buyOrSell(company,amount,csvFile2,userStocks,0);
-        updateAmountInMarket(csvFile,amount,company,NumberOfStocks,0);
+        updateAmountInMarket(csvFile,amount,company,NumberOfStocks,0,false);
         return true;
     }
     else return  false;
@@ -106,7 +107,7 @@ public boolean BuyStock(int amount,String company)
             if(sellCheck(csvFile2,amount,company))
             {
                 buyOrSell(company,amount,csvFile2,userStocks,1);
-                updateAmountInMarket(csvFile,amount,company,NumberOfStocks,1);
+                updateAmountInMarket(csvFile,amount,company,NumberOfStocks,1,false);
                 return true;
             }
             else return  false;

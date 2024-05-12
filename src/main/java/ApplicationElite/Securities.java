@@ -21,7 +21,7 @@ public class Securities {
     // private final String csvFile = "C:\Users\ram tech\Desktop\Elite\EliteExchange\src\main\java\data\Market.csv";
     protected static String[] DatakList;
 
-    public void Add(String Name, int number, float price, String dataPath, HashMap<String, Float> securities, ArrayList<Integer> NumberOfSecurities) {
+    public void Add(String Name, int number, float price, String dataPath, HashMap<String, Float> securities, ArrayList<Integer> NumberOfSecurities,ArrayList<Float> yeilds,float yeild) {
         String updatedAmount = "";
         try {
             if (securities.containsKey(Name)) {
@@ -46,7 +46,8 @@ public class Securities {
                             System.out.println("found");
                             oldContent = line;
                             System.out.println(line);
-                            dataOverwrite = values[0] + "," + updatedAmount + "," + values[2];
+                        if(yeild==0)    dataOverwrite = values[0] + "," + updatedAmount + "," + values[2];
+                        else dataOverwrite = values[0] + "," + updatedAmount + "," + values[2]+","+values[3];
                             System.out.println(dataOverwrite);
 
                         }
@@ -75,7 +76,12 @@ public class Securities {
                 NumberOfSecurities.add(number);
                 FileWriter fileWriter = new FileWriter(dataPath, true);
                 PrintWriter printWriter = new PrintWriter(fileWriter);
+                if(yeild==0)
                 printWriter.println(Name + "," + number + "," + price);
+                else {
+                    yeilds.add(yeild);
+                    printWriter.println(Name + "," + number + "," + price + "," + yeild);
+                }
                 printWriter.close();
             }
 
@@ -84,9 +90,10 @@ public class Securities {
         }
     }
 
-    public void RestoreData(String dataPath, HashMap<String, Float> securities, ArrayList<Integer> NumberOfSecurities, ObservableList<DataShow> stockData) {
+    public void RestoreData(String dataPath, HashMap<String, Float> securities, ArrayList<Integer> NumberOfSecurities, ObservableList<DataShow> stockData,ArrayList<Float>yeilds,int state) {
         securities.clear();
         NumberOfSecurities.clear();
+        yeilds.clear();
 
         try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
             br.readLine();
@@ -95,13 +102,15 @@ public class Securities {
                 String[] values = line.split(",");
                 securities.put(values[0], Float.parseFloat(values[2]));
                 NumberOfSecurities.add(Integer.parseInt(values[1]));
-
+if(state!=0) {yeilds.add(Float.parseFloat(values[3]));
+                System.out.println(yeilds.get(0));}
 
             }
             stockData.clear();
             int i = 0;
             for (String key : securities.keySet()) {
-                stockData.add(new DataShow(key, NumberOfSecurities.get(i), securities.get(key)));
+               if(state==0) stockData.add(new DataShow(key, NumberOfSecurities.get(i), securities.get(key)));
+               else stockData.add(new DataShow(key, yeilds.get(i), securities.get(key),NumberOfSecurities.get(i)));
                 i++;
             }
 
@@ -111,7 +120,7 @@ public class Securities {
 
     }
 
-    public void Delete(String Name, String dataPath, HashMap<String, Float> securities, ArrayList<Integer> NumberOfSecurities) {
+    public void Delete(String Name, String dataPath, HashMap<String, Float> securities, ArrayList<Integer> NumberOfSecurities,ArrayList<Float>yeilds,int state) {
         List<String> lines = new ArrayList<>();
 
         int index = 0;
@@ -125,7 +134,7 @@ public class Securities {
                 else {
                     securities.remove(Name);
                     NumberOfSecurities.remove(index);
-
+if(state!=0) yeilds.remove(index);
                 }
                 index++;
             }
@@ -259,7 +268,7 @@ public class Securities {
 
     }
 
-    public void updateAmountInMarket(String dataPath, int amount, String Name, ArrayList<Integer> NumberOfSecurities,int state) {
+    public void updateAmountInMarket(String dataPath, int amount, String Name, ArrayList<Integer> NumberOfSecurities,int state,boolean bond) {
         String oldContent = "";
         String dataOverwrite = "";
         try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
@@ -273,7 +282,8 @@ public class Securities {
                     if(state==0)
                      newAmount = Integer.parseInt(values[1]) - amount;
                     else newAmount = Integer.parseInt(values[1]) + amount;
-                    dataOverwrite = values[0] + "," + newAmount + "," + values[2];
+                if(bond)    dataOverwrite = values[0] + "," + newAmount + "," + values[2]+","+values[3];
+                else dataOverwrite = values[0] + "," + newAmount + "," + values[2];
                     break;
                 }
             }
@@ -341,9 +351,9 @@ public class Securities {
         }
 
 
-    public void refreshUserSecurities(ObservableList<DataShow> securitiesList) {
+    public void refreshUserSecurities(ObservableList<DataShow> securitiesList,String dataPath) {
         securitiesList.clear();
-        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/stock.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
             String line;
             br.readLine();
             while ((line = br.readLine()) != null) {
