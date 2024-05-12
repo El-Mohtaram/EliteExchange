@@ -15,6 +15,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Admin {
+    public static int lastday=1;
+    public static int Currentday=1;
     Account account = new Account();
     public static ArrayList<String> userslist = new ArrayList<>();
     private String csvfile = "src/main/java/data/financialRequests.csv";
@@ -373,6 +375,7 @@ public class Admin {
     }
 
     public void openMarket() {
+        Currentday++;
         String oldContent = "";
         String dataOverwrite = "";
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/Market.csv"))) {
@@ -435,6 +438,7 @@ public class Admin {
         }
         return false;
     }
+
 }
 
 

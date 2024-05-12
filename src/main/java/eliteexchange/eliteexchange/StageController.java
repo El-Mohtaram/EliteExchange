@@ -188,6 +188,7 @@ public class StageController implements Initializable {
         }
 
         // Add shutdown hook
+        if(account != null)
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             account.adminSwitch();
         }));

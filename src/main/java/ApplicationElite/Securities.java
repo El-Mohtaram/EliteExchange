@@ -103,7 +103,8 @@ public class Securities {
                 securities.put(values[0], Float.parseFloat(values[2]));
                 NumberOfSecurities.add(Integer.parseInt(values[1]));
 if(state!=0) {yeilds.add(Float.parseFloat(values[3]));
-                System.out.println(yeilds.get(0));}
+//                System.out.println(yeilds.get(0));
+}
 
             }
             stockData.clear();

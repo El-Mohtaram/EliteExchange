@@ -1,7 +1,8 @@
-company,numberOfStocks,Prices,open
-amazon,989,711.3795
-apple,1997,814.24677
-pepsi,1005,604.3398
-coca,1972,587.6856
-Samsung,1999,607.4456
-google,1997,617.58044
+company,numberOfStocks,Prices,close
+amazon,989,726.525
+apple,1997,860.01
+pepsi,1005,636.664
+coca,1972,533.2561
+Samsung,1999,635.838
+google,1997,621.9579
+Netflix,1896,263.5691

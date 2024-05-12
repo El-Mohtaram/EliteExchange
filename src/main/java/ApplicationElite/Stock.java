@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
     public class Stock extends Securities  {
     private String csvFile ="src/main/java/data/Market.csv";
         private String csvFile2 ="src/main/java/data/stock.csv";
-    private static HashMap<String,Float> stocks=new LinkedHashMap<>();
+    public static HashMap<String,Float> stocks=new LinkedHashMap<>();
         private static HashMap<String,Integer> userStocks=new LinkedHashMap<>();
     private  static ArrayList <Integer> NumberOfStocks=new ArrayList<>();
         private  static ArrayList <Float> x=new ArrayList<>();
