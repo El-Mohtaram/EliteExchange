@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eliteexchange.eliteexchange.UserController">
+   <children>
+      <LineChart fx:id="priceGraph" layoutX="114.0" layoutY="55.0" prefHeight="294.0" prefWidth="473.0" title="Price History">
+        <xAxis>
+          <NumberAxis fx:id="timeAxis" label="Time" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="priceAxis" label="Price" prefHeight="173.0" prefWidth="49.0" side="LEFT" />
+        </yAxis>
+      </LineChart>
+      <TextField fx:id="companyName" layoutX="126.0" layoutY="22.0" prefHeight="25.0" prefWidth="234.0" promptText="Enter company name" />
+      <Button layoutX="370.0" layoutY="22.0" mnemonicParsing="false" onAction="#searchStock" text="Search" />
+      <Button layoutX="23.0" layoutY="22.0" mnemonicParsing="false" onAction="#BackPressed" text="Back" />
+      <Button layoutX="14.0" layoutY="288.0" mnemonicParsing="false" onAction="#showSelectedDateGraph" prefHeight="25.0" prefWidth="91.0" text="Show graph" />
+      <TableView fx:id="dateTable" layoutX="14.0" layoutY="77.0" prefHeight="200.0" prefWidth="100.0">
+        <columns>
+          <TableColumn fx:id="dateCol" prefWidth="99.0" text="Date" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

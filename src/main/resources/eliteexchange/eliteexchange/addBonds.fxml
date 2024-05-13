@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eliteexchange.eliteexchange.StageController">
+   <children>
+      <Label layoutX="36.0" layoutY="70.0" prefHeight="55.0" prefWidth="193.0" text="Add bonds">
+         <font>
+            <Font size="38.0" />
+         </font>
+      </Label>
+      <Button layoutX="28.0" layoutY="33.0" mnemonicParsing="false" onAction="#BackPressed" text="Back" />
+      <Label layoutX="20.0" layoutY="147.0" prefHeight="25.0" prefWidth="170.0" text="Company Name">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="17.0" layoutY="201.0" text="Number of bonds">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="19.0" layoutY="245.0" text="Face value">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="25.0" layoutY="292.0" text="Yield">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <TextField fx:id="companyName" layoutX="178.0" layoutY="150.0" prefHeight="25.0" prefWidth="111.0" />
+      <TextField fx:id="numberOfStocks" layoutX="199.0" layoutY="205.0" prefHeight="25.0" prefWidth="90.0" />
+      <TextField fx:id="value" layoutX="128.0" layoutY="249.0" prefHeight="25.0" prefWidth="101.0" />
+      <TextField fx:id="yield" layoutX="83.0" layoutY="296.0" prefHeight="25.0" prefWidth="90.0" />
+      <Label layoutX="233.0" layoutY="248.0" text="\$">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="183.0" layoutY="295.0" text="\%">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TableView fx:id="bondsTable" layoutX="309.0" layoutY="33.0" prefHeight="200.0" prefWidth="294.0">
+        <columns>
+          <TableColumn fx:id="companyB" prefWidth="76.0" text="Cnpany" />
+          <TableColumn fx:id="yieldB" prefWidth="67.0" text="Yield %" />
+            <TableColumn fx:id="faceValue" prefWidth="72.0" text="Face value" />
+            <TableColumn fx:id="numberB" prefWidth="65.0" text="available bonds" />
+        </columns>
+      </TableView>
+      <Button layoutX="430.0" layoutY="249.0" mnemonicParsing="false" onAction="#deleteBond" text="Delete" />
+      <Button layoutX="79.0" layoutY="340.0" mnemonicParsing="false" onAction="#addBond" prefHeight="25.0" prefWidth="83.0" text="Add" />
+   </children>
+</AnchorPane>
