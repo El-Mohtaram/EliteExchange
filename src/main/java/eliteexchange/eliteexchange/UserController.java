@@ -20,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -97,6 +98,8 @@ public class UserController implements Initializable {
 
     @FXML
     private ComboBox<String> userlist;
+    @FXML
+    private Region swaptaps;
 
     @FXML
     private Button addStock, buy, sell;
@@ -149,14 +152,14 @@ public class UserController implements Initializable {
     private Label welcomemes;
     @FXML
     private NumberAxis priceAxis;
-
+    static boolean sceneloaded=false;
     Image menui = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menu.png");
     Image menuclosei = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menuclose.png");
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (welcomemes != null)
-            welcomemes.setText("Welcome " + account.getUsername());
+        if(welcomemes!=null)
+        welcomemes.setText("Welcome ");
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(1), event -> updateDateTimeLabel())
         );
@@ -235,8 +238,13 @@ public class UserController implements Initializable {
     private void updateDateTimeLabel() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMM d, yyyy\nhh:mm:ss a");
         String formattedDateTime = LocalDateTime.now().format(formatter);
-        if (datee != null)
+        if (datee != null ){
             datee.setText(formattedDateTime);
+        }
+        if(account.getUsername()!=null && !sceneloaded){
+            welcomemes.setText("Welcome "+account.getUsername());
+            sceneloaded=true;
+        }
     }
 
     private void menuopen() {
@@ -278,6 +286,65 @@ public class UserController implements Initializable {
             MenuClose.setVisible(false);
             immenuclose.setVisible(false);
             immenuclose.setRotate(90);
+        });
+    }
+    @FXML
+    private void Stockspressed(){
+        menuclose();
+        TranslateTransition tapsawp = new TranslateTransition();
+        tapsawp.setDuration(Duration.seconds(0.4));
+        tapsawp.setNode(swaptaps);
+        tapsawp.setToX(204);
+        tapsawp.play();
+        swaptaps.setTranslateX(0);
+        tapsawp.setOnFinished((ActionEvent e) -> {
+        });
+    }
+    @FXML
+    private void Optionspressed(){
+        menuclose();
+        TranslateTransition tapsawp = new TranslateTransition();
+        tapsawp.setDuration(Duration.seconds(0.4));
+        tapsawp.setNode(swaptaps);
+        tapsawp.setToX(612);
+        tapsawp.play();
+        swaptaps.setTranslateX(0);
+        tapsawp.setOnFinished((ActionEvent e) -> {
+        });
+    }
+    @FXML
+    private void Dashboaedpressed(){
+        menuclose();
+        TranslateTransition tapsawp = new TranslateTransition();
+        tapsawp.setDuration(Duration.seconds(0.4));
+        tapsawp.setNode(swaptaps);
+        tapsawp.setToX(0);
+        tapsawp.play();
+        swaptaps.setTranslateX(0);
+        tapsawp.setOnFinished((ActionEvent e) -> {
+        });
+    }
+    @FXML
+    public void BondsPressed(ActionEvent event) throws IOException {
+        menuclose();
+        TranslateTransition tapsawp = new TranslateTransition();
+        tapsawp.setDuration(Duration.seconds(0.4));
+        tapsawp.setNode(swaptaps);
+        tapsawp.setToX(408);
+        tapsawp.play();
+        swaptaps.setTranslateX(0);
+        tapsawp.setOnFinished((ActionEvent e) -> {
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("bondsMarket.fxml"));
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            bond.RefreshBondList();
+            stage.show();
         });
     }
     @FXML
@@ -435,6 +502,14 @@ public class UserController implements Initializable {
         stage.show();
         stock.RestoreData();
     }
+//    @FXML
+//    void BondsPressed(ActionEvent event) throws IOException {
+//        Parent root = FXMLLoader.load(getClass().getResource("BondsScene.fxml"));
+//        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+//    }
 
 
     @FXML
@@ -490,15 +565,7 @@ public class UserController implements Initializable {
         }
     }
 
-    @FXML
-    public void BondsPressed(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("bondsMarket.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        bond.RefreshBondList();
-        stage.show();
-    }
+
 
     @FXML
     public void yourBonds(ActionEvent event) throws IOException {

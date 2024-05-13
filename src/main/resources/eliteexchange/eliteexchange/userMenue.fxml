@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.RadialGradient?>
@@ -61,6 +62,14 @@
                                                 <FontAwesomeIconView fx:id="marketi" fill="#181a20" glyphName="LINE_CHART" size="25.0" />
                                             </graphic>
                                         </JFXButton>
+                                        <JFXButton fx:id="YrStockb" prefHeight="90.0" prefWidth="213.0" text="Your Stocks" textFill="#181a20">
+                                            <font>
+                                                <Font size="20.0" />
+                                            </font>
+                                            <graphic>
+                                                <FontAwesomeIconView fx:id="YrStocki" fill="#181a20" glyphName="SHOPPING_BASKET" size="25.0" />
+                                            </graphic>
+                                        </JFXButton>
                                         <JFXButton fx:id="wd" onAction="#DandW" prefHeight="90.0" prefWidth="213.0" text="Wallet" textFill="#181a20">
                                             <font>
                                                 <Font size="20.0" />
@@ -75,14 +84,6 @@
                                             </font>
                                             <graphic>
                                                 <FontAwesomeIconView fx:id="TransHistoryi" fill="#181a20" glyphName="HISTORY" size="25.0" />
-                                            </graphic>
-                                        </JFXButton>
-                                        <JFXButton fx:id="YrStockb" prefHeight="90.0" prefWidth="213.0" text="Your Stocks" textFill="#181a20">
-                                            <font>
-                                                <Font size="20.0" />
-                                            </font>
-                                            <graphic>
-                                                <FontAwesomeIconView fx:id="YrStocki" fill="#181a20" glyphName="SHOPPING_BASKET" size="25.0" />
                                             </graphic>
                                         </JFXButton>
                                         <JFXButton fx:id="AccMangb" prefHeight="90.0" prefWidth="213.0" text="Account Mangment" textFill="#181a20">
@@ -155,7 +156,7 @@
                 </ImageView>
                 <HBox layoutX="214.0" layoutY="1.0" prefHeight="77.0" prefWidth="816.0">
                     <children>
-                        <JFXButton fx:id="Dashboardb" layoutX="257.0" layoutY="10.0" prefHeight="77.0" prefWidth="204.0" text="Dashboard" textFill="#181a20">
+                        <JFXButton fx:id="Dashboardb" layoutX="257.0" layoutY="10.0" onAction="#Dashboaedpressed" prefHeight="77.0" prefWidth="204.0" text="Dashboard" textFill="#181a20">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -189,7 +190,7 @@
                                 </RadialGradient>
                             </ripplerFill>
                         </JFXButton>
-                        <JFXButton fx:id="Stocksb" layoutX="10.0" layoutY="10.0" prefHeight="77.0" prefWidth="204.0" text="Stocks" textFill="#181a20">
+                        <JFXButton fx:id="Stocksb" layoutX="10.0" layoutY="10.0" onAction="#Stockspressed" prefHeight="77.0" prefWidth="204.0" text="Stocks" textFill="#181a20">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -223,7 +224,7 @@
                                 </RadialGradient>
                             </ripplerFill>
                         </JFXButton>
-                        <JFXButton fx:id="Bondsb" layoutX="214.0" layoutY="10.0" prefHeight="77.0" prefWidth="204.0" text="Bonds" textFill="#181a20">
+                        <JFXButton fx:id="Bondsb" layoutX="214.0" layoutY="10.0" onAction="#BondsPressed" prefHeight="77.0" prefWidth="204.0" text="Bonds" textFill="#181a20">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -257,7 +258,7 @@
                                 </RadialGradient>
                             </ripplerFill>
                         </JFXButton>
-                        <JFXButton fx:id="Optionsb" layoutX="418.0" layoutY="10.0" prefHeight="77.0" prefWidth="204.0" text="Options" textFill="#181a20">
+                        <JFXButton fx:id="Optionsb" layoutX="418.0" layoutY="10.0" onAction="#Optionspressed" prefHeight="77.0" prefWidth="204.0" text="Options" textFill="#181a20">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -302,5 +303,6 @@
             </image>
         </ImageView>
         <Label fx:id="datee" layoutX="806.0" layoutY="500.0" prefHeight="70.0" prefWidth="219.0" text=" " textFill="#eaecef" />
+      <Region fx:id="swaptaps" layoutX="213.0" layoutY="89.0" prefHeight="7.0" prefWidth="204.0" style="-fx-background-color: #0c4deb;" />
     </children>
 </AnchorPane>

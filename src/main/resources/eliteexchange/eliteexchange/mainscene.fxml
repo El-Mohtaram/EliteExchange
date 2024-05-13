@@ -77,7 +77,6 @@
                   <Font name="Yaahowu Bold" size="11.0" />
                </font>
             </Label>
-            <Label fx:id="datee" layoutX="67.0" layoutY="336.0" text="Label" textFill="#181a20" />
             <Hyperlink fx:id="signup" layoutX="404.0" layoutY="323.0" onAction="#SignupPressed" text="Sign up" textFill="#ebb50c">
                <font>
                   <Font name="Yaahowu Bold" size="12.0" />

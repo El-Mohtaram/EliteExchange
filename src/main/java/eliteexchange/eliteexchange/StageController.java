@@ -278,10 +278,11 @@ public class StageController implements Initializable {
             messagelabel.setText("your account has been banned");
         } else if (account.CheckLoginData() && account.userOrAdmin().equals("user")) {
             stock.RestoreData();
-            Parent root = FXMLLoader.load(getClass().getResource("userMenue.fxml"));
+      //      Parent root = FXMLLoader.load(getClass().getResource("userMenue.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
+    //        scene = new Scene(root);
+  //          stage.setScene(scene);
+           stage.setScene(Elite.usermainmenu);
             String usercss = getClass().getResource("usermenu.css").toExternalForm();
             stage.getScene().getStylesheets().add(usercss);
             stage.show();
