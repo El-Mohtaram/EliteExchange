@@ -1,10 +1,6 @@
 package eliteexchange.eliteexchange;
 
-import ApplicationElite.Account;
-import ApplicationElite.Admin;
-import ApplicationElite.DataShow;
-import ApplicationElite.Securities;
-import ApplicationElite.Stock;
+import ApplicationElite.*;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -38,6 +34,7 @@ public class StageController implements Initializable {
     Admin admin = new Admin();
     Account account = new Account();
     Stock stock = new Stock();
+    Bonds bond=new Bonds();
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -74,11 +71,11 @@ public class StageController implements Initializable {
     private TableColumn<DataShow, Float> currentPrice;
 
     @FXML
-    private TableColumn<DataShow, Float> startPrice;
+    private TableColumn<DataShow, Float> faceValue;
     @FXML
     private TableColumn<DataShow, Float> numberofStocks;
     @FXML
-    private TextField startprice;
+    private TextField startprice,value;
     @FXML
     private TextField amount;
 
@@ -107,6 +104,28 @@ public class StageController implements Initializable {
 
     @FXML
     Label messagelabel, datee, signedup1;
+
+    @FXML
+    private TableView<DataShow> bondsTable;
+
+    @FXML
+    private TableColumn<DataShow, String> companyB;
+
+
+
+    @FXML
+    private TableColumn<DataShow, Integer> numberB;
+
+
+    @FXML
+    private TableColumn<DataShow, Float> priceBCol;
+
+
+    @FXML
+    private TextField yield;
+
+    @FXML
+    private TableColumn<DataShow, Float> yieldB,startPrice;
 
     @FXML
     private Button back;
@@ -139,10 +158,20 @@ public class StageController implements Initializable {
             marketStatues.setToggleGroup(aaa);
             marketStatues.setOnAction(this::changeMarketStatues);
         }
+        if(bondsTable!=null)
+            bondsTable.setItems(Bonds.getBondData());
+        if(companyB!=null)
+            companyB.setCellValueFactory(new PropertyValueFactory<>("company"));
+        if(faceValue!=null)
+            faceValue.setCellValueFactory(new PropertyValueFactory<>("price"));
+        if(yieldB!=null)
+            yieldB.setCellValueFactory(new PropertyValueFactory<>("yield"));
+        if(numberB!=null)
+            numberB.setCellValueFactory(new PropertyValueFactory<>("number"));
+        if(startPrice!=null)
+            startPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         if (company != null)
             company.setCellValueFactory(new PropertyValueFactory<>("company"));
-        if (startPrice != null)
-            startPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         if (numberofStocks != null)
             numberofStocks.setCellValueFactory(new PropertyValueFactory<>("number"));
         if (Addtable != null)
@@ -159,6 +188,7 @@ public class StageController implements Initializable {
         }
 
         // Add shutdown hook
+        if(account != null)
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             account.adminSwitch();
         }));
@@ -169,7 +199,7 @@ public class StageController implements Initializable {
         String formattedDateTime = LocalDateTime.now().format(formatter);
         if (datee != null)
             datee.setText(formattedDateTime);
-        stock.RestoreData();
+        //stock.RestoreData();
         if (numberofStocks != null)
             numberofStocks.setCellValueFactory(new PropertyValueFactory<>("number"));
     }
@@ -259,6 +289,7 @@ public class StageController implements Initializable {
             Admin.createuserslist();
             account.adminSwitch();
             stock.RestoreData();
+            bond.RefreshBondList();
             Parent root = FXMLLoader.load(getClass().getResource("AdminMenu.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -513,6 +544,60 @@ public class StageController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    @FXML
+    public void addBonds(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("addBonds.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        bond.RefreshBondList();
+        stage.show();
+    }
+    @FXML
+    void addBond(ActionEvent event) {
+        bond.addBonds(companyName.getText(), Float.parseFloat(value.getText()),Integer.parseInt(numberOfStocks.getText()),Float.parseFloat(yield.getText()));
+        bond.RefreshBondList();
+        bondsTable.setItems(Bonds. getBondData());
+        bond.RefreshBondList();
+    }
+    @FXML
+    public void deleteBond() {
+        DataShow selectedBond = bondsTable.getSelectionModel().getSelectedItem();
+        if (selectedBond != null) {
+            String selectedName = selectedBond.getCompany();
+            System.out.println("Selected stock name: " + selectedName);
+            bond.deleteBonds(selectedName);
+            int selectedID = bondsTable.getSelectionModel().getSelectedIndex();
+            bondsTable.getItems().remove(selectedID);
+
+        }
+    }
+    @FXML
+    public void buyBond(){
+        DataShow selectedBond = bondsTable.getSelectionModel().getSelectedItem();
+        if (selectedBond != null) {
+            String selectedName = selectedBond.getCompany();
+            if (admin.marketOpenOrClose()) {
+                if (bond.buyBond(selectedName,Integer.parseInt(amount.getText()))) {
+                    account.updateBalance();
+                    bond.RefreshBondList();
+                    buyMessage.setText("Bought Successfully");
+                } else buyMessage.setText("Not enough amount");
+            } else buyMessage.setText("Sorry, market is closed");
+        }
+    }
+    @FXML
+    public void goToGraphs(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("graphs.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        bond.RefreshBondList();
+        stage.show();
+
+    }
+
+
 }
 
 
