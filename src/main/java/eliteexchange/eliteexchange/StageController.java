@@ -586,6 +586,16 @@ public class StageController implements Initializable {
             } else buyMessage.setText("Sorry, market is closed");
         }
     }
+    @FXML
+    public void goToGraphs(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("graphs.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        bond.RefreshBondList();
+        stage.show();
+
+    }
 
 
 }

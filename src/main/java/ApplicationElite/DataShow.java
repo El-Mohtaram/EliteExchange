@@ -7,7 +7,11 @@ public class DataShow {
 private int number;
 private String history;
 private float yield;
-
+private String date;
+public DataShow (String date,int a)
+{
+    this.date=date;
+}
 public DataShow(String requests)
 {
 this.requests=requests;
@@ -49,5 +53,8 @@ this.number=number;
         return history;
     }
     public float getYield(){return yield;}
-    
+
+    public String getDate() {
+        return date;
+    }
 }

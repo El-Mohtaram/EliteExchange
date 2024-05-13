@@ -4,119 +4,175 @@ import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-    public class Stock extends Securities  {
-    private String csvFile ="src/main/java/data/Market.csv";
-        private String csvFile2 ="src/main/java/data/stock.csv";
-    public static HashMap<String,Float> stocks=new LinkedHashMap<>();
-        private static HashMap<String,Integer> userStocks=new LinkedHashMap<>();
-    private  static ArrayList <Integer> NumberOfStocks=new ArrayList<>();
-        private  static ArrayList <Float> x=new ArrayList<>();
-    public static String[] stockList=DatakList;
-     static private ObservableList<DataShow> stockData = FXCollections.observableArrayList();
+    public class Stock extends Securities {
+        private static String company;
+        private String csvFile = "src/main/java/data/Market.csv";
+        private String csvFile2 = "src/main/java/data/stock.csv";
+        public static HashMap<String, Float> stocks = new LinkedHashMap<>();
+        private static HashMap<String, Integer> userStocks = new LinkedHashMap<>();
+        private static ArrayList<Integer> NumberOfStocks = new ArrayList<>();
+        private static ArrayList<Float> x = new ArrayList<>();
+        public static String[] stockList = DatakList;
+        static private ObservableList<DataShow> stockData = FXCollections.observableArrayList();
+        static private ObservableList<DataShow> dateList = FXCollections.observableArrayList();
         static private ObservableList<DataShow> userStockList = FXCollections.observableArrayList();
+static private ArrayList<Float>priceList  = new ArrayList<>();
+        static private ArrayList<Integer>timeList  = new ArrayList<>();
+        public void addStock(String name, int number, float f) {
+            Add(name, number, f, csvFile, stocks, NumberOfStocks, x, 0);
+        }
 
- public void addStock(String name,int number,float f)
- {Add(name,number,f,csvFile,stocks,NumberOfStocks,x,0);}
-public void RestoreData()
-{
-    RestoreData(csvFile, stocks, NumberOfStocks,stockData,x,0);
-}
-public void DeleteStock(String name)
-{
-    Delete(name,csvFile, stocks, NumberOfStocks,x,0);
-}
-public void refreshUserStockList(){refreshUserSecurities(userStockList,csvFile2);}
+        public void RestoreData() {
+            RestoreData(csvFile, stocks, NumberOfStocks, stockData, x, 0);
+        }
 
-public ObservableList<DataShow> returnList()
-{
-    return stockData;
-}
-        public ObservableList<DataShow> returnUserList()
-        {
+        public void DeleteStock(String name) {
+            Delete(name, csvFile, stocks, NumberOfStocks, x, 0);
+        }
+
+        public void refreshUserStockList() {
+            refreshUserSecurities(userStockList, csvFile2);
+        }
+
+        public ObservableList<DataShow> returnList() {
+            return stockData;
+        }
+
+        public ObservableList<DataShow> returnUserList() {
             return userStockList;
         }
-public void UpdatePrices(){
-     for(String key: stocks.keySet())
-     {
-         float minPrice = stocks.get(key) - 2.0f;
-        float maxPrice = stocks.get(key) + 2.0f;
 
-         // Generate a random price within the specified range
-         Random random = new Random();
-         stocks.replace(key,(minPrice + (maxPrice - minPrice) * random.nextFloat()));
+        public void UpdatePrices() {
+            for (String key : stocks.keySet()) {
+                float minPrice = stocks.get(key) - 2.0f;
+                float maxPrice = stocks.get(key) + 2.0f;
 
-     }
-    try {
-        String filePath = csvFile; // Replace with your actual file path
-        int targetColumn = 2; // Example column number
-        ArrayList<String> newValues = new ArrayList<>();
+                // Generate a random price within the specified range
+                Random random = new Random();
+                stocks.replace(key, (minPrice + (maxPrice - minPrice) * random.nextFloat()));
 
-        for(String key: stocks.keySet())
-        {
+            }
+            try {
+                String filePath = csvFile; // Replace with your actual file path
+                int targetColumn = 2; // Example column number
+                ArrayList<String> newValues = new ArrayList<>();
 
-            newValues.add(""+stocks.get(key));
+                for (String key : stocks.keySet()) {
+
+                    newValues.add("" + stocks.get(key));
+
+                }
+
+                BufferedReader reader = new BufferedReader(new FileReader(csvFile));
+                List<String> lines = new ArrayList<>();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    lines.add(line);
+
+                }
+                reader.close();
+
+                // Update the specified column with different values for each row
+                for (int i = 1; i < lines.size(); i++) {
+                    String[] columns = lines.get(i).split(","); // Assuming CSV columns are comma-separated
+                    columns[targetColumn] = newValues.get(i - 1);
+                    lines.set(i, String.join(",", columns));
+
+                }
+
+                BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile));
+                for (String updatedLine : lines) {
+                    writer.write(updatedLine);
+                    writer.newLine();
+
+                }
+                writer.flush();
+                writer.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+        }
+
+        public boolean BuyStock(int amount, String company) {
+            refreshUserSecurities(csvFile2, userStocks, account.getUsername());
+            if (buyCheck(csvFile, amount, company)) {
+                buyOrSell(company, amount, csvFile2, userStocks, 0);
+                updateAmountInMarket(csvFile, amount, company, NumberOfStocks, 0, false);
+                return true;
+            } else return false;
 
         }
 
-        BufferedReader reader = new BufferedReader(new FileReader(csvFile));
-        List<String> lines = new ArrayList<>();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            lines.add(line);
-
-        }
-        reader.close();
-
-        // Update the specified column with different values for each row
-        for (int i = 1; i < lines.size(); i++) {
-            String[] columns = lines.get(i).split(","); // Assuming CSV columns are comma-separated
-            columns[targetColumn] = newValues.get(i-1);
-            lines.set(i, String.join(",", columns));
+        public boolean SellStock(int amount, String company) {
+            refreshUserSecurities(csvFile2, userStocks, account.getUsername());
+            if (sellCheck(csvFile2, amount, company)) {
+                buyOrSell(company, amount, csvFile2, userStocks, 1);
+                updateAmountInMarket(csvFile, amount, company, NumberOfStocks, 1, false);
+                return true;
+            } else return false;
 
         }
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile));
-        for (String updatedLine : lines) {
-            writer.write(updatedLine);
-            writer.newLine();
-
+        static public float getPrice(String company) {
+            return stocks.get(company);
         }
-        writer.flush();
-        writer.close();
 
-    } catch (IOException e) {
-        e.printStackTrace();
-
-}
-}
-public boolean BuyStock(int amount,String company)
-{
-    refreshUserSecurities(csvFile2,userStocks,account.getUsername());
-    if(buyCheck(csvFile,amount,company))
-    {
-        buyOrSell(company,amount,csvFile2,userStocks,0);
-        updateAmountInMarket(csvFile,amount,company,NumberOfStocks,0,false);
-        return true;
-    }
-    else return  false;
-
-}
-        public boolean SellStock(int amount,String company)
-        {
-            refreshUserSecurities(csvFile2,userStocks,account.getUsername());
-            if(sellCheck(csvFile2,amount,company))
-            {
-                buyOrSell(company,amount,csvFile2,userStocks,1);
-                updateAmountInMarket(csvFile,amount,company,NumberOfStocks,1,false);
+        public boolean fillDateTable(String company) {
+            if (!stocks.containsKey(company)) return false;
+            else {
+                dateList.clear();
+                try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/PriceHistory/" + company + ".csv"))) {
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        String[] values = line.split(",");
+                        System.out.println(values[1]);
+                        dateList.add(new DataShow(values[1],0));
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(dateList.size());
                 return true;
             }
-            else return  false;
+        }
+
+        public static ObservableList<DataShow> getDateList() {
+            return dateList;
+        }
+        public void getPriceList(String company,String date)
+        {
+            this.company=company;
+            priceList.clear();
+            timeList.clear();
+            try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/PriceHistory/" + company + ".csv"))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] values = line.split(",");
+                    if(date.equals(values[1])) {
+                        int x=0;
+                        for(int i=2;i< values.length;i++)
+                        {
+                            priceList.add(Float.parseFloat(values[i]));
+                            timeList.add(x);
+                            x+=10;
+
+                        }
+                        System.out.println(priceList.size());
+                        break;
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
-static public float getPrice(String company)
-{
-    return stocks.get(company);
-}
+        public ArrayList<Float> getPriceList() {return priceList;}
+        public ArrayList<Integer> getTimeList() {return timeList;}
+public String getCompany(){return company;}
+    }
 
 
-}
+
+
