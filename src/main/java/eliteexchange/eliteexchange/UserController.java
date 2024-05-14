@@ -101,7 +101,7 @@ public class UserController implements Initializable {
     private TextField amount;
 
     @FXML
-    private ImageView immenu;
+    private ImageView immenu,star;
 
     @FXML
     private ImageView immenuclose;
@@ -131,7 +131,7 @@ public class UserController implements Initializable {
     private Button Sellstock;
 
     @FXML
-    Label messagelabel, datee, signedup1;
+    Label messagelabel, datee, signedup1,viplevel;
 
     @FXML
     private Button back;
@@ -165,13 +165,15 @@ public class UserController implements Initializable {
     @FXML
     private NumberAxis priceAxis;
     @FXML
-    private JFXListView<String> hotstocks;
+    private JFXListView<String> hotstocks,hotbonds;
+
     static boolean sceneloaded=false;
     Image menui = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menu.png");
     Image menuclosei = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menuclose.png");
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        star.setTranslateX(200);
         if(welcomemes!=null)
         welcomemes.setText("Welcome ");
         Timeline timeline = new Timeline(
@@ -338,6 +340,8 @@ public class UserController implements Initializable {
             balancetit.setVisible(false);
             balance.setVisible(false);
             hotstocks.setVisible(false);
+            hotbonds.setVisible(false);
+            viplevel.setVisible(false);
         });
     }
     @FXML
@@ -369,6 +373,8 @@ public class UserController implements Initializable {
             balancetit.setVisible(true);
             balance.setVisible(true);
             hotstocks.setVisible(true);
+            hotbonds.setVisible(true);
+            viplevel.setVisible(true);
         });
     }
     @FXML

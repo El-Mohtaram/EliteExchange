@@ -262,9 +262,13 @@ public class StageController implements Initializable {
         account.setPassword(password.getText());
         account.setCheckPassword(confirmpassword.getText());
         if (account.CheckMatchPassword() && password.getText().length() >= 3) {
+            signedup1.setVisible(true);
+            messagelabel.setVisible(false);
             signedup1.setText("Signed up success");
             account.ImportUserData();
         } else {
+            signedup1.setVisible(false);
+            messagelabel.setVisible(true);
             messagelabel.setText(account.SignUpMessages());
 
         }
@@ -499,7 +503,6 @@ public class StageController implements Initializable {
 
     @FXML
     public void accept() {
-
         DataShow selectedRequest = requestsTable.getSelectionModel().getSelectedItem();
         if (selectedRequest != null) {
             String selectedName = selectedRequest.getRequests();
