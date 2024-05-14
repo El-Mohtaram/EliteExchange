@@ -124,12 +124,13 @@
                                 <Font name="Yaahowu Bold" size="47.0" />
                             </font>
                         </Label>
-                  <Label fx:id="vpnlevel" layoutX="852.0" layoutY="94.0" prefHeight="77.0" prefWidth="145.0" text="VIP Level" textFill="WHITE">
+                  <Label fx:id="viplevel" layoutX="813.0" layoutY="94.0" prefHeight="77.0" prefWidth="119.0" text="VIP Level" textFill="WHITE">
                      <font>
                         <Font size="29.0" />
                      </font>
                   </Label>
-                  <JFXListView fx:id="hotstocks" layoutX="243.0" layoutY="245.0" prefHeight="167.0" prefWidth="254.0" style="-fx-background-color: #ebb50c; -fx-border-color: #eb9b0c; -fx-border-width: 3; -fx-border-radius: 10; -fx-background-radius: 13;" />
+                  <JFXListView fx:id="hotstocks" layoutX="244.0" layoutY="277.0" prefHeight="167.0" prefWidth="254.0" style="-fx-background-color: #ebb50c; -fx-border-color: #eb9b0c; -fx-border-width: 3; -fx-border-radius: 10; -fx-background-radius: 13;" />
+                  <JFXListView fx:id="hotbonds" layoutX="733.0" layoutY="277.0" prefHeight="167.0" prefWidth="254.0" style="-fx-background-color: #ebb50c; -fx-border-color: #eb9b0c; -fx-border-width: 3; -fx-border-radius: 10; -fx-background-radius: 13;" />
                     </children>
                 </AnchorPane>
             </center>
@@ -306,5 +307,10 @@
         </ImageView>
         <Label fx:id="datee" layoutX="806.0" layoutY="500.0" prefHeight="70.0" prefWidth="219.0" text=" " textFill="#eaecef" />
         <Region fx:id="swaptaps" layoutX="213.0" layoutY="89.0" prefHeight="7.0" prefWidth="204.0" style="-fx-background-color: #0c4deb;" />
+      <ImageView fx:id="star" fitHeight="551.0" fitWidth="431.0" layoutX="596.0" layoutY="85.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@star.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

@@ -101,7 +101,7 @@ public class UserController implements Initializable {
     private TextField amount;
 
     @FXML
-    private ImageView immenu;
+    private ImageView immenu,star;
 
     @FXML
     private ImageView immenuclose;
@@ -131,7 +131,7 @@ public class UserController implements Initializable {
     private Button Sellstock;
 
     @FXML
-    Label messagelabel, datee, signedup1;
+    Label messagelabel, datee, signedup1,viplevel;
 
     @FXML
     private Button back;
@@ -165,7 +165,9 @@ public class UserController implements Initializable {
     @FXML
     private NumberAxis priceAxis;
     @FXML
-    private JFXListView<String> hotstocks;
+    private JFXListView<String> hotstocks,hotbonds;
+
+    //private JFXListView<String> hotstocks;
 
     @FXML
     private TableColumn<DataShow, Float> closePrice;
@@ -187,6 +189,8 @@ public class UserController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(star != null)
+        star.setTranslateX(200);
         if(welcomemes!=null)
         welcomemes.setText("Welcome ");
         Timeline timeline = new Timeline(
@@ -363,6 +367,8 @@ public class UserController implements Initializable {
             balancetit.setVisible(false);
             balance.setVisible(false);
             hotstocks.setVisible(false);
+            hotbonds.setVisible(false);
+            viplevel.setVisible(false);
         });
     }
     @FXML
@@ -394,6 +400,8 @@ public class UserController implements Initializable {
             balancetit.setVisible(true);
             balance.setVisible(true);
             hotstocks.setVisible(true);
+            hotbonds.setVisible(true);
+            viplevel.setVisible(true);
         });
     }
     @FXML
@@ -674,8 +682,8 @@ public class UserController implements Initializable {
             if(priceAxis!=null) {
                 if(stock.getPriceList().size()>0) {
                     priceAxis.setAutoRanging(false); // Disable automatic scaling
-                    priceAxis.setLowerBound(stock.getPriceList().get(0) - 13); // Set your desired lower bound
-                    priceAxis.setUpperBound(stock.getPriceList().get(0) + 13);
+                    priceAxis.setLowerBound(stock.getPriceList().get(0) - 2); // Set your desired lower bound
+                    priceAxis.setUpperBound(stock.getPriceList().get(0) + 2);
                 }//
             }
             priceGraph.getData().clear();
@@ -699,8 +707,8 @@ public class UserController implements Initializable {
             priceGraph.getData().clear();
             if(priceAxis!=null) {
                 if(stock.getPriceList().size()>0) {
-                    priceAxis.setLowerBound(stock.getPriceList().get(0) -13); // Set your desired lower bound
-                    priceAxis.setUpperBound(stock.getPriceList().get(0) + 13);
+                    priceAxis.setLowerBound(stock.getPriceList().get(0) -2); // Set your desired lower bound
+                    priceAxis.setUpperBound(stock.getPriceList().get(0) +2);
                 }//
             }
             XYChart.Series series = new XYChart.Series();
