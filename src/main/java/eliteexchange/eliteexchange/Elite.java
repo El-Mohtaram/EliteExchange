@@ -35,7 +35,6 @@ public class Elite extends Application {
         scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();
-
     }
 
     public static void main(String[] args) {

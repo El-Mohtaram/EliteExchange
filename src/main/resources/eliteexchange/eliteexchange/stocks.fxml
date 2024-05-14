@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXListView?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -18,7 +17,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="667.0" prefWidth="1029.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eliteexchange.eliteexchange.UserController">
+<AnchorPane prefHeight="667.0" prefWidth="1029.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eliteexchange.eliteexchange.StocksMenu">
     <children>
         <BorderPane layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="677.0" prefWidth="1029.0" style="-fx-background-color: #181a20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
             <top>
@@ -107,29 +106,21 @@
                                 </VBox>
                             </children>
                         </AnchorPane>
-                        <Label fx:id="welcomemes" layoutX="243.0" layoutY="87.0" prefHeight="77.0" prefWidth="480.0" text="Welcome" textFill="WHITE">
+                        <Label fx:id="welcomemes" layoutX="243.0" layoutY="87.0" prefHeight="77.0" prefWidth="480.0" text="b7b tekz" textFill="WHITE">
                             <font>
                                 <Font size="29.0" />
                             </font>
                         </Label>
-                        <Label fx:id="balancetit" layoutX="244.0" layoutY="113.0" prefHeight="87.0" prefWidth="489.0" text="Your Estimated Balance" textFill="#e8eaed">
+                        <Label fx:id="balancetit" layoutX="594.0" layoutY="113.0" prefHeight="87.0" prefWidth="139.0" text="a7a" textFill="#e8eaed">
                             <font>
                                 <Font size="20.0" />
                             </font>
                         </Label>
-                        <FontAwesomeIconView fx:id="hidebalance" fill="WHITE" glyphName="EYE" layoutX="472.0" layoutY="163.0" />
-                        <FontAwesomeIconView fx:id="showbalance" fill="#e8eaed" glyphName="EYE_SLASH" layoutX="472.0" layoutY="163.0" />
                         <Label fx:id="balance" alignment="TOP_LEFT" layoutX="244.0" layoutY="172.0" prefHeight="36.0" text=" " textFill="WHITE">
                             <font>
                                 <Font name="Yaahowu Bold" size="47.0" />
                             </font>
                         </Label>
-                  <Label fx:id="vpnlevel" layoutX="852.0" layoutY="94.0" prefHeight="77.0" prefWidth="145.0" text="VIP Level" textFill="WHITE">
-                     <font>
-                        <Font size="29.0" />
-                     </font>
-                  </Label>
-                  <JFXListView fx:id="hotstocks" layoutX="243.0" layoutY="245.0" prefHeight="167.0" prefWidth="254.0" style="-fx-background-color: #ebb50c; -fx-border-color: #0c4deb; -fx-border-width: 3; -fx-border-radius: 10; -fx-background-radius: 13;" />
                     </children>
                 </AnchorPane>
             </center>
@@ -305,6 +296,6 @@
             </image>
         </ImageView>
         <Label fx:id="datee" layoutX="806.0" layoutY="500.0" prefHeight="70.0" prefWidth="219.0" text=" " textFill="#eaecef" />
-        <Region fx:id="swaptaps" layoutX="213.0" layoutY="89.0" prefHeight="7.0" prefWidth="204.0" style="-fx-background-color: #0c4deb;" />
+        <Region fx:id="swaptaps" layoutX="417.0" layoutY="89.0" prefHeight="7.0" prefWidth="204.0" style="-fx-background-color: #0c4deb;" />
     </children>
 </AnchorPane>

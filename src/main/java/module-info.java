@@ -9,6 +9,7 @@ module eliteexchange.eliteexchange {
     requires eu.hansolo.tilesfx;
     requires de.jensd.fx.glyphs.fontawesome;
     requires com.jfoenix;
+    requires javafx.media;
 
     opens eliteexchange.eliteexchange to javafx.fxml;
     exports eliteexchange.eliteexchange;

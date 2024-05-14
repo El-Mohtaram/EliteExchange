@@ -88,6 +88,25 @@
     -fx-font-family: "Yaahowu Bold";
     -fx-font-size: 47;
 }
-#balancetit{
+#balancetit,vpnlevel{
     -fx-font-family: "Yaahowu Bold";
+}
+#hotstocks .scroll-bar:vertical {
+    -fx-max-width: 0;
+    -fx-pref-width: 0;
+    -fx-min-width: 0;
+}
+
+#hotstocks .scroll-bar:horizontal {
+    -fx-max-height: 0;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+}
+#hotstocks .list-cell {
+    -fx-control-inner-background: #FF0000; /* Red background for cells */
+    -fx-text-fill: black; /* Black text color */
+}
+
+#hotstocks .list-cell:filled:selected, .list-view .list-cell:filled:selected:focused {
+    -fx-background-color: -fx-control-inner-background; /* Keep the background color on selection */
 }

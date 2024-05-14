@@ -1,6 +1,7 @@
 package eliteexchange.eliteexchange;
 import ApplicationElite.*;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.*;
 import javafx.collections.FXCollections;
@@ -21,8 +22,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -30,9 +35,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.EventObject;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
+
+import javafx.util.Callback;
 import javafx.util.Duration;
 import org.controlsfx.control.action.Action;
-
+import javafx.scene.media.Media;
 import javafx.fxml.Initializable;
 
 public class UserController implements Initializable {
@@ -43,7 +50,6 @@ public class UserController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
-
 
     @FXML
     private TableColumn<DataShow, String> dateCol;
@@ -152,6 +158,8 @@ public class UserController implements Initializable {
     private Label welcomemes;
     @FXML
     private NumberAxis priceAxis;
+    @FXML
+    private JFXListView<String> hotstocks;
     static boolean sceneloaded=false;
     Image menui = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menu.png");
     Image menuclosei = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menuclose.png");
@@ -233,6 +241,27 @@ public class UserController implements Initializable {
                 balance.setTextFill(Color.color(0.9176470588235294, 0.9254901960784314, 0.9372549019607843));
                 hidebalance.setVisible(false);
             });
+        hotstocks.getItems().addAll("elmohtaram","2342","zdsfsd","fsdaasdf","dsafa","dsafdsaf");
+        hotstocks.setCellFactory(param -> new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item != null && !empty) {
+                    setText(item);
+                   setFont(Font.font("Yaahowu Bold", 14)); // Set the font to "yy" with size 12pt
+                    setStyle("-fx-fill: red;"); // Set the cell background color to red
+                    setStyle("-fx-background-color: red;"); // Set the cell background color to red
+                    setStyle("-fx-background-radius: 10;"); // Set the cell background color to red
+                } else {
+                    setText(null);
+                    setGraphic(null);
+                    setStyle(""); // Clear styles for empty cells
+                }
+            }
+        });
+        hotstocks.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> event.consume());
+        hotstocks.lookupAll(".scroll-bar").forEach(scrollBar -> scrollBar.setVisible(false));
+
     }
 
     private void updateDateTimeLabel() {
@@ -298,6 +327,12 @@ public class UserController implements Initializable {
         tapsawp.play();
         swaptaps.setTranslateX(0);
         tapsawp.setOnFinished((ActionEvent e) -> {
+            welcomemes.setVisible(false);
+            showbalance.setVisible(false);
+            hidebalance.setVisible(false);
+            balancetit.setVisible(false);
+            balance.setVisible(false);
+            hotstocks.setVisible(false);
         });
     }
     @FXML
@@ -310,6 +345,7 @@ public class UserController implements Initializable {
         tapsawp.play();
         swaptaps.setTranslateX(0);
         tapsawp.setOnFinished((ActionEvent e) -> {
+
         });
     }
     @FXML
@@ -322,6 +358,12 @@ public class UserController implements Initializable {
         tapsawp.play();
         swaptaps.setTranslateX(0);
         tapsawp.setOnFinished((ActionEvent e) -> {
+            welcomemes.setVisible(true);
+            showbalance.setVisible(true);
+            hidebalance.setVisible(true);
+            balancetit.setVisible(true);
+            balance.setVisible(true);
+            hotstocks.setVisible(true);
         });
     }
     @FXML
