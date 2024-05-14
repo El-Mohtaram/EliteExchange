@@ -188,7 +188,7 @@ public String getCompany(){return company;}
                         if(min>Float.parseFloat(values[i])) min=Float.parseFloat(values[i]);
                         if(max<Float.parseFloat(values[i])) max=Float.parseFloat(values[i]);
                     }
-                    stockPriceHistory.add(new DataShow(company,start,min,max,end));
+                    stockPriceHistory.add(new DataShow(values[1],start,min,max,end));
 
                 }
 
@@ -196,6 +196,10 @@ public String getCompany(){return company;}
                 throw new RuntimeException(e);
             }
 
+        }
+
+        public static ObservableList<DataShow> getStockPriceHistory() {
+            return stockPriceHistory;
         }
     }
 

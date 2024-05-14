@@ -8,12 +8,12 @@ private int number;
 private String history;
 private float yield;
 private String date;
- private   float max;
+ private  float max;
     private float min;
     private float start;
     private float end;
-    public  DataShow(String company,float start,float min, float max, float end){
-        this.company=company;
+    public  DataShow(String date,float start,float min, float max, float end){
+        this.date=date;
         this.start=start;
         this.min=min;
         this.max=max;
@@ -64,8 +64,23 @@ this.number=number;
         return history;
     }
     public float getYield(){return yield;}
-
     public String getDate() {
         return date;
+    }
+
+    public float getEnd() {
+        return end;
+    }
+
+    public float getMax() {
+        return max;
+    }
+
+    public float getMin() {
+        return min;
+    }
+
+    public float getStart() {
+        return start;
     }
 }

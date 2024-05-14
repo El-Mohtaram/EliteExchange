@@ -615,6 +615,16 @@ public class StageController implements Initializable {
         stage.show();
 
     }
+    @FXML
+    public void priceHistory(ActionEvent event) throws IOException
+    {
+        stock.fillStockHistoryData("amazon");
+        Parent root = FXMLLoader.load(getClass().getResource("priceHistory.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
 
 }

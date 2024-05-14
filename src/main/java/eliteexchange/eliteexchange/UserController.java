@@ -166,6 +166,21 @@ public class UserController implements Initializable {
     private NumberAxis priceAxis;
     @FXML
     private JFXListView<String> hotstocks;
+
+    @FXML
+    private TableColumn<DataShow, Float> closePrice;
+    @FXML
+    private TableColumn<DataShow, Float> lowPrice;
+
+    @FXML
+    private TableColumn<DataShow, Float> maxPrice;
+
+    @FXML
+    private TableColumn<DataShow, Float> openPrice;
+
+    @FXML
+    private TableView<DataShow> pricehistoryTable;
+
     static boolean sceneloaded=false;
     Image menui = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menu.png");
     Image menuclosei = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menuclose.png");
@@ -198,10 +213,20 @@ public class UserController implements Initializable {
         }
         if (historyTable != null)
             historyTable.setItems(admin.historyList());
+        if (pricehistoryTable != null)
+            pricehistoryTable.setItems(stock.getStockPriceHistory());
         if (dateTable != null)
             dateTable.setItems(Stock.getDateList());
         if (historyColumn != null)
             historyColumn.setCellValueFactory(new PropertyValueFactory<>("history"));
+        if (maxPrice != null)
+           maxPrice.setCellValueFactory(new PropertyValueFactory<>("max"));
+        if (lowPrice != null)
+            lowPrice.setCellValueFactory(new PropertyValueFactory<>("min"));
+        if (closePrice != null)
+            closePrice.setCellValueFactory(new PropertyValueFactory<>("end"));
+        if (openPrice != null)
+           openPrice.setCellValueFactory(new PropertyValueFactory<>("start"));
         if (dateCol != null)
             dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         // TransHistory.setText("Transaction\nHistory");
@@ -689,6 +714,7 @@ public class UserController implements Initializable {
 
         }
     }
+
 }
 
 
