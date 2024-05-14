@@ -103,8 +103,8 @@
     -fx-min-height: 0;
 }
 #hotstocks .list-cell {
-    -fx-control-inner-background: #FF0000; /* Red background for cells */
-    -fx-text-fill: black; /* Black text color */
+    -fx-control-inner-background: #ebb50c; /* Red background for cells */
+    -fx-text-fill: white; /* Black text color */
 }
 
 #hotstocks .list-cell:filled:selected, .list-view .list-cell:filled:selected:focused {

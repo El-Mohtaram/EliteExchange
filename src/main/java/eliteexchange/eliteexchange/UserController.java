@@ -256,8 +256,6 @@ public class UserController implements Initializable {
                 if (item != null && !empty) {
                     setText(item);
                    setFont(Font.font("Yaahowu Bold", 14)); // Set the font to "yy" with size 12pt
-                    setStyle("-fx-fill: red;"); // Set the cell background color to red
-                    setStyle("-fx-background-color: red;"); // Set the cell background color to red
                     setStyle("-fx-background-radius: 10;"); // Set the cell background color to red
                 } else {
                     setText(null);

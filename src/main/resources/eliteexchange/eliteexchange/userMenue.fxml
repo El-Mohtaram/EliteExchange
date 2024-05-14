@@ -129,7 +129,7 @@
                         <Font size="29.0" />
                      </font>
                   </Label>
-                  <JFXListView fx:id="hotstocks" layoutX="243.0" layoutY="245.0" prefHeight="167.0" prefWidth="254.0" style="-fx-background-color: #ebb50c; -fx-border-color: #0c4deb; -fx-border-width: 3; -fx-border-radius: 10; -fx-background-radius: 13;" />
+                  <JFXListView fx:id="hotstocks" layoutX="243.0" layoutY="245.0" prefHeight="167.0" prefWidth="254.0" style="-fx-background-color: #ebb50c; -fx-border-color: #eb9b0c; -fx-border-width: 3; -fx-border-radius: 10; -fx-background-radius: 13;" />
                     </children>
                 </AnchorPane>
             </center>
