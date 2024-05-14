@@ -110,8 +110,11 @@ if(state!=0) {yeilds.add(Float.parseFloat(values[3]));
             stockData.clear();
             int i = 0;
             for (String key : securities.keySet()) {
-               if(state==0) stockData.add(new DataShow(key, NumberOfSecurities.get(i), securities.get(key)));
-               else stockData.add(new DataShow(key, yeilds.get(i), securities.get(key),NumberOfSecurities.get(i)));
+                if(NumberOfSecurities.get(i)>0) {
+                    if (state == 0) stockData.add(new DataShow(key, NumberOfSecurities.get(i), securities.get(key)));
+                    else
+                        stockData.add(new DataShow(key, yeilds.get(i), securities.get(key), NumberOfSecurities.get(i)));
+                }
                 i++;
             }
 
@@ -133,8 +136,8 @@ if(state!=0) {yeilds.add(Float.parseFloat(values[3]));
                 if (!Name.equals(values[0]))
                     lines.add(line);
                 else {
-                    securities.remove(Name);
-                    NumberOfSecurities.remove(index);
+                    lines.add(values[0]+",0"+","+values[2]);
+                    NumberOfSecurities.set(index,0);
 if(state!=0) yeilds.remove(index);
                 }
                 index++;

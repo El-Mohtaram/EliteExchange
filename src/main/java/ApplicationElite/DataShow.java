@@ -8,6 +8,17 @@ private int number;
 private String history;
 private float yield;
 private String date;
+ private   float max;
+    private float min;
+    private float start;
+    private float end;
+    public  DataShow(String company,float start,float min, float max, float end){
+        this.company=company;
+        this.start=start;
+        this.min=min;
+        this.max=max;
+        this.end=end;
+    }
 public DataShow (String date,int a)
 {
     this.date=date;

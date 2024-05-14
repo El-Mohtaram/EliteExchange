@@ -24,38 +24,39 @@ import java.util.concurrent.TimeUnit;
             scheduler.scheduleAtFixedRate(() -> {
                stocks.RestoreData();
                stocks.UpdatePrices();
+               if(stocks.admin.marketOpenOrClose()){
                 for(String key: Stock.stocks.keySet()) {
-                    String csvname =key;
-                    File file = new File("src/main/java/PriceHistory/"+csvname+".csv");
+                    String csvname = key;
+                    File file = new File("src/main/java/PriceHistory/" + csvname + ".csv");
                     if (file.exists()) {
-                        try ( FileWriter fileWriter = new FileWriter("src/main/java/PriceHistory/"+csvname+".csv", true)) {
+                        try (FileWriter fileWriter = new FileWriter("src/main/java/PriceHistory/" + csvname + ".csv", true)) {
                             PrintWriter printWriter = new PrintWriter(fileWriter);
-                            List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/PriceHistory/"+csvname+".csv"));
-                            String lastline=fileContent.get(fileContent.size()-1);
-                            String []line=lastline.split(",");
-                            if(line[1].equals(formattedDateTime))
-                            printWriter.print(","+Stock.stocks.get(csvname));
-                            else{
+                            List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/PriceHistory/" + csvname + ".csv"));
+                            String lastline = fileContent.get(fileContent.size() - 1);
+                            String[] line = lastline.split(",");
+                            if (line[1].equals(formattedDateTime))
+                                printWriter.print("," + Stock.stocks.get(csvname));
+                            else {
                                 printWriter.println(" ");
-                                printWriter.print(csvname+","+formattedDateTime+","+Stock.stocks.get(csvname));
+                                printWriter.print(csvname + "," + formattedDateTime + "," + Stock.stocks.get(csvname));
                             }
                         } catch (IOException e) {
                         }
 
-                    }
-                    else {
-                        try ( FileWriter fileWriter = new FileWriter("src/main/java/PriceHistory/"+csvname+".csv", true)) {
+                    } else {
+                        try (FileWriter fileWriter = new FileWriter("src/main/java/PriceHistory/" + csvname + ".csv", true)) {
                             PrintWriter printWriter = new PrintWriter(fileWriter);
-                            printWriter.print(csvname+","+formattedDateTime);
+                            printWriter.print(csvname + "," + formattedDateTime);
 
                         } catch (IOException e) {
                         }
                     }
+                }
 
                 }
 
 
-            }, 0, 15, TimeUnit.SECONDS);
+            }, 0, 2, TimeUnit.SECONDS);
         }
 
 

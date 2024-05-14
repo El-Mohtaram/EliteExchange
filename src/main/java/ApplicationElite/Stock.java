@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
     public class Stock extends Securities {
+
         private static String company;
         private String csvFile = "src/main/java/data/Market.csv";
         private String csvFile2 = "src/main/java/data/stock.csv";
@@ -16,6 +17,7 @@ import javafx.collections.ObservableList;
         static private ObservableList<DataShow> stockData = FXCollections.observableArrayList();
         static private ObservableList<DataShow> dateList = FXCollections.observableArrayList();
         static private ObservableList<DataShow> userStockList = FXCollections.observableArrayList();
+        static private ObservableList<DataShow> stockPriceHistory = FXCollections.observableArrayList();
 static private ArrayList<Float>priceList  = new ArrayList<>();
         static private ArrayList<Integer>timeList  = new ArrayList<>();
         public void addStock(String name, int number, float f) {
@@ -44,8 +46,8 @@ static private ArrayList<Float>priceList  = new ArrayList<>();
 
         public void UpdatePrices() {
             for (String key : stocks.keySet()) {
-                float minPrice = stocks.get(key) - 2.0f;
-                float maxPrice = stocks.get(key) + 2.0f;
+                float minPrice = stocks.get(key) - 0.1f;
+                float maxPrice = stocks.get(key) + 0.1f;
 
                 // Generate a random price within the specified range
                 Random random = new Random();
@@ -171,7 +173,32 @@ static private ArrayList<Float>priceList  = new ArrayList<>();
         public ArrayList<Float> getPriceList() {return priceList;}
         public ArrayList<Integer> getTimeList() {return timeList;}
 public String getCompany(){return company;}
+        public void fillStockHistoryData(String company){
+            try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/PriceHistory/" + company + ".csv"))) {
+                String line;
+
+                while ((line = br.readLine()) != null)
+                {
+                    String[]values= line.split(",");
+                    float max=Float.parseFloat(values[2]);
+                    float min=Float.parseFloat(values[2]);
+                    float start=Float.parseFloat(values[2]);
+                    float end=Float.parseFloat(values[values.length-1]);
+                    for (int i = 3; i <values.length ; i++) {
+                        if(min>Float.parseFloat(values[i])) min=Float.parseFloat(values[i]);
+                        if(max<Float.parseFloat(values[i])) max=Float.parseFloat(values[i]);
+                    }
+                    stockPriceHistory.add(new DataShow(company,start,min,max,end));
+
+                }
+
+                } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
     }
+
 
 
 
