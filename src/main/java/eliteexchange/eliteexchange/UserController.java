@@ -1,4 +1,10 @@
 package eliteexchange.eliteexchange;
+
+import ApplicationElite.Account;
+import ApplicationElite.Admin;
+import ApplicationElite.DataShow;
+import ApplicationElite.Securities;
+import ApplicationElite.Stock;
 import ApplicationElite.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
@@ -241,8 +247,9 @@ public class UserController implements Initializable {
                 balance.setTextFill(Color.color(0.9176470588235294, 0.9254901960784314, 0.9372549019607843));
                 hidebalance.setVisible(false);
             });
+        if(hotstocks!=null)
         hotstocks.getItems().addAll("elmohtaram","2342","zdsfsd","fsdaasdf","dsafa","dsafdsaf");
-        hotstocks.setCellFactory(param -> new ListCell<String>() {
+        if(hotstocks!=null)    hotstocks.setCellFactory(param -> new ListCell<String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -259,8 +266,8 @@ public class UserController implements Initializable {
                 }
             }
         });
-        hotstocks.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> event.consume());
-        hotstocks.lookupAll(".scroll-bar").forEach(scrollBar -> scrollBar.setVisible(false));
+        if(hotstocks!=null)hotstocks.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> event.consume());
+        if(hotstocks!=null)  hotstocks.lookupAll(".scroll-bar").forEach(scrollBar -> scrollBar.setVisible(false));
 
     }
 
@@ -552,7 +559,6 @@ public class UserController implements Initializable {
 //        stage.setScene(scene);
 //        stage.show();
 //    }
-
 
     @FXML
     private void DandW(ActionEvent event) throws IOException {

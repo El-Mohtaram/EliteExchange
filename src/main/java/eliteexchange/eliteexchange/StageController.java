@@ -308,10 +308,12 @@ public class StageController implements Initializable {
     @FXML
     void AddstockScene(ActionEvent event) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("AddScene.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("StockManagementScene.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        String StockManagementcss = getClass().getResource("StockManagementScene.css").toExternalForm();
+        stage.getScene().getStylesheets().add(StockManagementcss);
         stock.RestoreData();
         stage.show();
 
@@ -415,13 +417,27 @@ public class StageController implements Initializable {
     }
 
     @FXML
-    void RefreshScreen(MouseEvent event) throws IOException {
+    void RefreshUserMangementScreen(MouseEvent event) throws IOException {
         System.out.println(event);
         Admin.createuserslist();
         Parent root = FXMLLoader.load(getClass().getResource("Usermanagement.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         String UserManagementcss = getClass().getResource("UserManagement.css").toExternalForm();
+        scene.getStylesheets().add(UserManagementcss);
+        stage.setScene(scene);
+        stage.show();
+        stock.RestoreData();
+    }
+
+    @FXML
+    void RefreshRequestsScreen(MouseEvent event) throws IOException {
+        System.out.println(event);
+        Admin.createuserslist();
+        Parent root = FXMLLoader.load(getClass().getResource("RequestScene.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        String UserManagementcss = getClass().getResource("Requests.css").toExternalForm();
         scene.getStylesheets().add(UserManagementcss);
         stage.setScene(scene);
         stage.show();
@@ -474,6 +490,8 @@ public class StageController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("RequestScene.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
+        String Requestscss = getClass().getResource("Requests.css").toExternalForm();
+        scene.getStylesheets().add(Requestscss);
         stage.setScene(scene);
         stage.show();
         admin.RestoreData();

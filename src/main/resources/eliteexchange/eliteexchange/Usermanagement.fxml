@@ -55,7 +55,7 @@
                 <Button fx:id="deleteuserbutton" layoutX="134.0" layoutY="493.0" mnemonicParsing="false"
                         onAction="#deleteusers" prefHeight="30.0" prefWidth="125.0" text="Delete"/>
                 <FontAwesomeIconView fx:id="RefreshIcon" caretBias="false" fill="WHITE" glyphName="REFRESH" layoutX="952.0" layoutY="73.0"
-                                     onMouseClicked="#RefreshScreen" size="40"/>
+                                     onMouseClicked="#RefreshUserMangementScreen" size="40"/>
                 <ComboBox fx:id="userlist" layoutX="713.0" layoutY="192.0" prefWidth="150.0"/>
                 <Label layoutX="759.0" layoutY="149.0" text="Users" textFill="#ebb50c">
                     <font>

@@ -1,0 +1,70 @@
+#min, #close {
+    -fx-fill: #181a20; /* Initial gradient */
+    -fx-transition: -fx-fill 0.6s ease;
+}
+#close:hover {
+    -fx-fill: #d50000;
+}
+#min:hover{
+    -fx-fill: #eaecef;
+}
+#min:pressed{
+    -fx-fill: grey;
+}
+#close:pressed{
+    -fx-fill: #930000
+}
+
+#ReturnIcon,#RefreshIcon{
+    -fx-cursor: hand;
+}
+#ReturnIcon:hover{
+    -fx-font-size: 100px; /* Set the font size to 100 pixels */
+    -fx-scale-x: 1.2; /* Increase the size of the icon by 20% horizontally */
+    -fx-scale-y: 1.2; /* Increase the size of the icon by 20% vertically */
+    transition: all 0.3s ease; /* Smooth transition for the change */
+}
+
+#RefreshIcon:hover{
+    -fx-rotate: 70;
+    transition: all 0.6s ease; /* Smooth transition for the change */
+}
+
+#accept,#refuse{
+    -fx-background-color: #fcd535;
+    -fx-cursor: hand;
+}
+#accept:hover,#refuse:hover{
+    -fx-background-color: #cfaf30;
+}
+
+.table-view .column-header {
+    -fx-background-color: #0c4deb;
+}
+
+.table-row-cell:odd{
+-fx-background-color: #fcd535;
+-fx-background-insets: 0, 0 0 1 0;
+-fx-cursor: hand;
+}
+
+.table-row-cell:even{
+-fx-background-color: #cfaf30;
+-fx-background-insets: 0, 0 0 1 0;
+-fx-cursor: hand;
+}
+
+.table-row-cell:hover{
+    -fx-background-color: #0c4deb;
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.table-view .scroll-bar * {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+}
