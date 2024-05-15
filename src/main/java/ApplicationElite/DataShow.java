@@ -44,7 +44,9 @@ this.number=number;
     this.price=price;
     this.number=number;
     }
-
+    public DataShow(String company,boolean x) {
+        this.company=company;
+    }
     public String getCompany() {
         return company;
     }

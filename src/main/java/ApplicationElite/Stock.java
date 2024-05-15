@@ -18,6 +18,7 @@ import javafx.collections.ObservableList;
         static private ObservableList<DataShow> dateList = FXCollections.observableArrayList();
         static private ObservableList<DataShow> userStockList = FXCollections.observableArrayList();
         static private ObservableList<DataShow> stockPriceHistory = FXCollections.observableArrayList();
+        static private ObservableList<DataShow> companylist = FXCollections.observableArrayList();
 static private ArrayList<Float>priceList  = new ArrayList<>();
         static private ArrayList<Integer>timeList  = new ArrayList<>();
         public void addStock(String name, int number, float f) {
@@ -196,6 +197,11 @@ public String getCompany(){return company;}
                 throw new RuntimeException(e);
             }
 
+        }
+        public ObservableList<DataShow> fillcompanytaple(){
+            for (String key : stocks.keySet())
+            companylist.add(new DataShow(key,true));
+            return companylist;
         }
 
         public static ObservableList<DataShow> getStockPriceHistory() {

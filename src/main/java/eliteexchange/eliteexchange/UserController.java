@@ -182,6 +182,10 @@ public class UserController implements Initializable {
 
     @FXML
     private TableView<DataShow> pricehistoryTable;
+    @FXML
+    private TableColumn<DataShow, Float> exportcompany;
+    @FXML
+    private TableView<DataShow> companylists;
 
     static boolean sceneloaded=false;
     Image menui = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menu.png");
@@ -219,6 +223,8 @@ public class UserController implements Initializable {
             historyTable.setItems(admin.historyList());
         if (pricehistoryTable != null)
             pricehistoryTable.setItems(stock.getStockPriceHistory());
+        if(companylists!=null)
+            companylists.setItems(stock.fillcompanytaple());
         if (dateTable != null)
             dateTable.setItems(Stock.getDateList());
         if (historyColumn != null)
@@ -231,6 +237,8 @@ public class UserController implements Initializable {
             closePrice.setCellValueFactory(new PropertyValueFactory<>("end"));
         if (openPrice != null)
            openPrice.setCellValueFactory(new PropertyValueFactory<>("start"));
+        if (exportcompany != null)
+            exportcompany.setCellValueFactory(new PropertyValueFactory<>("exportcompany"));
         if (dateCol != null)
             dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         // TransHistory.setText("Transaction\nHistory");
@@ -721,6 +729,14 @@ public class UserController implements Initializable {
 
 
         }
+    }
+    @FXML
+    public void Exportcsvscene(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("Exportcsv.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
 }
