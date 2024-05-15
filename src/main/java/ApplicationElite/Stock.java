@@ -174,12 +174,13 @@ static private ArrayList<Float>priceList  = new ArrayList<>();
         public ArrayList<Float> getPriceList() {return priceList;}
         public ArrayList<Integer> getTimeList() {return timeList;}
 public String getCompany(){return company;}
-        public void fillStockHistoryData(String company){
+        public void fillStockHistoryData(String company,boolean state,File file){
             try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/PriceHistory/" + company + ".csv"))) {
                 String line;
-
+                int index=0;
                 while ((line = br.readLine()) != null)
                 {
+                    index++;
                     String[]values= line.split(",");
                     float max=Float.parseFloat(values[2]);
                     float min=Float.parseFloat(values[2]);
@@ -189,8 +190,19 @@ public String getCompany(){return company;}
                         if(min>Float.parseFloat(values[i])) min=Float.parseFloat(values[i]);
                         if(max<Float.parseFloat(values[i])) max=Float.parseFloat(values[i]);
                     }
+                    if(!state)
                     stockPriceHistory.add(new DataShow(values[1],start,min,max,end));
-
+                    else{
+                        try (FileWriter writer = new FileWriter(file,true)) {
+                            PrintWriter printWriter = new PrintWriter(writer);
+                            if(index==1){
+                                printWriter.println(" date , opening price , lowest price , max price , closing price");
+                            }
+                            printWriter.println(values[1]+","+start+","+min+","+max+","+end);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
 
                 } catch (IOException e) {

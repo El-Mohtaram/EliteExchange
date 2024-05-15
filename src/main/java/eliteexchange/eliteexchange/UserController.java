@@ -31,6 +31,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -42,6 +43,7 @@ import java.util.EventObject;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
+import javafx.stage.Window;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import org.controlsfx.control.action.Action;
@@ -238,7 +240,7 @@ public class UserController implements Initializable {
         if (openPrice != null)
            openPrice.setCellValueFactory(new PropertyValueFactory<>("start"));
         if (exportcompany != null)
-            exportcompany.setCellValueFactory(new PropertyValueFactory<>("exportcompany"));
+            exportcompany.setCellValueFactory(new PropertyValueFactory<>("company2"));
         if (dateCol != null)
             dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         // TransHistory.setText("Transaction\nHistory");
@@ -737,6 +739,21 @@ public class UserController implements Initializable {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    public void export(){
+        DataShow selectedcompany = companylists.getSelectionModel().getSelectedItem();
+        String company2 = selectedcompany.getCompany2();
+        FileChooser fileChooser = new FileChooser();
+        Stage primaryStage = new Stage();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        File selectedFile = fileChooser.showSaveDialog(primaryStage);
+        if (selectedFile != null) {
+            exportCSV(selectedFile,company2);
+        }
+    }
+    public void exportCSV(File file,String company){
+        stock.fillStockHistoryData(company,true, file);
+
     }
 
 }

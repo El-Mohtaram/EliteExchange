@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -621,7 +622,8 @@ public class StageController implements Initializable {
     @FXML
     public void priceHistory(ActionEvent event) throws IOException
     {
-        stock.fillStockHistoryData("amazon");
+        File file=null;
+        stock.fillStockHistoryData("amazon",false,  file);
         Parent root = FXMLLoader.load(getClass().getResource("priceHistory.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
