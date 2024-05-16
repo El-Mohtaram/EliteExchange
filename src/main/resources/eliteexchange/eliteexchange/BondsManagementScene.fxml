@@ -42,65 +42,57 @@
    <bottom>
       <AnchorPane prefHeight="658.0" prefWidth="1029.0" BorderPane.alignment="CENTER">
          <children>
-            <FontAwesomeIconView fx:id="ReturnIcon" fill="WHITE" glyphName="ARROW_CIRCLE_LEFT" layoutX="47.0" layoutY="73.0" onMouseClicked="#BackPressed" size="40" />
-            <Label layoutX="353.0" layoutY="32.0" text="Stocks Management" textFill="#ebb50c">
+            <Label layoutX="368.0" layoutY="32.0" text="Bonds Management" textFill="#ebb50c">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
-            <TableView fx:id="Addtable" layoutX="636.0" layoutY="128.0" prefHeight="402.0" prefWidth="361.0">
+            <FontAwesomeIconView fx:id="ReturnIcon" fill="WHITE" glyphName="ARROW_CIRCLE_LEFT" layoutX="47.0" layoutY="73.0" onMouseClicked="#BackPressed" size="40" />
+            <Label layoutX="81.0" layoutY="146.0" text="Company Name" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="81.0" layoutY="228.0" text="Number of bonds" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="81.0" layoutY="311.0" text="Face Value" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="81.0" layoutY="388.0" text="Yield" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="81.0" layoutY="459.0" text="Valid Until" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="companyName" layoutX="248.0" layoutY="149.0" />
+            <TextField fx:id="numberOfStocks" layoutX="249.0" layoutY="231.0" />
+            <TextField fx:id="value" layoutX="249.0" layoutY="314.0" />
+            <TextField fx:id="yield" layoutX="250.0" layoutY="391.0" />
+            <TextField fx:id="ValidUntil" layoutX="251.0" layoutY="462.0" />
+            <TableView fx:id="bondsTable" layoutX="587.0" layoutY="148.0" prefHeight="384.0" prefWidth="390.0">
               <columns>
-                <TableColumn fx:id="company" prefWidth="138.4000244140625" text="Company" />
-                <TableColumn fx:id="startPrice" prefWidth="114.39996337890625" text="Start price" />
-                  <TableColumn fx:id="numberofStocks" prefWidth="109.60009765625" text="Number" />
+                <TableColumn fx:id="companyB" prefWidth="92.0" text="Company" />
+                <TableColumn fx:id="yieldB" prefWidth="68.0" text="Yield %" />
+                  <TableColumn fx:id="faceValue" prefWidth="75.199951171875" text="Face Value" />
+                  <TableColumn fx:id="numberB" prefWidth="76.7999267578125" text="Available" />
+                  <TableColumn fx:id="expCol" prefWidth="81.5999755859375" text="Valid Until" />
               </columns>
             </TableView>
-            <Label layoutX="64.0" layoutY="174.0" text="Company Name" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Label layoutX="64.0" layoutY="267.0" text="Stock Value" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Label layoutX="64.0" layoutY="356.0" text="Number of stocks" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Label layoutX="64.0" layoutY="449.0" text="Start Price" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <TextField fx:id="companyName" layoutX="239.0" layoutY="176.0" />
-            <TextField fx:id="stockValue" layoutX="239.0" layoutY="269.0" />
-            <TextField fx:id="numberOfStocks" layoutX="240.0" layoutY="359.0" />
-            <TextField fx:id="startprice" layoutX="240.0" layoutY="452.0" />
-            <Button fx:id="addStock" layoutX="159.0" layoutY="559.0" mnemonicParsing="false" onAction="#addStock" prefHeight="30.0" prefWidth="122.0" text="Add" />
-            <Button fx:id="deleteStock" layoutX="389.0" layoutY="559.0" mnemonicParsing="false" onAction="#deleteStock" prefHeight="30.0" prefWidth="122.0" text="Delete" />
-            <FontAwesomeIconView fill="WHITE" glyphName="USD" layoutX="409.0" layoutY="289.0" size="20">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </FontAwesomeIconView>
-            <FontAwesomeIconView fill="WHITE" glyphName="USD" layoutX="409.0" layoutY="471.0" size="20">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </FontAwesomeIconView>
-            <FontAwesomeIconView fill="WHITE" glyphName="PLUS" layoutX="214.0" layoutY="617.0" size="20">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </FontAwesomeIconView>
-            <FontAwesomeIconView fill="WHITE" glyphName="TRASH" layoutX="442.0" layoutY="616.0" size="20">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </FontAwesomeIconView>
+            <FontAwesomeIconView fill="WHITE" glyphName="USD" layoutX="418.0" layoutY="331.0" size="20" />
+            <FontAwesomeIconView fill="WHITE" glyphName="PERCENT" layoutX="418.0" layoutY="410.0" size="20" />
+            <Button fx:id="AddBonds" layoutX="128.0" layoutY="559.0" mnemonicParsing="false" onAction="#addBond" prefHeight="30.0" prefWidth="122.0" text="Add" />
+            <Button fx:id="DeleteBonds" layoutX="336.0" layoutY="559.0" mnemonicParsing="false" onAction="#deleteBond" prefHeight="30.0" prefWidth="122.0" text="Delete" />
+            <FontAwesomeIconView fill="WHITE" glyphName="CHECK" layoutX="179.0" layoutY="615.0" size="20" />
+            <FontAwesomeIconView fill="WHITE" glyphName="TRASH" layoutX="389.0" layoutY="616.0" size="20" />
          </children>
       </AnchorPane>
    </bottom>

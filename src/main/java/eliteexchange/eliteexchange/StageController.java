@@ -112,9 +112,12 @@ public class StageController implements Initializable {
     private TableColumn<DataShow, String> companyB;
 
 
-
     @FXML
     private TableColumn<DataShow, Integer> numberB;
+
+
+    @FXML
+    public TableColumn<DataShow, Integer> expCol;
 
 
     @FXML
@@ -567,10 +570,12 @@ public class StageController implements Initializable {
         stage.show();
     }
     @FXML
-    public void addBonds(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("addBonds.fxml"));
+    public void BondsManagement(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("BondsManagementScene.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
+        String BondsManagementcss = getClass().getResource("BondsManagementScene.css").toExternalForm();
+        scene.getStylesheets().add(BondsManagementcss);
         stage.setScene(scene);
         bond.RefreshBondList();
         stage.show();

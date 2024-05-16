@@ -18,10 +18,10 @@
 #close:pressed{
     -fx-fill: #930000
 }
-#StocksManagementButton,#UsersManagementButton,#RequestsButton,#LogoutButton{
+#StocksManagementButton,#UsersManagementButton,#RequestsButton,#LogoutButton,#BondsManagementButton{
     -fx-background-color: #fcd535;
     -fx-cursor: hand;
 }
-#StocksManagementButton:hover,#UsersManagementButton:hover,#RequestsButton:hover,#LogoutButton:hover{
+#StocksManagementButton:hover,#UsersManagementButton:hover,#RequestsButton:hover,#LogoutButton:hover,#BondsManagementButton:hover{
     -fx-background-color: #cfaf30;
 }
