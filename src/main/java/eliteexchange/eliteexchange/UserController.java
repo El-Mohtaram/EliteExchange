@@ -204,21 +204,22 @@ public class UserController implements Initializable {
         );
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-        if (startPrice != null)
+        if (startPrice != null) {
             startPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
             startPrice.setResizable(false);
+        }
         if (company != null)
-            company.setCellValueFactory(new PropertyValueFactory<>("company"));
-            company.setResizable(false);
+        { company.setCellValueFactory(new PropertyValueFactory<>("company"));
+            company.setResizable(false);}
         if (yieldB != null)
-            yieldB.setCellValueFactory(new PropertyValueFactory<>("yield"));
-            yieldB.setResizable(false);
+        {yieldB.setCellValueFactory(new PropertyValueFactory<>("yield"));
+            yieldB.setResizable(false);}
         if (numberB != null)
-            numberB.setCellValueFactory(new PropertyValueFactory<>("number"));
-            numberB.setResizable(false);
+        {  numberB.setCellValueFactory(new PropertyValueFactory<>("number"));
+            numberB.setResizable(false);}
         if (companyB != null)
-            companyB.setCellValueFactory(new PropertyValueFactory<>("company"));
-            companyB.setResizable(false);
+        {companyB.setCellValueFactory(new PropertyValueFactory<>("company"));
+            companyB.setResizable(false);}
         if (hidebalance != null) {
             hidebalance.setVisible(false);
         }

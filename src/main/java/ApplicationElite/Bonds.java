@@ -76,7 +76,7 @@ public class Bonds extends Securities {
                         String[] values2 = values[i].split(">");
                         if (Integer.parseInt(values2[2]) > 0) {
                             line = line + "," + values2[0] + ">" + values2[1] + ">" + (Integer.parseInt(values2[2]) - 1) + ">" + values2[3];
-                            account.updateBalance2(values[0], Float.parseFloat(values2[3])/100 *bondList.get(values2[1]) * Integer.parseInt(values2[0]));
+                            account.updateBalance2(values[0], Float.parseFloat(values2[3])/100.0f *bondList.get(values2[1]) * Integer.parseInt(values2[0]));
 
                         }
                         else account.updateBalance2(values[0],bondList.get(values2[1]) * Integer.parseInt(values2[0]));
