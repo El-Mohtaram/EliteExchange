@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXListView?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -135,8 +136,6 @@
                         <Font size="29.0" />
                      </font>
                   </Label>
-                        <JFXListView fx:id="hotstocks" layoutX="244.0" layoutY="277.0" prefHeight="167.0" prefWidth="254.0" style="-fx-background-color: #ebb50c; -fx-border-color: #eb9b0c; -fx-border-width: 3; -fx-border-radius: 10; -fx-background-radius: 13;" />
-                        <JFXListView fx:id="hotbonds" layoutX="733.0" layoutY="277.0" prefHeight="167.0" prefWidth="254.0" style="-fx-background-color: #ebb50c; -fx-border-color: #eb9b0c; -fx-border-width: 3; -fx-border-radius: 10; -fx-background-radius: 13;" />
                         <Label fx:id="hotstockstit" layoutX="304.0" layoutY="234.0" text="Hot Stocks" textFill="WHITE">
                             <font>
                                 <Font size="28.0" />
@@ -147,6 +146,20 @@
                         <Font size="28.0" />
                      </font>
                   </Label>
+                  <TableView fx:id="hotstocks" layoutX="244.0" layoutY="277.0" prefHeight="167.0" prefWidth="254.0">
+                    <columns>
+                      <TableColumn fx:id="company" prefWidth="91.99998474121094" text="Company" />
+                      <TableColumn fx:id="startPrice" prefWidth="121.33331298828125" text="Current Price" />
+                        <TableColumn prefWidth="39.33331298828125" text="24H%" />
+                    </columns>
+                  </TableView>
+                  <TableView fx:id="hotbonds" layoutX="733.0" layoutY="277.0" prefHeight="167.0" prefWidth="254.0">
+                     <columns>
+                        <TableColumn fx:id="companyB" prefWidth="106.666748046875" text="Company" />
+                        <TableColumn fx:id="yieldB" prefWidth="60.0" text="Yield %" />
+                        <TableColumn fx:id="numberB" prefWidth="86.666748046875" text="Available" />
+                     </columns>
+                  </TableView>
                     </children>
                 </AnchorPane>
             </center>

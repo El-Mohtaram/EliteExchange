@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.*;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -85,7 +86,7 @@ public class UserController implements Initializable {
     private TableColumn<DataShow, String> requestColumn, historyColumn;
 
     @FXML
-    private TableColumn<DataShow, String> company, ownedCompanyCol;
+    private TableColumn<DataShow, String> company, ownedCompanyCol,companyB;
 
     @FXML
     private TableColumn<DataShow, Float> currentPrice;
@@ -140,14 +141,14 @@ public class UserController implements Initializable {
 
     @FXML
     private TableColumn<DataShow, Float> maxPrice;
-
     @FXML
     private TableColumn<DataShow, Float> openPrice;
-
     @FXML
     private TableView<DataShow> pricehistoryTable;
     @FXML
-    private TableColumn<DataShow, Float> exportcompany;
+    private TableColumn<DataShow, Float> exportcompany,yieldB;
+    @FXML
+    private TableColumn<DataShow, Integer> numberB;
     @FXML
     private TableView<DataShow> companylists;
     @FXML
@@ -182,9 +183,7 @@ public class UserController implements Initializable {
     @FXML
     private NumberAxis priceAxis;
     @FXML
-    private JFXListView<DataShow> hotstocks,hotbonds;
-//    @FXML
-//    private JFXListView<String> hotbonds;
+    private TableView<DataShow> hotstocks,hotbonds;
 
 
     static boolean sceneloaded=false;
@@ -205,6 +204,21 @@ public class UserController implements Initializable {
         );
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+        if (startPrice != null)
+            startPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+            startPrice.setResizable(false);
+        if (company != null)
+            company.setCellValueFactory(new PropertyValueFactory<>("company"));
+            company.setResizable(false);
+        if (yieldB != null)
+            yieldB.setCellValueFactory(new PropertyValueFactory<>("yield"));
+            yieldB.setResizable(false);
+        if (numberB != null)
+            numberB.setCellValueFactory(new PropertyValueFactory<>("number"));
+            numberB.setResizable(false);
+        if (companyB != null)
+            companyB.setCellValueFactory(new PropertyValueFactory<>("company"));
+            companyB.setResizable(false);
         if (hidebalance != null) {
             hidebalance.setVisible(false);
         }
@@ -288,45 +302,15 @@ public class UserController implements Initializable {
                 hidebalance.setVisible(false);
             });
 
-        ObservableList<DataShow> datashowstocks=stock.returnList();
-
-        if(hotstocks!=null){ hotstocks.setItems(datashowstocks);
-            hotstocks.setCellFactory(param -> new ListCell<DataShow>() {
-            @Override
-            protected void updateItem(DataShow item, boolean empty) {
-                super.updateItem(item, empty);
-                if (item != null && !empty) {
-                    setText(item.toString());
-                    setFont(Font.font("Yaahowu Bold", 18)); // Set the font to "yy" with size 12pt
-                    setStyle("-fx-background-radius: 10; -fx-alignment: center; -fx-text-alignment: center;"); // Set the cell background color to red, center align the text, and center justify the text
-                } else {
-                    setText(null);
-                    setGraphic(null);
-                    setStyle(""); // Clear styles for empty cells
-                }
+        if(hotstocks!=null){ hotstocks.setItems(stock.returnList());
+            stock.RestoreData();
             }
-        });}
         if(hotstocks!=null)  hotstocks.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> event.consume());
         if(hotstocks!=null)  hotstocks.lookupAll(".scroll-bar").forEach(scrollBar -> scrollBar.setVisible(false));
 
-            ObservableList<DataShow> datashowbonds= bond.getBondData();
-
-        if(hotbonds!=null){ hotbonds.setItems(datashowbonds);
-            hotbonds.setCellFactory(param -> new ListCell<DataShow>() {
-                @Override
-                protected void updateItem(DataShow item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (item != null && !empty) {
-                        setText(item.toString());
-                        setFont(Font.font("Yaahowu Bold", 18)); // Set the font to "yy" with size 12pt
-                        setStyle("-fx-background-radius: 10; -fx-alignment: center; -fx-text-alignment: center;"); // Set the cell background color to red, center align the text, and center justify the text
-                    } else {
-                        setText(null);
-                        setGraphic(null);
-                        setStyle(""); // Clear styles for empty cells
-                    }
-                }
-            });}
+        if(hotbonds!=null){ hotbonds.setItems(bond.getBondData());
+            bond.RefreshBondList();
+        }
         if(hotbonds!=null)  hotbonds.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> event.consume());
         if(hotbonds!=null)  hotbonds.lookupAll(".scroll-bar").forEach(scrollBar -> scrollBar.setVisible(false));
     }
