@@ -77,7 +77,7 @@ public void RefreshBondList(){
                         if (Integer.parseInt(values2[2]) > 0) {
                             line = line + "," + values2[0] + ">" + values2[1] + ">" + (Integer.parseInt(values2[2]) - 1) + ">" + values2[3];
                             account.updateBalance2(values[0], Float.parseFloat(values2[3])/100 *bondList.get(values2[1]) * Integer.parseInt(values2[0]));
-                            System.out.println(values[0]);
+
                         }
                         else account.updateBalance2(values[0],bondList.get(values2[1]) * Integer.parseInt(values2[0]));
                     }

@@ -25,7 +25,6 @@ import java.util.concurrent.TimeUnit;
             scheduler.scheduleAtFixedRate(() -> {
                 bond.RefreshBondList();
              bond.returnYield();
-                System.out.println("hello");
                stocks.RestoreData();
                stocks.UpdatePrices();
                if(stocks.admin.marketOpenOrClose()){
@@ -60,7 +59,7 @@ import java.util.concurrent.TimeUnit;
                 }
 
 
-            }, 0, 4, TimeUnit.SECONDS);
+            }, 0, 30, TimeUnit.SECONDS);
         }
 
 
