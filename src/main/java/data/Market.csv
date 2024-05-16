@@ -1,4 +1,4 @@
-company,numberOfStocks,Prices,open
+company,numberOfStocks,Prices,close
 apple,1997,862.6513
 pepsi,1005,638.4124
 coca,1972,538.36566
@@ -6,5 +6,5 @@ Samsung,1998,639.5094
 google,1997,622.4977
 Netflix,1894,254.66335
 amazon,0,799.67163
-a,35,12.0
-q,1,1.0
+a,235,12.0
+q,0,1.0

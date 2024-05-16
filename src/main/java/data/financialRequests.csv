@@ -1,3 +1,5 @@
 username,amount,process
 leo,1000.0,deposite
 bigz,100000.0,deposite
+leo,2000.0,deposite
+leo,300.0,withdrawal

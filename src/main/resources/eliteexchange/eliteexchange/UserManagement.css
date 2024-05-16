@@ -24,10 +24,10 @@
     transition: all 0.3s ease; /* Smooth transition for the change */
 }
 
-#RefreshIcon:hover{
+/*#RefreshIcon:hover{
    -fx-rotate: 70;
-   transition: all 0.6s ease; /* Smooth transition for the change */
-}
+   transition: all 0.6s ease;  Smooth transition for the change
+}*/
 
 #blockuserbutton,#unblockuserbutton,#deleteuserbutton,#userlist{
     -fx-background-color: #fcd535;

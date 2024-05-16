@@ -48,7 +48,7 @@
                </font>
             </Label>
             <FontAwesomeIconView fx:id="ReturnIcon" fill="WHITE" glyphName="ARROW_CIRCLE_LEFT" layoutX="47.0" layoutY="73.0" onMouseClicked="#BackPressed" size="40" />
-            <TableView fx:id="requestsTable" layoutX="250.0" layoutY="147.0" prefHeight="275.0" prefWidth="530.0" style="-fx-border-color: #0c4deb;">
+            <TableView fx:id="requestsTable" layoutX="250.0" layoutY="147.0" prefHeight="275.0" prefWidth="530.0" style="-fx-border-color: #181a20;">
               <columns>
                 <TableColumn fx:id="requestColumn" minWidth="74.39991760253906" prefWidth="527.9999908447265" text="Requests" />
               </columns>

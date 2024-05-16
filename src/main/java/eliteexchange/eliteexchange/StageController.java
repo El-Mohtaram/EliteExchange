@@ -1,9 +1,8 @@
 package eliteexchange.eliteexchange;
 
 import ApplicationElite.*;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -32,10 +32,11 @@ import org.controlsfx.control.action.Action;
 import javafx.fxml.Initializable;
 
 public class StageController implements Initializable {
+    float angle = 0;
     Admin admin = new Admin();
     Account account = new Account();
     Stock stock = new Stock();
-    Bonds bond=new Bonds();
+    Bonds bond = new Bonds();
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -76,7 +77,7 @@ public class StageController implements Initializable {
     @FXML
     private TableColumn<DataShow, Float> numberofStocks;
     @FXML
-    private TextField startprice,value;
+    private TextField startprice, value;
     @FXML
     private TextField amount;
 
@@ -114,8 +115,7 @@ public class StageController implements Initializable {
 
 
     @FXML
-    private TableColumn<DataShow, Integer> numberB,expCol;
-
+    private TableColumn<DataShow, Integer> numberB, expCol;
 
 
     @FXML
@@ -126,7 +126,7 @@ public class StageController implements Initializable {
     private TextField yield;
 
     @FXML
-    private TableColumn<DataShow, Float> yieldB,startPrice;
+    private TableColumn<DataShow, Float> yieldB, startPrice;
 
     @FXML
     private Button back;
@@ -146,6 +146,9 @@ public class StageController implements Initializable {
     @FXML
     private Button loginConfirm;
 
+    @FXML
+    public FontAwesomeIconView RefreshIcon;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (datee != null) {
@@ -159,19 +162,19 @@ public class StageController implements Initializable {
             marketStatues.setToggleGroup(aaa);
             marketStatues.setOnAction(this::changeMarketStatues);
         }
-        if(bondsTable!=null)
+        if (bondsTable != null)
             bondsTable.setItems(Bonds.getBondData());
-        if(companyB!=null)
+        if (companyB != null)
             companyB.setCellValueFactory(new PropertyValueFactory<>("company"));
-        if(expCol!=null)
+        if (expCol != null)
             expCol.setCellValueFactory(new PropertyValueFactory<>("exp"));
-        if(faceValue!=null)
+        if (faceValue != null)
             faceValue.setCellValueFactory(new PropertyValueFactory<>("price"));
-        if(yieldB!=null)
+        if (yieldB != null)
             yieldB.setCellValueFactory(new PropertyValueFactory<>("yield"));
-        if(numberB!=null)
+        if (numberB != null)
             numberB.setCellValueFactory(new PropertyValueFactory<>("number"));
-        if(startPrice!=null)
+        if (startPrice != null)
             startPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         if (company != null)
             company.setCellValueFactory(new PropertyValueFactory<>("company"));
@@ -191,11 +194,17 @@ public class StageController implements Initializable {
         }
 
         // Add shutdown hook
-        if(account != null)
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            account.adminSwitch();
-        }));
+        if (account != null)
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                account.adminSwitch();
+            }));
+
+        TableColumn<DataShow, String> column1 = new TableColumn<>("Data");
+        column1.setCellValueFactory(new PropertyValueFactory<>("data"));
+
+
     }
+
 
     private void updateDateTimeLabel() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -285,11 +294,11 @@ public class StageController implements Initializable {
             messagelabel.setText("your account has been banned");
         } else if (account.CheckLoginData() && account.userOrAdmin().equals("user")) {
             stock.RestoreData();
-      //      Parent root = FXMLLoader.load(getClass().getResource("userMenue.fxml"));
+            //      Parent root = FXMLLoader.load(getClass().getResource("userMenue.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    //        scene = new Scene(root);
-  //          stage.setScene(scene);
-           stage.setScene(Elite.usermainmenu);
+            //        scene = new Scene(root);
+            //          stage.setScene(scene);
+            stage.setScene(Elite.usermainmenu);
             String usercss = getClass().getResource("usermenu.css").toExternalForm();
             stage.getScene().getStylesheets().add(usercss);
             stage.show();
@@ -425,30 +434,41 @@ public class StageController implements Initializable {
 
     @FXML
     void RefreshUserMangementScreen(MouseEvent event) throws IOException {
-        System.out.println(event);
+        RotateTransition RefreshA = new RotateTransition();
+        RefreshA.setDuration(Duration.seconds(0.7));
+        RefreshA.setNode(RefreshIcon);
+        RefreshA.setToAngle(angle+=360);
+        RefreshA.play();
         Admin.createuserslist();
-        Parent root = FXMLLoader.load(getClass().getResource("Usermanagement.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        String UserManagementcss = getClass().getResource("UserManagement.css").toExternalForm();
-        scene.getStylesheets().add(UserManagementcss);
-        stage.setScene(scene);
-        stage.show();
-        stock.RestoreData();
+        System.out.println(event);
+//        Parent root = FXMLLoader.load(getClass().getResource("Usermanagement.fxml"));
+//        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        scene = new Scene(root);
+//        String UserManagementcss = getClass().getResource("UserManagement.css").toExternalForm();
+//        scene.getStylesheets().add(UserManagementcss);
+//        stage.setScene(scene);
+//        stage.show();
+        admin.RestoreData();
     }
 
     @FXML
     void RefreshRequestsScreen(MouseEvent event) throws IOException {
+        RotateTransition RefreshA = new RotateTransition();
+        RefreshA.setDuration(Duration.seconds(0.7));
+        RefreshA.setNode(RefreshIcon);
+        RefreshA.setToAngle(angle+=360);
+        RefreshA.play();
         System.out.println(event);
         Admin.createuserslist();
-        Parent root = FXMLLoader.load(getClass().getResource("RequestScene.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        String UserManagementcss = getClass().getResource("Requests.css").toExternalForm();
-        scene.getStylesheets().add(UserManagementcss);
-        stage.setScene(scene);
-        stage.show();
-        stock.RestoreData();
+        requestsTable.setItems(admin.returnList());
+//        Parent root = FXMLLoader.load(getClass().getResource("RequestScene.fxml"));
+//        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        scene = new Scene(root);
+//        String UserManagementcss = getClass().getResource("Requests.css").toExternalForm();
+//        scene.getStylesheets().add(UserManagementcss);
+//        stage.setScene(scene);
+//        stage.show();
+        admin.RestoreData();
     }
 
     @FXML
@@ -569,8 +589,9 @@ public class StageController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
-    public void BondsManagement(ActionEvent event) throws IOException{
+    public void BondsManagement(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("BondsManagementScene.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -580,13 +601,15 @@ public class StageController implements Initializable {
         bond.RefreshBondList();
         stage.show();
     }
+
     @FXML
     void addBond(ActionEvent event) {
-        bond.addBonds(companyName.getText(), Float.parseFloat(value.getText()),Integer.parseInt(numberOfStocks.getText()),Float.parseFloat(yield.getText()),0);
+        bond.addBonds(companyName.getText(), Float.parseFloat(value.getText()), Integer.parseInt(numberOfStocks.getText()), Float.parseFloat(yield.getText()), 0);
         bond.RefreshBondList();
-        bondsTable.setItems(Bonds. getBondData());
+        bondsTable.setItems(Bonds.getBondData());
         bond.RefreshBondList();
     }
+
     @FXML
     public void deleteBond() {
         DataShow selectedBond = bondsTable.getSelectionModel().getSelectedItem();
@@ -599,13 +622,14 @@ public class StageController implements Initializable {
 
         }
     }
+
     @FXML
-    public void buyBond(){
+    public void buyBond() {
         DataShow selectedBond = bondsTable.getSelectionModel().getSelectedItem();
         if (selectedBond != null) {
             String selectedName = selectedBond.getCompany();
             if (admin.marketOpenOrClose()) {
-                if (bond.buyBond(selectedName,Integer.parseInt(amount.getText()),0)) {
+                if (bond.buyBond(selectedName, Integer.parseInt(amount.getText()), 0)) {
                     account.updateBalance();
                     bond.RefreshBondList();
                     buyMessage.setText("Bought Successfully");
@@ -613,8 +637,9 @@ public class StageController implements Initializable {
             } else buyMessage.setText("Sorry, market is closed");
         }
     }
+
     @FXML
-    public void goToGraphs(ActionEvent event) throws IOException{
+    public void goToGraphs(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("graphs.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -623,11 +648,11 @@ public class StageController implements Initializable {
         stage.show();
 
     }
+
     @FXML
-    public void priceHistory(ActionEvent event) throws IOException
-    {
-        File file=null;
-        stock.fillStockHistoryData("amazon",false,  file);
+    public void priceHistory(ActionEvent event) throws IOException {
+        File file = null;
+        stock.fillStockHistoryData("amazon", false, file);
         Parent root = FXMLLoader.load(getClass().getResource("priceHistory.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
