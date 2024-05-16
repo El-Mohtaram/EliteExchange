@@ -666,21 +666,23 @@ public class UserController implements Initializable {
         stage.show();
     }
 
-    @FXML
-    public void sellBond() {
-        DataShow selectedBond = userBondList.getSelectionModel().getSelectedItem();
-        if (selectedBond != null) {
-            String selectedName = selectedBond.getCompany();
-            if (admin.marketOpenOrClose()) {
-                if (bond.SellBond(Integer.parseInt(amount.getText()), selectedName,0)) {
-                    bond.refreshUserBondList();
-                    account.updateBalance();
-                    bond.RefreshBondList();
-                    SellMessage.setText("Sold Successfully");
-                } else SellMessage.setText("Not enough amount");
-            } else buyMessage.setText("Sorry, market is closed");
-        }
-    }
+     @FXML
+     public void sellBond() {
+      /*   DataShow selectedBond = userBondList.getSelectionModel().getSelectedItem();
+         if (selectedBond != null) {
+             String selectedName = selectedBond.getCompany();
+             if (admin.marketOpenOrClose()) {
+                 if (bond.SellBond(Integer.parseInt(amount.getText()), selectedName,0)) {
+                     bond.refreshUserBondList();
+                     account.updateBalance();
+                     bond.RefreshBondList();
+                     SellMessage.setText("Sold Successfully");
+                 } else SellMessage.setText("Not enough amount");
+             } else buyMessage.setText("Sorry, market is closed");
+         }
+         */
+
+     }
 
     @FXML
     public void searchStock() {

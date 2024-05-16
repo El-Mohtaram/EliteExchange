@@ -605,8 +605,9 @@ public class StageController implements Initializable {
         if (selectedBond != null) {
             String selectedName = selectedBond.getCompany();
             int selectedExp= selectedBond.getExp();
+            float selectedYield= selectedBond.getYield();
             if (admin.marketOpenOrClose()) {
-                if (bond.buyBond(selectedName,  Integer.parseInt(amount.getText()),selectedExp)) {
+                if (bond.buyBond(selectedName,Integer.parseInt(amount.getText()),selectedExp,selectedYield)) {
                     account.updateBalance();
                     bond.RefreshBondList();
                     buyMessage.setText("Bought Successfully");
