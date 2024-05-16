@@ -294,7 +294,7 @@ public class Securities {
         }
     }
 
-    public boolean buyCheck(String dataPath, int amount, String Name) {
+    public boolean buyCheck(String dataPath, int amount, String Name,int state) {
         try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
             String line;
             br.readLine();
@@ -305,7 +305,8 @@ public class Securities {
                     if (amount > Integer.parseInt(values[1]) || account.getBalance() < totalPrice)
                         return false;
                     else account.setBalance(account.getBalance() - totalPrice);
-                    admin.transaction(account.getUsername() + " " + amount + " " + Name + " " + totalPrice, 2);
+                 if(state==2)   admin.transaction(account.getUsername() + " " + amount + " " + Name + " " + totalPrice, 2);
+                 else if(state==4) admin.transaction(account.getUsername() + " " + amount + " " + Name + " " + totalPrice, 4);
                 }
             }
         } catch (IOException e) {

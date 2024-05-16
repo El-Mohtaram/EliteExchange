@@ -38,7 +38,7 @@ public class Bonds extends Securities {
     public boolean buyBond(String company,int number,int exp,float yield)
     {
         refreshUserSecuritiesMap(csvFile2,userBonds,account.getUsername());
-        if(buyCheck(csvFile,number,company)) {
+        if(buyCheck(csvFile,number,company,4)) {
             buyOrSell(company, number, csvFile2, userBonds, 0,true,exp,yield);
             updateAmountInMarket(csvFile, number, company, 0,true);
             return true;
