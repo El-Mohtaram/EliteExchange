@@ -2,6 +2,7 @@ package eliteexchange.eliteexchange;
 
 import ApplicationElite.Account;
 import ApplicationElite.Bonds;
+import ApplicationElite.PriceUpdater;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -39,6 +40,8 @@ public class Elite extends Application {
     }
 
     public static void main(String[] args) {
+        PriceUpdater priceUpdater=new PriceUpdater();
+        priceUpdater.main(args);
         // Enable hardware acceleration for Windows
         Account account = new Account();
         account.RestoreData();
