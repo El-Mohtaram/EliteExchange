@@ -15,7 +15,8 @@
             <TableColumn fx:id="companyB" prefWidth="112.0" text="Cnpany" />
             <TableColumn fx:id="yieldB" prefWidth="134.0" text="Yield %" />
             <TableColumn fx:id="faceValue" prefWidth="123.0" text="Face value" />
-            <TableColumn fx:id="numberB" prefWidth="177.0" text="available bonds" />
+            <TableColumn fx:id="numberB" prefWidth="96.0" text="available bonds" />
+            <TableColumn fx:id="expCol" prefWidth="88.0" text="Expires after" />
          </columns>
       </TableView>
       <Button layoutX="20.0" layoutY="22.0" mnemonicParsing="false" onAction="#BackPressed" prefHeight="25.0" prefWidth="49.0" text="Back" />

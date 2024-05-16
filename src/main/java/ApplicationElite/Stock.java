@@ -11,9 +11,6 @@ import javafx.collections.ObservableList;
         private String csvFile2 = "src/main/java/data/stock.csv";
         public static HashMap<String, Float> stocks = new LinkedHashMap<>();
         private static HashMap<String, Integer> userStocks = new LinkedHashMap<>();
-        private static ArrayList<Integer> NumberOfStocks = new ArrayList<>();
-        private static ArrayList<Float> x = new ArrayList<>();
-        public static String[] stockList = DatakList;
         static private ObservableList<DataShow> stockData = FXCollections.observableArrayList();
         static private ObservableList<DataShow> dateList = FXCollections.observableArrayList();
         static private ObservableList<DataShow> userStockList = FXCollections.observableArrayList();
@@ -22,19 +19,19 @@ import javafx.collections.ObservableList;
 static private ArrayList<Float>priceList  = new ArrayList<>();
         static private ArrayList<Integer>timeList  = new ArrayList<>();
         public void addStock(String name, int number, float f) {
-            Add(name, number, f, csvFile, stocks, NumberOfStocks, x, 0);
+            Add(name, number, f, csvFile, stocks, 0,0);
         }
 
         public void RestoreData() {
-            RestoreData(csvFile, stocks, NumberOfStocks, stockData, x, 0);
+            RestoreData(csvFile, stocks, stockData, 0);
         }
 
         public void DeleteStock(String name) {
-            Delete(name, csvFile, stocks, NumberOfStocks, x, 0);
+            Delete(name, csvFile, stocks, 0);
         }
 
         public void refreshUserStockList() {
-            refreshUserSecurities(userStockList, csvFile2);
+            refreshUserSecurities(userStockList, csvFile2,false);
         }
 
         public ObservableList<DataShow> returnList() {
@@ -99,20 +96,20 @@ static private ArrayList<Float>priceList  = new ArrayList<>();
         }
 
         public boolean BuyStock(int amount, String company) {
-            refreshUserSecurities(csvFile2, userStocks, account.getUsername());
+
             if (buyCheck(csvFile, amount, company)) {
-                buyOrSell(company, amount, csvFile2, userStocks, 0);
-                updateAmountInMarket(csvFile, amount, company, NumberOfStocks, 0, false);
+                buyOrSell(company, amount, csvFile2, userStocks, 0,false,0);
+                updateAmountInMarket(csvFile, amount, company, 0, false);
                 return true;
             } else return false;
 
         }
 
         public boolean SellStock(int amount, String company) {
-            refreshUserSecurities(csvFile2, userStocks, account.getUsername());
+            refreshUserSecuritiesMap(csvFile2, userStocks, account.getUsername());
             if (sellCheck(csvFile2, amount, company)) {
-                buyOrSell(company, amount, csvFile2, userStocks, 1);
-                updateAmountInMarket(csvFile, amount, company, NumberOfStocks, 1, false);
+                buyOrSell(company, amount, csvFile2, userStocks, 1,false,0);
+                updateAmountInMarket(csvFile, amount, company, 1, false);
                 return true;
             } else return false;
 

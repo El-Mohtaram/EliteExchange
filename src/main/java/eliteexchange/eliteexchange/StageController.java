@@ -115,7 +115,7 @@ public class StageController implements Initializable {
 
 
     @FXML
-    private TableColumn<DataShow, Integer> numberB;
+    private TableColumn<DataShow, Integer> numberB,expCol;
 
 
     @FXML
@@ -163,6 +163,8 @@ public class StageController implements Initializable {
             bondsTable.setItems(Bonds.getBondData());
         if(companyB!=null)
             companyB.setCellValueFactory(new PropertyValueFactory<>("company"));
+        if(expCol!=null)
+            expCol.setCellValueFactory(new PropertyValueFactory<>("exp"));
         if(faceValue!=null)
             faceValue.setCellValueFactory(new PropertyValueFactory<>("price"));
         if(yieldB!=null)
@@ -578,7 +580,7 @@ public class StageController implements Initializable {
     }
     @FXML
     void addBond(ActionEvent event) {
-        bond.addBonds(companyName.getText(), Float.parseFloat(value.getText()),Integer.parseInt(numberOfStocks.getText()),Float.parseFloat(yield.getText()));
+        bond.addBonds(companyName.getText(), Float.parseFloat(value.getText()),Integer.parseInt(numberOfStocks.getText()),Float.parseFloat(yield.getText()),0);
         bond.RefreshBondList();
         bondsTable.setItems(Bonds. getBondData());
         bond.RefreshBondList();
@@ -601,7 +603,7 @@ public class StageController implements Initializable {
         if (selectedBond != null) {
             String selectedName = selectedBond.getCompany();
             if (admin.marketOpenOrClose()) {
-                if (bond.buyBond(selectedName,Integer.parseInt(amount.getText()))) {
+                if (bond.buyBond(selectedName,Integer.parseInt(amount.getText()),0)) {
                     account.updateBalance();
                     bond.RefreshBondList();
                     buyMessage.setText("Bought Successfully");

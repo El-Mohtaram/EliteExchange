@@ -21,20 +21,10 @@ public class Securities {
     // private final String csvFile = "C:\Users\ram tech\Desktop\Elite\EliteExchange\src\main\java\data\Market.csv";
     protected static String[] DatakList;
 
-    public void Add(String Name, int number, float price, String dataPath, HashMap<String, Float> securities, ArrayList<Integer> NumberOfSecurities,ArrayList<Float> yeilds,float yeild) {
-        String updatedAmount = "";
+    public void Add(String Name, int number, float price, String dataPath, HashMap<String, Float> securities,float yeild,int exp) {
+        String updatedAmount;
         try {
             if (securities.containsKey(Name)) {
-                int index = 0;
-                for (String key : securities.keySet()) {
-                    if (key.equals(Name)) {
-                        NumberOfSecurities.set(index, NumberOfSecurities.get(index) + number);
-                        updatedAmount = "" + NumberOfSecurities.get(index);
-                        System.out.println(updatedAmount);
-                        break;
-                    }
-                    index++;
-                }
                 String dataOverwrite = "";
                 String oldContent = "";
                 try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
@@ -43,10 +33,10 @@ public class Securities {
                     while ((line = br.readLine()) != null) {
                         String[] values = line.split(",");
                         if (Name.equals(values[0])) {
+                            updatedAmount=Integer.parseInt(values[1])+number+"";
                             System.out.println("found");
                             oldContent = line;
-                            System.out.println(line);
-                        if(yeild==0)    dataOverwrite = values[0] + "," + updatedAmount + "," + values[2];
+                        if(yeild==0)    dataOverwrite = values[0] + ","+updatedAmount +","+ values[2];
                         else dataOverwrite = values[0] + "," + updatedAmount + "," + values[2]+","+values[3];
                             System.out.println(dataOverwrite);
 
@@ -73,14 +63,12 @@ public class Securities {
             ////////////////////////////
             else {
                 securities.put(Name, price);
-                NumberOfSecurities.add(number);
                 FileWriter fileWriter = new FileWriter(dataPath, true);
                 PrintWriter printWriter = new PrintWriter(fileWriter);
                 if(yeild==0)
                 printWriter.println(Name + "," + number + "," + price);
                 else {
-                    yeilds.add(yeild);
-                    printWriter.println(Name + "," + number + "," + price + "," + yeild);
+                    printWriter.println(Name + "," + number + "," + price + "," + yeild+","+exp);
                 }
                 printWriter.close();
             }
@@ -90,41 +78,31 @@ public class Securities {
         }
     }
 
-    public void RestoreData(String dataPath, HashMap<String, Float> securities, ArrayList<Integer> NumberOfSecurities, ObservableList<DataShow> stockData,ArrayList<Float>yeilds,int state) {
+    public void RestoreData(String dataPath, HashMap<String, Float> securities, ObservableList<DataShow> stockData,int state) {
         securities.clear();
-        NumberOfSecurities.clear();
-        yeilds.clear();
-
+        stockData.clear();
         try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
             br.readLine();
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
                 securities.put(values[0], Float.parseFloat(values[2]));
-                NumberOfSecurities.add(Integer.parseInt(values[1]));
-if(state!=0) {yeilds.add(Float.parseFloat(values[3]));
-//                System.out.println(yeilds.get(0));
-}
-
-            }
-            stockData.clear();
-            int i = 0;
-            for (String key : securities.keySet()) {
-                if(NumberOfSecurities.get(i)>0) {
-                    if (state == 0) stockData.add(new DataShow(key, NumberOfSecurities.get(i), securities.get(key)));
-                    else
-                        stockData.add(new DataShow(key, yeilds.get(i), securities.get(key), NumberOfSecurities.get(i)));
+                if(Integer.parseInt(values[1])!=0&&state==0) {
+                    stockData.add(new DataShow(values[0], Integer.parseInt(values[1]), Float.parseFloat(values[2])));
                 }
-                i++;
+                else if(Integer.parseInt(values[1])!=0&&state!=0){
+                    stockData.add(new DataShow(values[0], Float.parseFloat(values[3]), Float.parseFloat(values[2]), Integer.parseInt(values[1]),Integer.parseInt(values[4]),0));
+                    System.out.println(values[4]);
+                }
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(stockData.size());
 
     }
 
-    public void Delete(String Name, String dataPath, HashMap<String, Float> securities, ArrayList<Integer> NumberOfSecurities,ArrayList<Float>yeilds,int state) {
+    public void Delete(String Name, String dataPath, HashMap<String, Float> securities,int state) {
         List<String> lines = new ArrayList<>();
 
         int index = 0;
@@ -136,9 +114,9 @@ if(state!=0) {yeilds.add(Float.parseFloat(values[3]));
                 if (!Name.equals(values[0]))
                     lines.add(line);
                 else {
-                    lines.add(values[0]+",0"+","+values[2]);
-                    NumberOfSecurities.set(index,0);
-if(state!=0) yeilds.remove(index);
+                    if(state!=0)
+                    lines.add(values[0]+",0"+","+values[2]+","+values[3]+values[4]);
+                    else  lines.add(values[0]+",0"+","+values[2]);
                 }
                 index++;
             }
@@ -164,9 +142,8 @@ if(state!=0) yeilds.remove(index);
 
     }
 
-    public void refreshUserSecurities(String dataPath, HashMap<String, Integer> securities, String username) {
+    public void refreshUserSecuritiesMap(String dataPath, HashMap<String, Integer> securities, String username) {
         securities.clear();
-
         try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
             br.readLine();
             String line;
@@ -185,7 +162,7 @@ if(state!=0) yeilds.remove(index);
 
     }
 
-    public void buyOrSell(String Name, int number, String dataPath, HashMap<String, Integer> securities,int state) {
+    public void buyOrSell(String Name, int number, String dataPath, HashMap<String, Integer> securities,int state,boolean bond,int exp) {
         String updatedAmount = "";
         String dataOverwrite = "";
         String oldContent = "";
@@ -207,10 +184,16 @@ if(state!=0) yeilds.remove(index);
                         dataOverwrite = values[0];
                         for (int i = 1; i < values.length; i++) {
                             String[] values2 = values[i].split(">");
-                            if (!values2[1].equals(Name))
-                                dataOverwrite = dataOverwrite + "," + values2[0] + ">" + values2[1];
+                            if (!values2[1].equals(Name)) {
+                                if(bond)
+                                dataOverwrite = dataOverwrite + "," + values2[0] + ">" + values2[1] + ">" + values2[2];
+                                else dataOverwrite = dataOverwrite + "," + values2[0] + ">" + values2[1];
+                            }
                             else if(securities.get(Name) ==0);
-                              else  dataOverwrite = dataOverwrite + "," + updatedAmount;
+                              else {
+                                if (bond) dataOverwrite = dataOverwrite + "," + updatedAmount + ">" + values2[2];
+                                else dataOverwrite =dataOverwrite + "," + updatedAmount;
+                            }
 
                         }
                         break;
@@ -247,7 +230,8 @@ if(state!=0) yeilds.remove(index);
                         for (int i = 1; i < values.length; i++) {
                             dataOverwrite = dataOverwrite + "," + values[i];
                         }
-                        dataOverwrite = dataOverwrite + "," + number + ">" + Name;
+                        if(bond) dataOverwrite = dataOverwrite + "," + number + ">" + Name+">"+exp;
+                       else dataOverwrite = dataOverwrite + "," + number + ">" + Name;
                         break;
                     }
                 }
@@ -272,7 +256,7 @@ if(state!=0) yeilds.remove(index);
 
     }
 
-    public void updateAmountInMarket(String dataPath, int amount, String Name, ArrayList<Integer> NumberOfSecurities,int state,boolean bond) {
+    public void updateAmountInMarket(String dataPath, int amount, String Name,int state,boolean bond) {
         String oldContent = "";
         String dataOverwrite = "";
         try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
@@ -282,11 +266,11 @@ if(state!=0) yeilds.remove(index);
                 String[] values = line.split(",");
                 if (Name.equals(values[0])) {
                     oldContent = line;
-                    int newAmount=0;
+                    int newAmount;
                     if(state==0)
                      newAmount = Integer.parseInt(values[1]) - amount;
                     else newAmount = Integer.parseInt(values[1]) + amount;
-                if(bond)    dataOverwrite = values[0] + "," + newAmount + "," + values[2]+","+values[3];
+                if(bond)    dataOverwrite = values[0] + "," + newAmount + "," + values[2]+","+values[3]+","+values[4];
                 else dataOverwrite = values[0] + "," + newAmount + "," + values[2];
                     break;
                 }
@@ -355,7 +339,7 @@ if(state!=0) yeilds.remove(index);
         }
 
 
-    public void refreshUserSecurities(ObservableList<DataShow> securitiesList,String dataPath) {
+    public void refreshUserSecurities(ObservableList<DataShow> securitiesList,String dataPath,boolean bond) {
         securitiesList.clear();
         try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
             String line;
@@ -366,7 +350,8 @@ if(state!=0) yeilds.remove(index);
                     for (int i = 1; i < values.length; i++) {
                         String values2[] = values[i].split(">");
                         System.out.println(values[i]);
-                        securitiesList.add( new DataShow(values2[1], Integer.parseInt(values2[0]),Integer.parseInt(values2[0])*Stock.getPrice(values2[1])));
+                      if(bond)  securitiesList.add( new DataShow(values2[1], Integer.parseInt(values2[0]),Integer.parseInt(values2[0])*Stock.getPrice(values2[1]),Integer.parseInt(values2[2])));
+                      else securitiesList.add( new DataShow(values2[1], Integer.parseInt(values2[0]),Integer.parseInt(values2[0])*Stock.getPrice(values2[1])));
                     }
                     break;
                 }
@@ -376,6 +361,7 @@ if(state!=0) yeilds.remove(index);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
     }
     }

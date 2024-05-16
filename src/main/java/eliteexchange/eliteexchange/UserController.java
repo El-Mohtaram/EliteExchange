@@ -672,7 +672,7 @@ public class UserController implements Initializable {
         if (selectedBond != null) {
             String selectedName = selectedBond.getCompany();
             if (admin.marketOpenOrClose()) {
-                if (bond.SellBond(Integer.parseInt(amount.getText()), selectedName)) {
+                if (bond.SellBond(Integer.parseInt(amount.getText()), selectedName,0)) {
                     bond.refreshUserBondList();
                     account.updateBalance();
                     bond.RefreshBondList();
