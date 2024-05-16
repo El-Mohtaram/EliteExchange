@@ -98,7 +98,7 @@ static private ArrayList<Float>priceList  = new ArrayList<>();
         public boolean BuyStock(int amount, String company) {
 
             if (buyCheck(csvFile, amount, company)) {
-                buyOrSell(company, amount, csvFile2, userStocks, 0,false,0);
+                buyOrSell(company, amount, csvFile2, userStocks, 0,false,0,0);
                 updateAmountInMarket(csvFile, amount, company, 0, false);
                 return true;
             } else return false;
@@ -108,7 +108,7 @@ static private ArrayList<Float>priceList  = new ArrayList<>();
         public boolean SellStock(int amount, String company) {
             refreshUserSecuritiesMap(csvFile2, userStocks, account.getUsername());
             if (sellCheck(csvFile2, amount, company)) {
-                buyOrSell(company, amount, csvFile2, userStocks, 1,false,0);
+                buyOrSell(company, amount, csvFile2, userStocks, 1,false,0,0);
                 updateAmountInMarket(csvFile, amount, company, 1, false);
                 return true;
             } else return false;

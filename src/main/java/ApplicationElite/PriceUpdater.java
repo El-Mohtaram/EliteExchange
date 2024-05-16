@@ -18,10 +18,13 @@ import java.util.concurrent.TimeUnit;
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // Define the desired format
             String formattedDateTime = currentDateTime.format(formatter); // Format the date and time
             Stock stocks=new Stock();
+            Bonds bond=new Bonds();
             ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
             // Schedule the task to run every 2 minutes
             scheduler.scheduleAtFixedRate(() -> {
+                bond.RefreshBondList();
+             bond.returnYield();
                stocks.RestoreData();
                stocks.UpdatePrices();
                if(stocks.admin.marketOpenOrClose()){
@@ -56,7 +59,7 @@ import java.util.concurrent.TimeUnit;
                 }
 
 
-            }, 0, 2, TimeUnit.SECONDS);
+            }, 0, 30, TimeUnit.SECONDS);
         }
 
 

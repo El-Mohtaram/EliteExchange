@@ -162,7 +162,7 @@ public class Securities {
 
     }
 
-    public void buyOrSell(String Name, int number, String dataPath, HashMap<String, Integer> securities,int state,boolean bond,int exp) {
+    public void buyOrSell(String Name, int number, String dataPath, HashMap<String, Integer> securities,int state,boolean bond,int exp,float yield) {
         String updatedAmount = "";
         String dataOverwrite = "";
         String oldContent = "";
@@ -186,7 +186,7 @@ public class Securities {
                             String[] values2 = values[i].split(">");
                             if (!values2[1].equals(Name)) {
                                 if(bond)
-                                dataOverwrite = dataOverwrite + "," + values2[0] + ">" + values2[1] + ">" + values2[2];
+                                dataOverwrite = dataOverwrite + "," + values2[0] + ">" + values2[1] + ">" + values2[2]+">"+values2[3];
                                 else dataOverwrite = dataOverwrite + "," + values2[0] + ">" + values2[1];
                             }
                             else if(securities.get(Name) ==0);
@@ -230,7 +230,7 @@ public class Securities {
                         for (int i = 1; i < values.length; i++) {
                             dataOverwrite = dataOverwrite + "," + values[i];
                         }
-                        if(bond) dataOverwrite = dataOverwrite + "," + number + ">" + Name+">"+exp;
+                        if(bond) dataOverwrite = dataOverwrite + "," + number + ">" + Name+">"+exp+">"+yield;
                        else dataOverwrite = dataOverwrite + "," + number + ">" + Name;
                         break;
                     }

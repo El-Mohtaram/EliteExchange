@@ -62,6 +62,7 @@ public class Account {
                     e.printStackTrace();
                 }
 
+
                 return true;
             } else return false;
         } else return false;
@@ -100,6 +101,14 @@ public class Account {
             FileWriter fileWriter = new FileWriter(csvFile2, true);
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.println(username1 + ",");
+            printWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            FileWriter fileWriter = new FileWriter("src/main/java/data/UserBonds.csv", true);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.println(username1 );
             printWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -215,6 +224,38 @@ public class Account {
                 if (username1.equals(values[0])) {
                     oldContent = line;
                     dataOverwrite = values[0] + "," + values[1] + "," + "user" + "," + getBalance();
+
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            List<String> fileContent = Files.readAllLines(Paths.get(csvFile));
+
+            for (int i = 0; i < fileContent.size(); i++) {
+                if (fileContent.get(i).equals(oldContent)) {
+                    fileContent.set(i, dataOverwrite);
+                    break;
+                }
+            }
+
+            Files.write(Paths.get(csvFile), fileContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void updateBalance2(String username,float amount) {
+        String oldContent = "";
+        String dataOverwrite = "";
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            String line;
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (username.equals(values[0])) {
+                    oldContent = line;
+                    dataOverwrite = values[0] + "," + values[1] + "," + "user" + "," + (Float.parseFloat(values[3])+amount);
 
                 }
             }
