@@ -37,7 +37,7 @@ public class Securities {
                             System.out.println("found");
                             oldContent = line;
                         if(yeild==0)    dataOverwrite = values[0] + ","+updatedAmount +","+ values[2];
-                        else dataOverwrite = values[0] + "," + updatedAmount + "," + values[2]+","+values[3];
+                        else dataOverwrite = values[0] + "," + updatedAmount + "," + values[2]+","+values[3]+","+values[4];
                             System.out.println(dataOverwrite);
 
                         }
