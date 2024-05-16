@@ -11,29 +11,27 @@ import javafx.collections.ObservableList;
         private String csvFile2 = "src/main/java/data/stock.csv";
         public static HashMap<String, Float> stocks = new LinkedHashMap<>();
         private static HashMap<String, Integer> userStocks = new LinkedHashMap<>();
-        private static ArrayList<Integer> NumberOfStocks = new ArrayList<>();
-        private static ArrayList<Float> x = new ArrayList<>();
-        public static String[] stockList = DatakList;
         static private ObservableList<DataShow> stockData = FXCollections.observableArrayList();
         static private ObservableList<DataShow> dateList = FXCollections.observableArrayList();
         static private ObservableList<DataShow> userStockList = FXCollections.observableArrayList();
         static private ObservableList<DataShow> stockPriceHistory = FXCollections.observableArrayList();
+        static private ObservableList<DataShow> companylist = FXCollections.observableArrayList();
 static private ArrayList<Float>priceList  = new ArrayList<>();
         static private ArrayList<Integer>timeList  = new ArrayList<>();
         public void addStock(String name, int number, float f) {
-            Add(name, number, f, csvFile, stocks, NumberOfStocks, x, 0);
+            Add(name, number, f, csvFile, stocks, 0,0);
         }
 
         public void RestoreData() {
-            RestoreData(csvFile, stocks, NumberOfStocks, stockData, x, 0);
+            RestoreData(csvFile, stocks, stockData, 0);
         }
 
         public void DeleteStock(String name) {
-            Delete(name, csvFile, stocks, NumberOfStocks, x, 0);
+            Delete(name, csvFile, stocks, 0);
         }
 
         public void refreshUserStockList() {
-            refreshUserSecurities(userStockList, csvFile2);
+            refreshUserSecurities(userStockList, csvFile2,false);
         }
 
         public ObservableList<DataShow> returnList() {
@@ -98,20 +96,20 @@ static private ArrayList<Float>priceList  = new ArrayList<>();
         }
 
         public boolean BuyStock(int amount, String company) {
-            refreshUserSecurities(csvFile2, userStocks, account.getUsername());
+
             if (buyCheck(csvFile, amount, company)) {
-                buyOrSell(company, amount, csvFile2, userStocks, 0);
-                updateAmountInMarket(csvFile, amount, company, NumberOfStocks, 0, false);
+                buyOrSell(company, amount, csvFile2, userStocks, 0,false,0);
+                updateAmountInMarket(csvFile, amount, company, 0, false);
                 return true;
             } else return false;
 
         }
 
         public boolean SellStock(int amount, String company) {
-            refreshUserSecurities(csvFile2, userStocks, account.getUsername());
+            refreshUserSecuritiesMap(csvFile2, userStocks, account.getUsername());
             if (sellCheck(csvFile2, amount, company)) {
-                buyOrSell(company, amount, csvFile2, userStocks, 1);
-                updateAmountInMarket(csvFile, amount, company, NumberOfStocks, 1, false);
+                buyOrSell(company, amount, csvFile2, userStocks, 1,false,0);
+                updateAmountInMarket(csvFile, amount, company, 1, false);
                 return true;
             } else return false;
 
@@ -173,12 +171,13 @@ static private ArrayList<Float>priceList  = new ArrayList<>();
         public ArrayList<Float> getPriceList() {return priceList;}
         public ArrayList<Integer> getTimeList() {return timeList;}
 public String getCompany(){return company;}
-        public void fillStockHistoryData(String company){
+        public void fillStockHistoryData(String company,boolean state,File file){
             try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/PriceHistory/" + company + ".csv"))) {
                 String line;
-
+                int index=0;
                 while ((line = br.readLine()) != null)
                 {
+                    index++;
                     String[]values= line.split(",");
                     float max=Float.parseFloat(values[2]);
                     float min=Float.parseFloat(values[2]);
@@ -188,14 +187,30 @@ public String getCompany(){return company;}
                         if(min>Float.parseFloat(values[i])) min=Float.parseFloat(values[i]);
                         if(max<Float.parseFloat(values[i])) max=Float.parseFloat(values[i]);
                     }
+                    if(!state)
                     stockPriceHistory.add(new DataShow(values[1],start,min,max,end));
-
+                    else{
+                        try (FileWriter writer = new FileWriter(file,true)) {
+                            PrintWriter printWriter = new PrintWriter(writer);
+                            if(index==1){
+                                printWriter.println(" date , opening price , lowest price , max price , closing price");
+                            }
+                            printWriter.println(values[1]+","+start+","+min+","+max+","+end);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
 
                 } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 
+        }
+        public ObservableList<DataShow> fillcompanytaple(){
+            for (String key : stocks.keySet())
+            companylist.add(new DataShow(key,true));
+            return companylist;
         }
 
         public static ObservableList<DataShow> getStockPriceHistory() {

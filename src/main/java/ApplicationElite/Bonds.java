@@ -9,8 +9,7 @@ import java.util.LinkedHashMap;
 
 public class Bonds extends Securities {
     private static HashMap<String,Float>bondList=new LinkedHashMap<>();
-    private static ArrayList<Float> yields=new ArrayList<>();
-    private static ArrayList<Integer> numberOfBonds=new ArrayList<>();
+    private static ArrayList<Integer> Expire =new ArrayList<>();
     private String csvFile ="src/main/java/data/Bonds.csv";
     private String csvFile2 ="src/main/java/data/UserBonds.csv";
     //private String csvFile2 ="src/main/java/data/stock.csv";
@@ -18,45 +17,45 @@ public class Bonds extends Securities {
     static private ObservableList<DataShow> BondData = FXCollections.observableArrayList();
     static private ObservableList<DataShow> userBondList = FXCollections.observableArrayList();
 
-    public void addBonds(String company,float price,int number,float yeild)
+    public void addBonds(String company,float price,int number,float yeild,int exp)
     {
+        Add(company,number,price,csvFile,bondList,yeild,exp);
 
-        Add(company,number,price,csvFile,bondList,numberOfBonds,yields,yeild);
     }
     public void deleteBonds(String company)
     {
-        Delete(company,csvFile,bondList,numberOfBonds,yields,1);
+        Delete(company,csvFile,bondList,1);
     }
 public void RefreshBondList(){
-        RestoreData(csvFile,bondList,numberOfBonds,BondData,yields,1);
+        RestoreData(csvFile,bondList,BondData,1);
 }
 
     public static ObservableList<DataShow> getBondData() {
         return BondData;
     }
-    public boolean buyBond(String company,int number)
+    public boolean buyBond(String company,int number,int exp)
     {
-        refreshUserSecurities(csvFile2,userBonds,account.getUsername());
+        refreshUserSecuritiesMap(csvFile2,userBonds,account.getUsername());
         if(buyCheck(csvFile,number,company)) {
-            buyOrSell(company, number, csvFile2, userBonds, 0);
-            updateAmountInMarket(csvFile, number, company, numberOfBonds, 0,true);
+            buyOrSell(company, number, csvFile2, userBonds, 0,true,exp);
+            updateAmountInMarket(csvFile, number, company, 0,true);
             return true;
         }
         else return  false;
     }
-    public boolean SellBond(int amount,String company)
+    public boolean SellBond(int amount,String company,int exp)
     {
-        refreshUserSecurities(csvFile2,userBonds,account.getUsername());
+        refreshUserSecuritiesMap(csvFile2,userBonds,account.getUsername());
         if(sellCheck(csvFile2,amount,company))
         {
-            buyOrSell(company,amount,csvFile2,userBonds,1);
-            updateAmountInMarket(csvFile,amount,company,numberOfBonds,1,true);
+            buyOrSell(company,amount,csvFile2,userBonds,1,true,exp);
+            updateAmountInMarket(csvFile,amount,company,1,true);
             return true;
         }
         else return  false;
 
     }
-    public void refreshUserBondList(){refreshUserSecurities(userBondList,csvFile2);}
+    public void refreshUserBondList(){refreshUserSecurities(userBondList,csvFile2,true);}
     public ObservableList<DataShow> returnUserList()
     {
         return userBondList;

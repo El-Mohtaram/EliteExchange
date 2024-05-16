@@ -356,7 +356,7 @@ public class Admin {
                 if (account.username1.equals(values[0])) {
                     System.out.println("found");
                     for (int i = 1; i < values.length; i++) {
-                        transaction.add(new DataShow(values[i], 0));
+                        transaction.add(new DataShow(values[i], 0.0f));
                         System.out.println(values[i]);
                         System.out.println(transaction.get(i - 1));
                     }

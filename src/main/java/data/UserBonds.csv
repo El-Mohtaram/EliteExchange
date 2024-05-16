@@ -1,4 +1,4 @@
 username,Bonds...
 leo,
-cr7,1400>amazon
-bigz,1>apple,1>amazon
+cr7,1400>amazon>100
+bigz,5>apple>100,1>amazon>100

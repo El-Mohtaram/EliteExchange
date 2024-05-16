@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -113,11 +114,8 @@ public class StageController implements Initializable {
 
 
     @FXML
-    private TableColumn<DataShow, Integer> numberB;
+    private TableColumn<DataShow, Integer> numberB,expCol;
 
-
-    @FXML
-    public TableColumn<DataShow, Integer> expCol;
 
 
     @FXML
@@ -165,6 +163,8 @@ public class StageController implements Initializable {
             bondsTable.setItems(Bonds.getBondData());
         if(companyB!=null)
             companyB.setCellValueFactory(new PropertyValueFactory<>("company"));
+        if(expCol!=null)
+            expCol.setCellValueFactory(new PropertyValueFactory<>("exp"));
         if(faceValue!=null)
             faceValue.setCellValueFactory(new PropertyValueFactory<>("price"));
         if(yieldB!=null)
@@ -582,7 +582,7 @@ public class StageController implements Initializable {
     }
     @FXML
     void addBond(ActionEvent event) {
-        bond.addBonds(companyName.getText(), Float.parseFloat(value.getText()),Integer.parseInt(numberOfStocks.getText()),Float.parseFloat(yield.getText()));
+        bond.addBonds(companyName.getText(), Float.parseFloat(value.getText()),Integer.parseInt(numberOfStocks.getText()),Float.parseFloat(yield.getText()),0);
         bond.RefreshBondList();
         bondsTable.setItems(Bonds. getBondData());
         bond.RefreshBondList();
@@ -605,7 +605,7 @@ public class StageController implements Initializable {
         if (selectedBond != null) {
             String selectedName = selectedBond.getCompany();
             if (admin.marketOpenOrClose()) {
-                if (bond.buyBond(selectedName,Integer.parseInt(amount.getText()))) {
+                if (bond.buyBond(selectedName,Integer.parseInt(amount.getText()),0)) {
                     account.updateBalance();
                     bond.RefreshBondList();
                     buyMessage.setText("Bought Successfully");
@@ -626,7 +626,8 @@ public class StageController implements Initializable {
     @FXML
     public void priceHistory(ActionEvent event) throws IOException
     {
-        stock.fillStockHistoryData("amazon");
+        File file=null;
+        stock.fillStockHistoryData("amazon",false,  file);
         Parent root = FXMLLoader.load(getClass().getResource("priceHistory.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);

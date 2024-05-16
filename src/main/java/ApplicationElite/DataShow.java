@@ -8,10 +8,12 @@ private int number;
 private String history;
 private float yield;
 private String date;
+private String company2;
  private  float max;
     private float min;
     private float start;
     private float end;
+    private int exp;
     public  DataShow(String date,float start,float min, float max, float end){
         this.date=date;
         this.start=start;
@@ -37,14 +39,23 @@ this.company=company;
 this.price=price;
 this.number=number;
     }
-
-    public DataShow(String company, Float yield, Float price,int number) {
+    public DataShow(String company,int number, float price,int exp)
+    {
+        this.company=company;
+        this.price=price;
+        this.number=number;
+        this.exp=exp;
+    }
+    public DataShow(String company, Float yield, Float price,int number,int exp,int x) {
     this.company=company;
     this.yield=yield;
     this.price=price;
     this.number=number;
+    this.exp=exp;
     }
-
+    public DataShow(String company2,boolean x) {
+        this.company2=company2;
+    }
     public String getCompany() {
         return company;
     }
@@ -82,5 +93,11 @@ this.number=number;
 
     public float getStart() {
         return start;
+    }
+    public String getCompany2() {
+        return company2;
+    }
+    public int getExp(){
+        return exp;
     }
 }

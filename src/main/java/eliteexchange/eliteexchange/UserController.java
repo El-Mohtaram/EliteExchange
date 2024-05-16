@@ -31,6 +31,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -42,6 +43,7 @@ import java.util.EventObject;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
+import javafx.stage.Window;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import org.controlsfx.control.action.Action;
@@ -182,6 +184,10 @@ public class UserController implements Initializable {
 
     @FXML
     private TableView<DataShow> pricehistoryTable;
+    @FXML
+    private TableColumn<DataShow, Float> exportcompany;
+    @FXML
+    private TableView<DataShow> companylists;
 
     static boolean sceneloaded=false;
     Image menui = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menu.png");
@@ -219,6 +225,8 @@ public class UserController implements Initializable {
             historyTable.setItems(admin.historyList());
         if (pricehistoryTable != null)
             pricehistoryTable.setItems(stock.getStockPriceHistory());
+        if(companylists!=null)
+            companylists.setItems(stock.fillcompanytaple());
         if (dateTable != null)
             dateTable.setItems(Stock.getDateList());
         if (historyColumn != null)
@@ -231,6 +239,8 @@ public class UserController implements Initializable {
             closePrice.setCellValueFactory(new PropertyValueFactory<>("end"));
         if (openPrice != null)
            openPrice.setCellValueFactory(new PropertyValueFactory<>("start"));
+        if (exportcompany != null)
+            exportcompany.setCellValueFactory(new PropertyValueFactory<>("company2"));
         if (dateCol != null)
             dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         // TransHistory.setText("Transaction\nHistory");
@@ -662,7 +672,7 @@ public class UserController implements Initializable {
         if (selectedBond != null) {
             String selectedName = selectedBond.getCompany();
             if (admin.marketOpenOrClose()) {
-                if (bond.SellBond(Integer.parseInt(amount.getText()), selectedName)) {
+                if (bond.SellBond(Integer.parseInt(amount.getText()), selectedName,0)) {
                     bond.refreshUserBondList();
                     account.updateBalance();
                     bond.RefreshBondList();
@@ -721,6 +731,29 @@ public class UserController implements Initializable {
 
 
         }
+    }
+    @FXML
+    public void Exportcsvscene(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("Exportcsv.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    public void export(){
+        DataShow selectedcompany = companylists.getSelectionModel().getSelectedItem();
+        String company2 = selectedcompany.getCompany2();
+        FileChooser fileChooser = new FileChooser();
+        Stage primaryStage = new Stage();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        File selectedFile = fileChooser.showSaveDialog(primaryStage);
+        if (selectedFile != null) {
+            exportCSV(selectedFile,company2);
+        }
+    }
+    public void exportCSV(File file,String company){
+        stock.fillStockHistoryData(company,true, file);
+
     }
 
 }
