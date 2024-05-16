@@ -48,6 +48,14 @@
     -fx-background-color: transparent;
 }
 
+#companyB{
+    -fx-text-align: CENTER;
+}
+
+#expCol{
+    -fx-text-align: CENTER;
+}
+
 .table-view .column-header {
     -fx-background-color: transparent;
     -fx-text-color:  #181a20;
