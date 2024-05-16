@@ -454,21 +454,21 @@ public class StageController implements Initializable {
     @FXML
     private void blockuser() throws IOException {
         Admin.createuserslist();
-        System.out.println(userlist.getValue());
         Admin.blockuser(userlist.getValue());
         for (int i = 0; i < Admin.userslist.size(); i++) {
             userlist.getItems().set(i, Admin.userslist.get(i));
         }
+        System.out.println(userlist.getValue());
     }
 
     @FXML
     private void unblockuser() throws IOException {
         Admin.createuserslist();
-        System.out.println(userlist.getValue());
         Admin.unblockuser(userlist.getValue());
         for (int i = 0; i < Admin.userslist.size(); i++) {
             userlist.getItems().set(i, Admin.userslist.get(i));
         }
+        System.out.println(userlist.getValue());
     }
 
     @FXML
