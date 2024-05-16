@@ -719,17 +719,22 @@ public class UserController implements Initializable {
         String formattedDateTime = currentDateTime.format(formatter); // Format the date and time
         if (stock.fillDateTable(companyName.getText())) {
             stock.getPriceList(companyName.getText(), formattedDateTime);
-            if(priceAxis!=null) {
-                if(stock.getPriceList().size()>0) {
-                    priceAxis.setAutoRanging(false); // Disable automatic scaling
-                    priceAxis.setLowerBound(stock.getPriceList().get(0) - 13); // Set your desired lower bound
-                    priceAxis.setUpperBound(stock.getPriceList().get(0) + 13);
-                }//
-            }
             priceGraph.getData().clear();
+            float max=0;
+            float min=stock.getPriceList().get(0);
             XYChart.Series series = new XYChart.Series();
             for (int i = 0; i < stock.getPriceList().size(); i++) {
                 series.getData().add(new XYChart.Data(stock.getTimeList().get(i), stock.getPriceList().get(i)));
+                if(max<stock.getPriceList().get(i)) max=stock.getPriceList().get(i);
+                if(min>stock.getPriceList().get(i)) min=stock.getPriceList().get(i);
+            }
+            if(priceAxis!=null) {
+                if(stock.getPriceList().size()>0) {
+                    priceAxis.setAutoRanging(false); // Disable automatic scaling
+                    priceAxis.setLowerBound((int)(min -2)); // Set your desired lower bound
+                    priceAxis.setUpperBound((int)(max +2));
+                    priceAxis.setTickUnit(1);
+                }//
             }
             priceGraph.setCreateSymbols(false);
             if (priceGraph != null)
@@ -745,15 +750,20 @@ public class UserController implements Initializable {
             System.out.println(selectedName);
             stock.getPriceList(stock.getCompany(), selectedName);
             priceGraph.getData().clear();
-            if(priceAxis!=null) {
-                if(stock.getPriceList().size()>0) {
-                    priceAxis.setLowerBound(stock.getPriceList().get(0) -2); // Set your desired lower bound
-                    priceAxis.setUpperBound(stock.getPriceList().get(0) +2);
-                }//
-            }
             XYChart.Series series = new XYChart.Series();
+            float max=0;
+            float min=stock.getPriceList().get(0);
             for (int i = 0; i < stock.getPriceList().size(); i++) {
                 series.getData().add(new XYChart.Data(stock.getTimeList().get(i), stock.getPriceList().get(i)));
+                if(max<stock.getPriceList().get(i)) max=stock.getPriceList().get(i);
+                if(min>stock.getPriceList().get(i)) min=stock.getPriceList().get(i);
+            }
+            if(priceAxis!=null) {
+                if(stock.getPriceList().size()>0) {
+                    priceAxis.setLowerBound((int)(min -2)); // Set your desired lower bound
+                    priceAxis.setUpperBound((int)(max +2));
+                    priceAxis.setTickUnit(1);
+                }//
             }
             priceGraph.setCreateSymbols(false);
             if (priceGraph != null)
