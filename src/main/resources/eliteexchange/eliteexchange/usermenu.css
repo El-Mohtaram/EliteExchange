@@ -2,6 +2,9 @@
     -fx-fill: #181a20; /* Initial gradient */
     -fx-transition: -fx-fill 0.6s ease;
 }
+.label{
+    -fx-font-family: "Yaahowu Bold";
+}
 /*#pest:hover {*/
 /*    -fx-fill: blue; !* Color on hover *!*/
 /*}*/
@@ -18,7 +21,7 @@
 #close:pressed{
     -fx-fill: #930000
 }
-#MenuClose,#Menu,#market,#wd,#TransHistory,#AccMangb,#logoutb,#Dashboardb,#Stocksb,#Bondsb,#Optionsb{
+#MenuClose,#Menu,#market,#wd,#TransHistory,#AccMangb,#logoutb,#Dashboardb,#Stocksb,#Bondsb,#Optionsb,#hotstockstit{
     -fx-font-family: "Yaahowu Bold";
 }
 #Dashboardb{
@@ -91,22 +94,25 @@
 #balancetit,vpnlevel{
     -fx-font-family: "Yaahowu Bold";
 }
-#hotstocks .scroll-bar:vertical {
+#hotstocks .scroll-bar:vertical,#hotbonds .scroll-bar:vertical {
     -fx-max-width: 0;
     -fx-pref-width: 0;
     -fx-min-width: 0;
 }
 
-#hotstocks .scroll-bar:horizontal {
+#hotstocks .scroll-bar:horizontal,#hotbonds .scroll-bar:vertical {
     -fx-max-height: 0;
     -fx-pref-height: 0;
     -fx-min-height: 0;
 }
-#hotstocks .list-cell {
+#hotstocks .list-cell,#hotbonds .list-cell {
     -fx-control-inner-background: #ebb50c; /* Red background for cells */
     -fx-text-fill: white; /* Black text color */
 }
 
 #hotstocks .list-cell:filled:selected, .list-view .list-cell:filled:selected:focused {
+    -fx-background-color: -fx-control-inner-background; /* Keep the background color on selection */
+}
+#hotbonds .list-cell:filled:selected, .list-view .list-cell:filled:selected:focused {
     -fx-background-color: -fx-control-inner-background; /* Keep the background color on selection */
 }
