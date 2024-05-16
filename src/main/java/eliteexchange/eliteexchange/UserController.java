@@ -43,7 +43,6 @@ import java.util.EventObject;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
-import javafx.stage.Window;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import org.controlsfx.control.action.Action;
@@ -134,43 +133,6 @@ public class UserController implements Initializable {
 
     @FXML
     Label messagelabel, datee, signedup1,viplevel;
-
-    @FXML
-    private Button back;
-    @FXML
-    private TextField username;
-    @FXML
-    private PasswordField password;
-    @FXML
-    private PasswordField confirmpassword;
-
-    @FXML
-    private Hyperlink login;
-    private double x, y;
-    @FXML
-    private AnchorPane slider;
-
-    @FXML
-    private Label MenuClose, balancetit, Menu;
-    @FXML
-    private JFXButton market;
-    @FXML
-    private JFXButton wd;
-    @FXML
-    private ImageView aw;
-    @FXML
-    private FontAwesomeIconView showbalance, hidebalance;
-    @FXML
-    private JFXButton Dashboardb;
-    @FXML
-    private Label welcomemes;
-    @FXML
-    private NumberAxis priceAxis;
-    @FXML
-    private JFXListView<String> hotstocks,hotbonds;
-
-    //private JFXListView<String> hotstocks;
-
     @FXML
     private TableColumn<DataShow, Float> closePrice;
     @FXML
@@ -188,6 +150,42 @@ public class UserController implements Initializable {
     private TableColumn<DataShow, Float> exportcompany;
     @FXML
     private TableView<DataShow> companylists;
+    @FXML
+    private Button back;
+    @FXML
+    private TextField username;
+    @FXML
+    private PasswordField password;
+    @FXML
+    private PasswordField confirmpassword;
+
+    @FXML
+    private Hyperlink login;
+    private double x, y;
+    @FXML
+    private AnchorPane slider;
+
+    @FXML
+    private Label MenuClose, balancetit, Menu,hotbondstit;
+    @FXML
+    private JFXButton market;
+    @FXML
+    private JFXButton wd;
+    @FXML
+    private ImageView aw;
+    @FXML
+    private FontAwesomeIconView showbalance, hidebalance;
+    @FXML
+    private JFXButton Dashboardb;
+    @FXML
+    private Label welcomemes,hotstockstit;
+    @FXML
+    private NumberAxis priceAxis;
+    @FXML
+    private JFXListView<DataShow> hotstocks,hotbonds;
+//    @FXML
+//    private JFXListView<String> hotbonds;
+
 
     static boolean sceneloaded=false;
     Image menui = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menu.png");
@@ -195,6 +193,9 @@ public class UserController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (viplevel!=null){
+            viplevel.setTranslateX(170);
+        }
         if(star != null)
         star.setTranslateX(200);
         if(welcomemes!=null)
@@ -272,7 +273,7 @@ public class UserController implements Initializable {
             showbalance.setOnMouseClicked(event -> {
                 menuclose();
                 showbalance.setVisible(false);
-                balance.setText("" + account.getBalance());
+                balance.setText("" + account.getBalance() +" $");
                 balance.setTextFill(Color.WHITE);
                 balancetit.setTextFill(Color.WHITE);
                 hidebalance.setVisible(true);
@@ -286,26 +287,48 @@ public class UserController implements Initializable {
                 balance.setTextFill(Color.color(0.9176470588235294, 0.9254901960784314, 0.9372549019607843));
                 hidebalance.setVisible(false);
             });
-        if(hotstocks!=null)
-        hotstocks.getItems().addAll("elmohtaram","2342","zdsfsd","fsdaasdf","dsafa","dsafdsaf");
-        if(hotstocks!=null)    hotstocks.setCellFactory(param -> new ListCell<String>() {
+
+        ObservableList<DataShow> datashowstocks=stock.returnList();
+
+        if(hotstocks!=null){ hotstocks.setItems(datashowstocks);
+            hotstocks.setCellFactory(param -> new ListCell<DataShow>() {
             @Override
-            protected void updateItem(String item, boolean empty) {
+            protected void updateItem(DataShow item, boolean empty) {
                 super.updateItem(item, empty);
                 if (item != null && !empty) {
-                    setText(item);
-                   setFont(Font.font("Yaahowu Bold", 14)); // Set the font to "yy" with size 12pt
-                    setStyle("-fx-background-radius: 10;"); // Set the cell background color to red
+                    setText(item.toString());
+                    setFont(Font.font("Yaahowu Bold", 18)); // Set the font to "yy" with size 12pt
+                    setStyle("-fx-background-radius: 10; -fx-alignment: center; -fx-text-alignment: center;"); // Set the cell background color to red, center align the text, and center justify the text
                 } else {
                     setText(null);
                     setGraphic(null);
                     setStyle(""); // Clear styles for empty cells
                 }
             }
-        });
-        if(hotstocks!=null)hotstocks.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> event.consume());
+        });}
+        if(hotstocks!=null)  hotstocks.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> event.consume());
         if(hotstocks!=null)  hotstocks.lookupAll(".scroll-bar").forEach(scrollBar -> scrollBar.setVisible(false));
 
+            ObservableList<DataShow> datashowbonds= bond.getBondData();
+
+        if(hotbonds!=null){ hotbonds.setItems(datashowbonds);
+            hotbonds.setCellFactory(param -> new ListCell<DataShow>() {
+                @Override
+                protected void updateItem(DataShow item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item != null && !empty) {
+                        setText(item.toString());
+                        setFont(Font.font("Yaahowu Bold", 18)); // Set the font to "yy" with size 12pt
+                        setStyle("-fx-background-radius: 10; -fx-alignment: center; -fx-text-alignment: center;"); // Set the cell background color to red, center align the text, and center justify the text
+                    } else {
+                        setText(null);
+                        setGraphic(null);
+                        setStyle(""); // Clear styles for empty cells
+                    }
+                }
+            });}
+        if(hotbonds!=null)  hotbonds.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> event.consume());
+        if(hotbonds!=null)  hotbonds.lookupAll(".scroll-bar").forEach(scrollBar -> scrollBar.setVisible(false));
     }
 
     private void updateDateTimeLabel() {
@@ -364,6 +387,16 @@ public class UserController implements Initializable {
     @FXML
     private void Stockspressed(){
         menuclose();
+        welcomemes.setVisible(false);
+        showbalance.setVisible(false);
+        hidebalance.setVisible(false);
+        balancetit.setVisible(false);
+        balance.setVisible(false);
+        hotbonds.setVisible(false);
+        viplevel.setVisible(false);
+        hotstocks.setVisible(false);
+        hotstockstit.setVisible(false);
+        hotbondstit.setVisible(false);
         TranslateTransition tapsawp = new TranslateTransition();
         tapsawp.setDuration(Duration.seconds(0.4));
         tapsawp.setNode(swaptaps);
@@ -371,14 +404,7 @@ public class UserController implements Initializable {
         tapsawp.play();
         swaptaps.setTranslateX(0);
         tapsawp.setOnFinished((ActionEvent e) -> {
-            welcomemes.setVisible(false);
-            showbalance.setVisible(false);
-            hidebalance.setVisible(false);
-            balancetit.setVisible(false);
-            balance.setVisible(false);
-            hotstocks.setVisible(false);
-            hotbonds.setVisible(false);
-            viplevel.setVisible(false);
+
         });
     }
     @FXML
@@ -406,10 +432,12 @@ public class UserController implements Initializable {
         tapsawp.setOnFinished((ActionEvent e) -> {
             welcomemes.setVisible(true);
             showbalance.setVisible(true);
+            hotbondstit.setVisible(true);
             hidebalance.setVisible(true);
             balancetit.setVisible(true);
             balance.setVisible(true);
             hotstocks.setVisible(true);
+            hotstockstit.setVisible(true);
             hotbonds.setVisible(true);
             viplevel.setVisible(true);
         });
@@ -694,8 +722,8 @@ public class UserController implements Initializable {
             if(priceAxis!=null) {
                 if(stock.getPriceList().size()>0) {
                     priceAxis.setAutoRanging(false); // Disable automatic scaling
-                    priceAxis.setLowerBound(stock.getPriceList().get(0) - 2); // Set your desired lower bound
-                    priceAxis.setUpperBound(stock.getPriceList().get(0) + 2);
+                    priceAxis.setLowerBound(stock.getPriceList().get(0) - 13); // Set your desired lower bound
+                    priceAxis.setUpperBound(stock.getPriceList().get(0) + 13);
                 }//
             }
             priceGraph.getData().clear();
