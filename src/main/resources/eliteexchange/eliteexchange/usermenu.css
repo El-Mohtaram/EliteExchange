@@ -116,3 +116,71 @@
 #hotbonds .list-cell:filled:selected, .list-view .list-cell:filled:selected:focused {
     -fx-background-color: -fx-control-inner-background; /* Keep the background color on selection */
 }
+.table-view{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
+#yieldB,#numberB,#startPrice{
+    -fx-alignment: CENTER;
+    -fx-text-alignment: CENTER;
+}
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+
+.table-view .corner {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-text-color:  #181a20;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #fcd535;
+    -fx-background-radius: 10 10 0 0;
+}
+
+.table-view .table-cell {
+    -fx-font-family: "Yaahowu Bold";
+    -fx-font-size:  18px;
+    -fx-text-fill: WHITE;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: #ebb50c;
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.table-row-cell:even{
+    -fx-background-color: #e6af0b;
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.table-row-cell:hover:even{
+    -fx-background-color: #e6af0b;
+    -fx-background-insets: 0, 0 0 1 0;
+}
+.table-row-cell:hover:odd{
+    -fx-background-color: #ebb50c;
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.table-row-cell:focused:odd{
+    -fx-background-color: #ebb50c;
+}
+.table-row-cell:focused:even{
+    -fx-background-color: #e6af0b;
+}
+.table-view .scroll-bar * {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+}
