@@ -100,4 +100,8 @@ this.number=number;
     public int getExp(){
         return exp;
     }
+    @Override
+    public String toString() {
+        return company + "  |   " + price +" $";
+    }
 }

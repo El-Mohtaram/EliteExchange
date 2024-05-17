@@ -78,13 +78,13 @@
             <TextField fx:id="value" layoutX="249.0" layoutY="314.0" />
             <TextField fx:id="yield" layoutX="250.0" layoutY="391.0" />
             <TextField fx:id="ValidUntil" layoutX="251.0" layoutY="462.0" />
-            <TableView fx:id="bondsTable" layoutX="583.0" layoutY="148.0" prefHeight="384.0" prefWidth="393.0" style="-fx-border-color: #181a20;" stylesheets="@BondsManagementScene.css">
+            <TableView fx:id="bondsTable" layoutX="574.0" layoutY="148.0" prefHeight="384.0" prefWidth="423.0" style="-fx-border-color: #181a20;" stylesheets="@BondsManagementScene.css">
               <columns>
-                <TableColumn fx:id="companyB" prefWidth="98.4000244140625" text="Company" />
-                <TableColumn fx:id="yieldB" prefWidth="72.79998779296875" text="Yield %" />
-                  <TableColumn fx:id="faceValue" prefWidth="72.800048828125" text="Face Value" />
-                  <TableColumn fx:id="numberB" prefWidth="76.0" text="Available" />
-                  <TableColumn fx:id="expCol" prefWidth="69.59993896484377" text="Valid Until" />
+                <TableColumn fx:id="companyB" prefWidth="98.39996337890625" text="Company" />
+                <TableColumn fx:id="yieldB" prefWidth="84.800048828125" text="Yield %" />
+                  <TableColumn fx:id="faceValue" prefWidth="85.5999755859375" text="Face Value" />
+                  <TableColumn fx:id="numberB" prefWidth="72.7999267578125" text="Available" />
+                  <TableColumn fx:id="expCol" prefWidth="80.800048828125" text="Valid Until" />
               </columns>
             </TableView>
             <FontAwesomeIconView fill="WHITE" glyphName="USD" layoutX="418.0" layoutY="331.0" size="20" />

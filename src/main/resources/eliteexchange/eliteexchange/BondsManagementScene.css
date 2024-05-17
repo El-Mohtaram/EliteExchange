@@ -48,12 +48,9 @@
     -fx-background-color: transparent;
 }
 
-#companyB{
-    -fx-text-align: CENTER;
-}
-
-#expCol{
-    -fx-text-align: CENTER;
+#expCol,#yieldB,#faceValue,#numberB{
+    -fx-alignment: CENTER;
+    -fx-text-alignment: CENTER;
 }
 
 .table-view .column-header {

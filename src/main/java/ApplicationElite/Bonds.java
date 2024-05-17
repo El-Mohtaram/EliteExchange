@@ -28,9 +28,9 @@ public class Bonds extends Securities {
     {
         Delete(company,csvFile,bondList,1);
     }
-public void RefreshBondList(){
+    public void RefreshBondList(){
         RestoreData(csvFile,bondList,BondData,1);
-}
+    }
 
     public static ObservableList<DataShow> getBondData() {
         return BondData;

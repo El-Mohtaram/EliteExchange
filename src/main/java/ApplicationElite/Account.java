@@ -108,7 +108,7 @@ public class Account {
         try {
             FileWriter fileWriter = new FileWriter("src/main/java/data/UserBonds.csv", true);
             PrintWriter printWriter = new PrintWriter(fileWriter);
-            printWriter.println(username1 );
+            printWriter.println(username1);
             printWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -245,7 +245,8 @@ public class Account {
             e.printStackTrace();
         }
     }
-    public void updateBalance2(String username,float amount) {
+
+    public void updateBalance2(String username, float amount) {
         String oldContent = "";
         String dataOverwrite = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
@@ -255,7 +256,7 @@ public class Account {
                 String[] values = line.split(",");
                 if (username.equals(values[0])) {
                     oldContent = line;
-                    dataOverwrite = values[0] + "," + values[1] + "," + "user" + "," + (Float.parseFloat(values[3])+amount);
+                    dataOverwrite = values[0] + "," + values[1] + "," + "user" + "," + (Float.parseFloat(values[3]) + amount);
 
                 }
             }

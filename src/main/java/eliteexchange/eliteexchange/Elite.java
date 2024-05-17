@@ -4,6 +4,7 @@ import ApplicationElite.Account;
 import ApplicationElite.Bonds;
 import ApplicationElite.PriceUpdater;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -37,6 +38,8 @@ public class Elite extends Application {
         scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();
+        // Perform a long-running operation on a background thread
+
     }
 
     public static void main(String[] args) {
@@ -50,4 +53,6 @@ public class Elite extends Application {
         launch();
 
     }
+
+
 }

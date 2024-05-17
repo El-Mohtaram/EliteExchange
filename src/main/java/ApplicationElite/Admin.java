@@ -1,4 +1,5 @@
 package ApplicationElite;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -15,8 +16,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Admin {
-    public static int lastday=1;
-    public static int Currentday=1;
+    public static int lastday = 1;
+    public static int Currentday = 1;
     Account account = new Account();
     public static ArrayList<String> userslist = new ArrayList<>();
     private String csvfile = "src/main/java/data/financialRequests.csv";
@@ -328,10 +329,9 @@ public class Admin {
                         fileContent.add(i, oldContent + ", your request to " + values2[3] + " " + values2[4] + "$" + " had been refused  " + formattedDateTime);
                     else if (state == 2) {
                         fileContent.add(i, oldContent + ",You bought " + values2[1] + " stocks of " + values2[2] + " for " + values2[3] + "$" + "   " + formattedDateTime);
-                    }
-                    else if (state == 3) {
-                        fileContent.add(i, oldContent + ",You sold " + values2[1] + " stocks of " + values2[2] + " for " + values2[3] + "$" + "   " + formattedDateTime);}
-                    else if (values2[3].equals("deposite"))
+                    } else if (state == 3) {
+                        fileContent.add(i, oldContent + ",You sold " + values2[1] + " stocks of " + values2[2] + " for " + values2[3] + "$" + "   " + formattedDateTime);
+                    } else if (values2[3].equals("deposite"))
                         fileContent.add(i, oldContent + ", you  " + values2[3] + "d " + values2[4] + "$  " + formattedDateTime);
                     else if (values2[3].equals("withdrawal"))
                         fileContent.add(i, oldContent + ", you  " + values2[3] + "ed " + values2[4] + "$  " + formattedDateTime);
@@ -381,7 +381,7 @@ public class Admin {
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/Market.csv"))) {
             oldContent = br.readLine();
             String[] values = oldContent.split(",");
-            dataOverwrite = values[0]+"," + values[1]+","+ values[2] + "," + "open";
+            dataOverwrite = values[0] + "," + values[1] + "," + values[2] + "," + "open";
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -407,7 +407,7 @@ public class Admin {
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/Market.csv"))) {
             oldContent = br.readLine();
             String[] values = oldContent.split(",");
-            dataOverwrite = values[0]+"," + values[1]+","+ values[2] + "," + "close";
+            dataOverwrite = values[0] + "," + values[1] + "," + values[2] + "," + "close";
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -94,3 +94,8 @@
     -fx-pref-height: 0;
     -fx-max-height: 0;
 }
+
+#startPrice,#numberofStocks{
+    -fx-alignment: CENTER;
+    -fx-text-alignment: CENTER;
+}
