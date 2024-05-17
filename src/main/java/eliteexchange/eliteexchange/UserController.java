@@ -168,7 +168,7 @@ public class UserController implements Initializable {
     @FXML
     private Label MenuClose, balancetit, Menu,hotbondstit;
     @FXML
-    private JFXButton market;
+    private JFXButton market,withdraw,depositb;
     @FXML
     private JFXButton wd;
     @FXML
@@ -178,15 +178,15 @@ public class UserController implements Initializable {
     @FXML
     private JFXButton Dashboardb;
     @FXML
-    private Label welcomemes,hotstockstit,stocksmarekttit;
+    private Label welcomemes,hotstockstit,titleslabel;
     @FXML
     private NumberAxis priceAxis;
     @FXML
     private TableView<DataShow> hotstocks,hotbonds,StocksMarket;
     private int focusedRowIndex = -1;
     private TablePosition<DataShow, String> focusedCell;
-
-
+    @FXML
+    private Label messages;
     static boolean sceneloaded=false;
     Image menui = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menu.png");
     Image menuclosei = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menuclose.png");
@@ -195,8 +195,12 @@ public class UserController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         StocksMarket.setVisible(false);
         StocksMarket.setTranslateX(150);
-        stocksmarekttit.setVisible(false);
-
+        titleslabel.setVisible(false);
+        historyTable.setVisible(false);
+        amount.setVisible(false);
+        depositb.setVisible(false);
+        withdraw.setVisible(false);
+        historyTable.setVisible(false);
         if (viplevel!=null){
             viplevel.setTranslateX(170);
         }
@@ -213,6 +217,7 @@ public class UserController implements Initializable {
             startPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
             startPrice.setResizable(false);
         }
+        historyColumn.setResizable(false);
         if (company != null)
         { company.setCellValueFactory(new PropertyValueFactory<>("company"));
             company.setResizable(false);}
@@ -372,7 +377,7 @@ public class UserController implements Initializable {
             int row = focusedCell.getRow();
             int column = focusedCell.getColumn();
             if (row >= 0 && row < stock.returnList().size() && column >= 0 && column < StocksMarket.getColumns().size()) {
-                StocksMarket.getFocusModel().focus(row, column);
+                //StocksMarket.getFocusModel().focus(row, column);
             }
         }
     }
@@ -424,6 +429,7 @@ public class UserController implements Initializable {
         welcomemes.setVisible(false);
         showbalance.setVisible(false);
         hidebalance.setVisible(false);
+        titleslabel.setVisible(false);
         balancetit.setVisible(false);
         balance.setVisible(false);
         hotbonds.setVisible(false);
@@ -431,15 +437,21 @@ public class UserController implements Initializable {
         hotstocks.setVisible(false);
         hotstockstit.setVisible(false);
         hotbondstit.setVisible(false);
+        historyTable.setVisible(false);
+        amount.setVisible(false);
+        depositb.setVisible(false);
+        withdraw.setVisible(false);
         TranslateTransition tapsawp = new TranslateTransition();
         tapsawp.setDuration(Duration.seconds(0.4));
         tapsawp.setNode(swaptaps);
         tapsawp.setToX(204);
         tapsawp.play();
         swaptaps.setTranslateX(0);
+        titleslabel.setTranslateX(0);
         tapsawp.setOnFinished((ActionEvent e) -> {
             StocksMarket.setVisible(true);
-            stocksmarekttit.setVisible(true);
+            titleslabel.setText("Stocks Market");
+            titleslabel.setVisible(true);
         });
     }
     @FXML
@@ -458,8 +470,12 @@ public class UserController implements Initializable {
     @FXML
     private void Dashboaedpressed(){
         menuclose();
+        messages.setVisible(false);
         StocksMarket.setVisible(false);
-        stocksmarekttit.setVisible(false);
+        titleslabel.setVisible(false);
+        amount.setVisible(false);
+        depositb.setVisible(false);
+        withdraw.setVisible(false);
         TranslateTransition tapsawp = new TranslateTransition();
         tapsawp.setDuration(Duration.seconds(0.4));
         tapsawp.setNode(swaptaps);
@@ -477,6 +493,7 @@ public class UserController implements Initializable {
             hotstockstit.setVisible(true);
             hotbonds.setVisible(true);
             viplevel.setVisible(true);
+            historyTable.setVisible(false);
         });
     }
     @FXML
@@ -668,39 +685,102 @@ public class UserController implements Initializable {
 
     @FXML
     private void DandW(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("WDscene.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        menuclose();
+        messages.setVisible(false);
+        StocksMarket.setVisible(false);
+        titleslabel.setVisible(false);
+        welcomemes.setVisible(false);
+        hotbondstit.setVisible(false);
+        hotstocks.setVisible(false);
+        hotstockstit.setVisible(false);
+        hotbonds.setVisible(false);
+        viplevel.setVisible(false);
+        historyTable.setVisible(false);
+        TranslateTransition tapsawp = new TranslateTransition();
+        tapsawp.setDuration(Duration.seconds(0.4));
+        tapsawp.setNode(swaptaps);
+        tapsawp.setToX(0);
+        tapsawp.play();
+        swaptaps.setTranslateX(0);
+        tapsawp.setOnFinished((ActionEvent e) -> {
+            messages.setText("");
+            messages.setVisible(true);
+            amount.setVisible(true);
+            depositb.setVisible(true);
+            withdraw.setVisible(true);
+            balancetit.setVisible(true);
+            balance.setVisible(true);
+            hidebalance.setVisible(true);
+            showbalance.setVisible(true);
+            titleslabel.setTranslateX(-20);
+            titleslabel.setText("Deposite and Withdraw");
+            titleslabel.setVisible(true);
+        });
 
     }
 
     @FXML
     private void deposite() {
         admin.addRequests(Float.parseFloat(amount.getText()), "deposite");
-        requestMessage.setText("Your Request has been sent to the admin successfully");
+        messages.setText("Your Request has been sent to the admin successfully");
+        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+        delay.setOnFinished((ActionEvent e) -> {
+            messages.setText("");
+            messages.setVisible(true);
+        });
+        delay.play();
     }
 
     @FXML
     private void withdrawal() {
         if (Float.parseFloat(amount.getText()) > account.getBalance()) {
-            requestMessage.setText("You have insufficient balance");
+            messages.setText("You have insufficient balance");
         } else {
             admin.addRequests(Float.parseFloat(amount.getText()), "withdrawal");
-            requestMessage.setText("Your Request has been sent to the admin successfully");
+            messages.setText("Your Request has been sent to the admin successfully");
         }
+        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+        delay.setOnFinished((ActionEvent e) -> {
+            messages.setText("");
+            messages.setVisible(true);
+        });
+        delay.play();
     }
 
     @FXML
     private void transactionhistoryscene(ActionEvent event) throws IOException {
         admin.refreshTransactionHistory();
-        Parent root = FXMLLoader.load(getClass().getResource("transactionhistory.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        menuclose();
+        messages.setVisible(false);
+        amount.setVisible(false);
+        depositb.setVisible(false);
+        withdraw.setVisible(false);
+        StocksMarket.setVisible(false);
+        titleslabel.setVisible(false);
+        welcomemes.setVisible(false);
+        showbalance.setVisible(false);
+        hotbondstit.setVisible(false);
+        hidebalance.setVisible(false);
+        balancetit.setVisible(false);
+        balance.setVisible(false);
+        hotstocks.setVisible(false);
+        hotstockstit.setVisible(false);
+        hotbonds.setVisible(false);
+        viplevel.setVisible(false);
+        historyTable.setTranslateX(-120);
+        TranslateTransition tapsawp = new TranslateTransition();
+        tapsawp.setDuration(Duration.seconds(0.4));
+        tapsawp.setNode(swaptaps);
+        tapsawp.setToX(0);
+        tapsawp.play();
+        swaptaps.setTranslateX(0);
+        tapsawp.setOnFinished((ActionEvent e) -> {
+            titleslabel.setText("Your Transactions History");
+            titleslabel.setTranslateX(-45);
+            titleslabel.setVisible(true);
+            historyTable.setVisible(true);
 
+        });
     }
 
     @FXML

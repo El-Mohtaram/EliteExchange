@@ -190,3 +190,14 @@
 #StocksMarket .table-row-cell:focused {
     -fx-background-color: #bf930a;
 }
+.text-field{
+    -fx-background-color: transparent;
+    -fx-border-color: #474d57 ;
+    -fx-text-fill: #eaecef;
+    -fx-font-size: 30;
+    -fx-font-family: "Yaahowu Bold";
+    -fx-border-width:  0px 0px 2px 0px ;
+}
+.text-field:hover {
+    -fx-border-color:#f0b90b;
+}
