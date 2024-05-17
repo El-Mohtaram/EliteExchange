@@ -86,7 +86,7 @@ public class UserController implements Initializable {
     private TableColumn<DataShow, String> requestColumn, historyColumn;
 
     @FXML
-    private TableColumn<DataShow, String> company, ownedCompanyCol,companyB,companym,companyBm;
+    private TableColumn<DataShow, String> company, ownedCompanyCol, companyB, companym, companyBm;
 
     @FXML
     private TableColumn<DataShow, Float> currentPrice;
@@ -94,7 +94,7 @@ public class UserController implements Initializable {
     private TableColumn<DataShow, Integer> stocksOwned;
 
     @FXML
-    private TableColumn<DataShow, Float> startPrice, totalPrice,startPricem;
+    private TableColumn<DataShow, Float> startPrice, totalPrice, startPricem;
     @FXML
     private TableColumn<DataShow, Float> numberofStocks;
 
@@ -102,7 +102,7 @@ public class UserController implements Initializable {
     private TextField amount;
 
     @FXML
-    private ImageView immenu,star;
+    private ImageView immenu, star;
 
     @FXML
     private ImageView immenuclose;
@@ -132,7 +132,7 @@ public class UserController implements Initializable {
     private Button Sellstock;
 
     @FXML
-    Label messagelabel, datee, signedup1,viplevel;
+    Label messagelabel, datee, signedup1, viplevel;
     @FXML
     private TableColumn<DataShow, Float> closePrice;
     @FXML
@@ -145,9 +145,9 @@ public class UserController implements Initializable {
     @FXML
     private TableView<DataShow> pricehistoryTable;
     @FXML
-    private TableColumn<DataShow, Float> exportcompany,yieldB,yieldBm;
+    private TableColumn<DataShow, Float> exportcompany, yieldB, yieldBm;
     @FXML
-    private TableColumn<DataShow, Integer> numberB,numberBm,numberofStocksm;
+    private TableColumn<DataShow, Integer> numberB, numberBm, numberofStocksm;
     @FXML
     private TableView<DataShow> companylists;
     @FXML
@@ -166,7 +166,7 @@ public class UserController implements Initializable {
     private AnchorPane slider;
 
     @FXML
-    private Label MenuClose, balancetit, Menu,hotbondstit;
+    private Label MenuClose, balancetit, Menu, hotbondstit;
     @FXML
     private JFXButton market,withdraw,depositb;
     @FXML
@@ -178,16 +178,15 @@ public class UserController implements Initializable {
     @FXML
     private JFXButton Dashboardb;
     @FXML
-    private Label welcomemes,hotstockstit,titleslabel;
+    private Label welcomemes, hotstockstit, titleslabel;
     @FXML
     private NumberAxis priceAxis;
     @FXML
-    private TableView<DataShow> hotstocks,hotbonds,StocksMarket;
+    private TableView<DataShow> hotstocks, hotbonds, StocksMarket;
     private int focusedRowIndex = -1;
     private TablePosition<DataShow, String> focusedCell;
     @FXML
     private Label messages;
-    static boolean sceneloaded=false;
     Image menui = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menu.png");
     Image menuclosei = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menuclose.png");
 
@@ -201,13 +200,13 @@ public class UserController implements Initializable {
         depositb.setVisible(false);
         withdraw.setVisible(false);
         historyTable.setVisible(false);
-        if (viplevel!=null){
+        if (viplevel != null) {
             viplevel.setTranslateX(170);
         }
-        if(star != null)
-        star.setTranslateX(200);
-        if(welcomemes!=null)
-        welcomemes.setText("Welcome ");
+        if (star != null)
+            star.setTranslateX(200);
+        if (welcomemes != null)
+            welcomemes.setText("Welcome ");
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(1), event -> updateDateTimeLabel())
         );
@@ -218,21 +217,24 @@ public class UserController implements Initializable {
             startPrice.setResizable(false);
         }
         historyColumn.setResizable(false);
-        if (company != null)
-        { company.setCellValueFactory(new PropertyValueFactory<>("company"));
-            company.setResizable(false);}
-        if (yieldB != null)
-        {yieldB.setCellValueFactory(new PropertyValueFactory<>("yield"));
-            yieldB.setResizable(false);}
-        if (numberB != null)
-        {  numberB.setCellValueFactory(new PropertyValueFactory<>("number"));
-            numberB.setResizable(false);}
+        if (company != null) {
+            company.setCellValueFactory(new PropertyValueFactory<>("company"));
+            company.setResizable(false);
+        }
+        if (yieldB != null) {
+            yieldB.setCellValueFactory(new PropertyValueFactory<>("yield"));
+            yieldB.setResizable(false);
+        }
+        if (numberB != null) {
+            numberB.setCellValueFactory(new PropertyValueFactory<>("number"));
+            numberB.setResizable(false);
+        }
         if (companyB != null)
             companyB.setCellValueFactory(new PropertyValueFactory<>("company"));
-            companyB.setResizable(false);
+        companyB.setResizable(false);
         if (startPricem != null)
             startPricem.setCellValueFactory(new PropertyValueFactory<>("price"));
-            startPricem.setResizable(false);
+        startPricem.setResizable(false);
         if (companym != null)
             companym.setCellValueFactory(new PropertyValueFactory<>("company"));
         companym.setResizable(false);
@@ -247,7 +249,7 @@ public class UserController implements Initializable {
 //        companyBm.setResizable(false);
         if (numberofStocksm != null)
             numberofStocksm.setCellValueFactory(new PropertyValueFactory<>("number"));
-            numberofStocksm.setResizable(false);
+        numberofStocksm.setResizable(false);
         if (hidebalance != null) {
             hidebalance.setVisible(false);
         }
@@ -269,20 +271,20 @@ public class UserController implements Initializable {
             historyTable.setItems(admin.historyList());
         if (pricehistoryTable != null)
             pricehistoryTable.setItems(stock.getStockPriceHistory());
-        if(companylists!=null)
+        if (companylists != null)
             companylists.setItems(stock.fillcompanytaple());
         if (dateTable != null)
             dateTable.setItems(Stock.getDateList());
         if (historyColumn != null)
             historyColumn.setCellValueFactory(new PropertyValueFactory<>("history"));
         if (maxPrice != null)
-           maxPrice.setCellValueFactory(new PropertyValueFactory<>("max"));
+            maxPrice.setCellValueFactory(new PropertyValueFactory<>("max"));
         if (lowPrice != null)
             lowPrice.setCellValueFactory(new PropertyValueFactory<>("min"));
         if (closePrice != null)
             closePrice.setCellValueFactory(new PropertyValueFactory<>("end"));
         if (openPrice != null)
-           openPrice.setCellValueFactory(new PropertyValueFactory<>("start"));
+            openPrice.setCellValueFactory(new PropertyValueFactory<>("start"));
         if (exportcompany != null)
             exportcompany.setCellValueFactory(new PropertyValueFactory<>("company2"));
         if (dateCol != null)
@@ -316,7 +318,7 @@ public class UserController implements Initializable {
             showbalance.setOnMouseClicked(event -> {
                 menuclose();
                 showbalance.setVisible(false);
-                balance.setText("" + account.getBalance() +" $");
+                balance.setText("" + account.getBalance() + " $");
                 balance.setTextFill(Color.WHITE);
                 balancetit.setTextFill(Color.WHITE);
                 hidebalance.setVisible(true);
@@ -331,45 +333,44 @@ public class UserController implements Initializable {
                 hidebalance.setVisible(false);
             });
 
-        if(hotstocks!=null){ hotstocks.setItems(stock.returnList());
-            stock.RestoreData();
-            }
-        if(StocksMarket!=null){ StocksMarket.setItems(stock.returnList());
+        if (hotstocks != null) {
+            hotstocks.setItems(stock.returnList());
             stock.RestoreData();
         }
-        if(hotstocks!=null)  hotstocks.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> event.consume());
-        if(hotstocks!=null)  hotstocks.lookupAll(".scroll-bar").forEach(scrollBar -> scrollBar.setVisible(false));
+        if (StocksMarket != null) {
+            StocksMarket.setItems(stock.returnList());
+            stock.RestoreData();
+        }
+        if (hotstocks != null) hotstocks.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> event.consume());
+        if (hotstocks != null) hotstocks.lookupAll(".scroll-bar").forEach(scrollBar -> scrollBar.setVisible(false));
 
-        if(hotbonds!=null){ hotbonds.setItems(bond.getBondData());
+        if (hotbonds != null) {
+            hotbonds.setItems(bond.getBondData());
             bond.RefreshBondList();
         }
-        if(hotbonds!=null)  hotbonds.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> event.consume());
-        if(hotbonds!=null)  hotbonds.lookupAll(".scroll-bar").forEach(scrollBar -> scrollBar.setVisible(false));
-        // Store the focused cell
-        StocksMarket.focusModelProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
-                focusedCell = newVal.getFocusedCell();
-            }
-        });
+        if (hotbonds != null) hotbonds.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> event.consume());
+        if (hotbonds != null) hotbonds.lookupAll(".scroll-bar").forEach(scrollBar -> scrollBar.setVisible(false));
     }
 
     private void updateDateTimeLabel() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMM d, yyyy\nhh:mm:ss a");
         String formattedDateTime = LocalDateTime.now().format(formatter);
-        if (datee != null ){
+        if (datee != null) {
             datee.setText(formattedDateTime);
         }
-        if(account.getUsername()!=null && !sceneloaded){
-            welcomemes.setText("Welcome "+account.getUsername());
-            sceneloaded=true;
+        if (account.getUsername() != null) {
+            welcomemes.setText("Welcome " + account.getUsername());
         }
-        if(hotbonds!=null){ hotbonds.setItems(bond.getBondData());
+        if (hotbonds != null) {
+            hotbonds.setItems(bond.getBondData());
             bond.RefreshBondList();
         }
-        if(hotstocks!=null){ hotstocks.setItems(stock.returnList());
+        if (hotstocks != null) {
+            hotstocks.setItems(stock.returnList());
             stock.RestoreData();
         }
-        if(StocksMarket!=null){ StocksMarket.setItems(stock.returnList());
+        if (StocksMarket != null) {
+            StocksMarket.setItems(stock.returnList());
             stock.RestoreData();
         }
         // Re-focus the previously focused cell
@@ -423,8 +424,9 @@ public class UserController implements Initializable {
             immenuclose.setRotate(90);
         });
     }
+
     @FXML
-    private void Stockspressed(){
+    private void Stockspressed() {
         menuclose();
         welcomemes.setVisible(false);
         showbalance.setVisible(false);
@@ -454,8 +456,9 @@ public class UserController implements Initializable {
             titleslabel.setVisible(true);
         });
     }
+
     @FXML
-    private void Optionspressed(){
+    private void Optionspressed() {
         menuclose();
         TranslateTransition tapsawp = new TranslateTransition();
         tapsawp.setDuration(Duration.seconds(0.4));
@@ -467,8 +470,9 @@ public class UserController implements Initializable {
 
         });
     }
+
     @FXML
-    private void Dashboaedpressed(){
+    private void Dashboaedpressed() {
         menuclose();
         messages.setVisible(false);
         StocksMarket.setVisible(false);
@@ -496,6 +500,7 @@ public class UserController implements Initializable {
             historyTable.setVisible(false);
         });
     }
+
     @FXML
     public void BondsPressed(ActionEvent event) throws IOException {
         menuclose();
@@ -519,13 +524,15 @@ public class UserController implements Initializable {
             stage.show();
         });
     }
+
     @FXML
-    private void setImmenuent(MouseEvent event){
-    immenu.setImage(menui);
+    private void setImmenuent(MouseEvent event) {
+        immenu.setImage(menui);
     }
+
     @FXML
-    private void setImmenuex(MouseEvent event){
-   immenu.setImage(menuclosei);
+    private void setImmenuex(MouseEvent event) {
+        immenu.setImage(menuclosei);
     }
 
     @FXML
@@ -800,7 +807,6 @@ public class UserController implements Initializable {
     }
 
 
-
     @FXML
     public void yourBonds(ActionEvent event) throws IOException {
         bond.refreshUserBondList();
@@ -811,8 +817,8 @@ public class UserController implements Initializable {
         stage.show();
     }
 
-     @FXML
-     public void sellBond() {
+    @FXML
+    public void sellBond() {
       /*   DataShow selectedBond = userBondList.getSelectionModel().getSelectedItem();
          if (selectedBond != null) {
              String selectedName = selectedBond.getCompany();
@@ -827,7 +833,7 @@ public class UserController implements Initializable {
          }
          */
 
-     }
+    }
 
     @FXML
     public void searchStock() {
@@ -837,19 +843,19 @@ public class UserController implements Initializable {
         if (stock.fillDateTable(companyName.getText())) {
             stock.getPriceList(companyName.getText(), formattedDateTime);
             priceGraph.getData().clear();
-            float max=0;
-            float min=stock.getPriceList().get(0);
+            float max = 0;
+            float min = stock.getPriceList().get(0);
             XYChart.Series series = new XYChart.Series();
             for (int i = 0; i < stock.getPriceList().size(); i++) {
                 series.getData().add(new XYChart.Data(stock.getTimeList().get(i), stock.getPriceList().get(i)));
-                if(max<stock.getPriceList().get(i)) max=stock.getPriceList().get(i);
-                if(min>stock.getPriceList().get(i)) min=stock.getPriceList().get(i);
+                if (max < stock.getPriceList().get(i)) max = stock.getPriceList().get(i);
+                if (min > stock.getPriceList().get(i)) min = stock.getPriceList().get(i);
             }
-            if(priceAxis!=null) {
-                if(stock.getPriceList().size()>0) {
+            if (priceAxis != null) {
+                if (stock.getPriceList().size() > 0) {
                     priceAxis.setAutoRanging(false); // Disable automatic scaling
-                    priceAxis.setLowerBound((int)(min -2)); // Set your desired lower bound
-                    priceAxis.setUpperBound((int)(max +2));
+                    priceAxis.setLowerBound((int) (min - 2)); // Set your desired lower bound
+                    priceAxis.setUpperBound((int) (max + 2));
                     priceAxis.setTickUnit(1);
                 }//
             }
@@ -868,17 +874,17 @@ public class UserController implements Initializable {
             stock.getPriceList(stock.getCompany(), selectedName);
             priceGraph.getData().clear();
             XYChart.Series series = new XYChart.Series();
-            float max=0;
-            float min=stock.getPriceList().get(0);
+            float max = 0;
+            float min = stock.getPriceList().get(0);
             for (int i = 0; i < stock.getPriceList().size(); i++) {
                 series.getData().add(new XYChart.Data(stock.getTimeList().get(i), stock.getPriceList().get(i)));
-                if(max<stock.getPriceList().get(i)) max=stock.getPriceList().get(i);
-                if(min>stock.getPriceList().get(i)) min=stock.getPriceList().get(i);
+                if (max < stock.getPriceList().get(i)) max = stock.getPriceList().get(i);
+                if (min > stock.getPriceList().get(i)) min = stock.getPriceList().get(i);
             }
-            if(priceAxis!=null) {
-                if(stock.getPriceList().size()>0) {
-                    priceAxis.setLowerBound((int)(min -2)); // Set your desired lower bound
-                    priceAxis.setUpperBound((int)(max +2));
+            if (priceAxis != null) {
+                if (stock.getPriceList().size() > 0) {
+                    priceAxis.setLowerBound((int) (min - 2)); // Set your desired lower bound
+                    priceAxis.setUpperBound((int) (max + 2));
                     priceAxis.setTickUnit(1);
                 }//
             }
@@ -889,6 +895,7 @@ public class UserController implements Initializable {
 
         }
     }
+
     @FXML
     public void Exportcsvscene(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Exportcsv.fxml"));
@@ -897,7 +904,8 @@ public class UserController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    public void export(){
+
+    public void export() {
         DataShow selectedcompany = companylists.getSelectionModel().getSelectedItem();
         String company2 = selectedcompany.getCompany2();
         FileChooser fileChooser = new FileChooser();
@@ -905,11 +913,12 @@ public class UserController implements Initializable {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         File selectedFile = fileChooser.showSaveDialog(primaryStage);
         if (selectedFile != null) {
-            exportCSV(selectedFile,company2);
+            exportCSV(selectedFile, company2);
         }
     }
-    public void exportCSV(File file,String company){
-        stock.fillStockHistoryData(company,true, file);
+
+    public void exportCSV(File file, String company) {
+        stock.fillStockHistoryData(company, true, file);
 
     }
 

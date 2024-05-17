@@ -48,6 +48,11 @@
     -fx-background-color: transparent;
 }
 
+#expCol,#yieldB,#faceValue,#numberB{
+    -fx-alignment: CENTER;
+    -fx-text-alignment: CENTER;
+}
+
 .table-view .column-header {
     -fx-background-color: transparent;
     -fx-text-color:  #181a20;

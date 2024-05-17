@@ -91,7 +91,7 @@ public class StageController implements Initializable {
     private Button addStock, buy;
 
     @FXML
-    private TextField companyName,ValidUntil;
+    private TextField companyName, ValidUntil;
 
     @FXML
     private TextField numberOfStocks;
@@ -201,8 +201,6 @@ public class StageController implements Initializable {
 
         TableColumn<DataShow, String> column1 = new TableColumn<>("Data");
         column1.setCellValueFactory(new PropertyValueFactory<>("data"));
-
-
     }
 
 
@@ -437,7 +435,7 @@ public class StageController implements Initializable {
         RotateTransition RefreshA = new RotateTransition();
         RefreshA.setDuration(Duration.seconds(0.7));
         RefreshA.setNode(RefreshIcon);
-        RefreshA.setToAngle(angle+=360);
+        RefreshA.setToAngle(angle += 360);
         RefreshA.play();
         Admin.createuserslist();
         System.out.println(event);
@@ -456,7 +454,7 @@ public class StageController implements Initializable {
         RotateTransition RefreshA = new RotateTransition();
         RefreshA.setDuration(Duration.seconds(0.7));
         RefreshA.setNode(RefreshIcon);
-        RefreshA.setToAngle(angle+=360);
+        RefreshA.setToAngle(angle += 360);
         RefreshA.play();
         System.out.println(event);
         Admin.createuserslist();
@@ -604,7 +602,7 @@ public class StageController implements Initializable {
 
     @FXML
     void addBond(ActionEvent event) {
-        bond.addBonds(companyName.getText(), Float.parseFloat(value.getText()),Integer.parseInt(numberOfStocks.getText()),Float.parseFloat(yield.getText()),Integer.parseInt(ValidUntil.getText()));
+        bond.addBonds(companyName.getText(), Float.parseFloat(value.getText()), Integer.parseInt(numberOfStocks.getText()), Float.parseFloat(yield.getText()), Integer.parseInt(ValidUntil.getText()));
         bond.RefreshBondList();
         bondsTable.setItems(Bonds.getBondData());
         bond.RefreshBondList();
@@ -628,10 +626,10 @@ public class StageController implements Initializable {
         DataShow selectedBond = bondsTable.getSelectionModel().getSelectedItem();
         if (selectedBond != null) {
             String selectedName = selectedBond.getCompany();
-            int selectedExp= selectedBond.getExp();
-            float selectedYield= selectedBond.getYield();
+            int selectedExp = selectedBond.getExp();
+            float selectedYield = selectedBond.getYield();
             if (admin.marketOpenOrClose()) {
-                if (bond.buyBond(selectedName,Integer.parseInt(amount.getText()),selectedExp,selectedYield)) {
+                if (bond.buyBond(selectedName, Integer.parseInt(amount.getText()), selectedExp, selectedYield)) {
                     account.updateBalance();
                     bond.RefreshBondList();
                     buyMessage.setText("Bought Successfully");
