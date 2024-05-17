@@ -329,6 +329,8 @@ public class Admin {
                     else if (state == 2) {
                         fileContent.add(i, oldContent + ",You bought " + values2[1] + " stocks of " + values2[2] + " for " + values2[3] + "$" + "   " + formattedDateTime);
                     }
+                    else if (state == 4) {
+                        fileContent.add(i, oldContent + ",You bought " + values2[1] + " bonds of " + values2[2] + " for " + values2[3] + "$" + "   " + formattedDateTime);}
                     else if (state == 3) {
                         fileContent.add(i, oldContent + ",You sold " + values2[1] + " stocks of " + values2[2] + " for " + values2[3] + "$" + "   " + formattedDateTime);}
                     else if (values2[3].equals("deposite"))

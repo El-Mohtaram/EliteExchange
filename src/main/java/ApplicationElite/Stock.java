@@ -97,7 +97,7 @@ static private ArrayList<Float>priceList  = new ArrayList<>();
 
         public boolean BuyStock(int amount, String company) {
 
-            if (buyCheck(csvFile, amount, company)) {
+            if (buyCheck(csvFile, amount, company,2)) {
                 buyOrSell(company, amount, csvFile2, userStocks, 0,false,0,0);
                 updateAmountInMarket(csvFile, amount, company, 0, false);
                 return true;
