@@ -184,3 +184,9 @@
     -fx-pref-height: 0;
     -fx-max-height: 0;
 }
+#StocksMarket .table-row-cell:hover {
+    -fx-background-color: #bf930a;
+}
+#StocksMarket .table-row-cell:focused {
+    -fx-background-color: #bf930a;
+}

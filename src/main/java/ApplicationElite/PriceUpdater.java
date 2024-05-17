@@ -56,12 +56,9 @@ public class PriceUpdater {
                         }
                     }
                 }
-
-            }
-
-
-        }, 0, 30, TimeUnit.SECONDS);
-    }
+             }
+            }, 0, 1, TimeUnit.SECONDS);
+        }
 
 
 }

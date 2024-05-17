@@ -78,7 +78,7 @@
             <TextField fx:id="value" layoutX="249.0" layoutY="314.0" />
             <TextField fx:id="yield" layoutX="250.0" layoutY="391.0" />
             <TextField fx:id="ValidUntil" layoutX="251.0" layoutY="462.0" />
-            <TableView fx:id="bondsTable" layoutX="574.0" layoutY="148.0" prefHeight="384.0" prefWidth="423.0" style="-fx-border-color: #181a20;" stylesheets="@BondsManagementScene.css">
+            <TableView fx:id="bondsTable" focusTraversable="false" layoutX="574.0" layoutY="148.0" prefHeight="384.0" prefWidth="423.0" style="-fx-border-color: #181a20;" stylesheets="@BondsManagementScene.css">
               <columns>
                 <TableColumn fx:id="companyB" prefWidth="98.39996337890625" text="Company" />
                 <TableColumn fx:id="yieldB" prefWidth="84.800048828125" text="Yield %" />

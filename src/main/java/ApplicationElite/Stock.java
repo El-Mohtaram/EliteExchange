@@ -2,7 +2,6 @@ package ApplicationElite;
 
 import java.io.*;
 import java.util.*;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -100,11 +99,11 @@ public class Stock extends Securities {
 
     public boolean BuyStock(int amount, String company) {
 
-        if (buyCheck(csvFile, amount, company)) {
-            buyOrSell(company, amount, csvFile2, userStocks, 0, false, 0, 0);
-            updateAmountInMarket(csvFile, amount, company, 0, false);
-            return true;
-        } else return false;
+            if (buyCheck(csvFile, amount, company,2)) {
+                buyOrSell(company, amount, csvFile2, userStocks, 0,false,0,0);
+                updateAmountInMarket(csvFile, amount, company, 0, false);
+                return true;
+            } else return false;
 
     }
 
