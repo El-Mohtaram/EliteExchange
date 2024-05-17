@@ -9,6 +9,9 @@
 /*    -fx-fill: blue; !* Color on hover *!*/
 /*}*/
 /* Change icon color on mouse hover */
+#titleslabel{
+    -fx-text-fill: white ;
+}
 #close:hover {
     -fx-fill: #d50000;
 }
@@ -20,6 +23,11 @@
 }
 #close:pressed{
     -fx-fill: #930000
+}
+#depositb,#withdraw,#depositb:hover,#withdraw:hover,#depositb:pressed,#withdraw:pressed,#sellb,#sellb:pressed,#sellb:pressed{
+    -fx-font-family: "Yaahowu Bold";
+    -fx-font-size: 19;
+    -fx-cursor: hand;
 }
 #MenuClose,#Menu,#market,#wd,#TransHistory,#AccMangb,#logoutb,#Dashboardb,#Stocksb,#Bondsb,#Optionsb,#hotstockstit{
     -fx-font-family: "Yaahowu Bold";
@@ -35,11 +43,11 @@
 }
 #YrStockb{
     -fx-font-family: "Yaahowu Bold";
-    -fx-font-size: 22;
+    -fx-font-size: 19;
 }
 #YrStockb:hover,#YrStockb:pressed{
     -fx-font-family: "Yaahowu Bold";
-    -fx-font-size: 25;
+    -fx-font-size: 21;
     -fx-text-fill: #181a20;
 }
 #Stocksb,#Bondsb,#Optionsb{
@@ -184,12 +192,11 @@
     -fx-pref-height: 0;
     -fx-max-height: 0;
 }
-#StocksMarket .table-row-cell:hover {
+
+#StocksMarket .table-row-cell:hover,#StocksMarket .table-row-cell:focused,#userStockList .table-row-cell:hover,#userStockList .table-row-cell:focused {
     -fx-background-color: #bf930a;
 }
-#StocksMarket .table-row-cell:focused {
-    -fx-background-color: #bf930a;
-}
+
 .text-field{
     -fx-background-color: transparent;
     -fx-border-color: #474d57 ;

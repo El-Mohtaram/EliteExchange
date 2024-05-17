@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -22,12 +23,12 @@
 
 <AnchorPane prefHeight="667.0" prefWidth="1029.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eliteexchange.eliteexchange.UserController">
     <children>
-      <Pane prefHeight="677.0" prefWidth="1029.0" style="-fx-background-color: #181a20;" />
       <TableView fx:id="historyTable" layoutX="290.0" layoutY="159.0" prefHeight="325.0" prefWidth="700.0">
         <columns>
           <TableColumn fx:id="historyColumn" prefWidth="698.6666768789291" text="Transaction" />
         </columns>
       </TableView>
+      <Pane prefHeight="677.0" prefWidth="1029.0" style="-fx-background-color: #181a20;" />
       <ImageView fx:id="star" fitHeight="551.0" fitWidth="431.0" layoutX="596.0" layoutY="85.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@star.png" />
@@ -65,23 +66,23 @@
                             <children>
                                 <VBox layoutX="40.0" layoutY="43.333333333333336" prefHeight="534.0" prefWidth="213.0" style="-fx-background-color: #ebb50c;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
                                     <children>
-                                        <JFXButton fx:id="market" onAction="#MarketPressed" prefHeight="90.0" prefWidth="213.0" scaleShape="false" text="Market" textFill="#181a20">
+                                        <JFXButton fx:id="YrStockb" onAction="#yourStocks" prefHeight="90.0" prefWidth="213.0" scaleShape="false" text="Your Securities" textFill="#181a20">
                                             <VBox.margin>
                                                 <Insets top="30.0" />
                                             </VBox.margin>
                                             <font>
-                                                <Font size="25.0" />
+                                                <Font size="20.0" />
                                             </font>
                                             <graphic>
-                                                <FontAwesomeIconView fx:id="marketi" fill="#181a20" glyphName="LINE_CHART" size="25.0" />
+                                                <FontAwesomeIconView fx:id="marketi" fill="#181a20" glyphName="SHOPPING_BASKET" size="25.0" />
                                             </graphic>
                                         </JFXButton>
-                                        <JFXButton fx:id="YrStockb" prefHeight="90.0" prefWidth="213.0" text="Your Stocks" textFill="#181a20">
+                                        <JFXButton fx:id="market" onAction="#MarketPressed" prefHeight="90.0" prefWidth="213.0" text="Market" textFill="#181a20">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                             <graphic>
-                                                <FontAwesomeIconView fx:id="YrStocki" fill="#181a20" glyphName="SHOPPING_BASKET" size="25.0" />
+                                                <FontAwesomeIconView fx:id="YrStocki" fill="#181a20" glyphName="LINE_CHART" size="25.0" />
                                             </graphic>
                                         </JFXButton>
                                         <JFXButton fx:id="wd" onAction="#DandW" prefHeight="90.0" prefWidth="213.0" text="Wallet" textFill="#181a20">
@@ -189,7 +190,33 @@
                         <Font size="23.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="amount" layoutX="243.0" layoutY="238.0" prefHeight="77.0" prefWidth="335.0" promptText="Amount $" />
+                  <TextField fx:id="amount" layoutX="243.0" layoutY="238.0" prefHeight="77.0" prefWidth="335.0" promptText="Amount" />
+                  <TableView fx:id="userStockList" layoutX="230.0" layoutY="191.0" prefHeight="278.0" prefWidth="347.0">
+                    <columns>
+                      <TableColumn fx:id="ownedCompanyCol" prefWidth="117.99998474121094" text="Company" />
+                      <TableColumn fx:id="stocksOwned" prefWidth="104.6666259765625" text="Stocks Owned" />
+                        <TableColumn fx:id="totalPrice" prefWidth="123.33336385091144" text="Total Value $" />
+                    </columns>
+                  </TableView>
+                  <JFXButton fx:id="sellb" buttonType="RAISED" layoutX="622.0" layoutY="489.0" onAction="#sell" prefHeight="49.0" prefWidth="121.0" style="-fx-background-color: ebb50c;" text="SELL" textFill="#181a20">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </JFXButton>
+                  <TableView fx:id="userBondList" layoutX="680.0" layoutY="191.0" prefHeight="278.0" prefWidth="347.0">
+                     <columns>
+                        <TableColumn fx:id="ownedCompanybCol" prefWidth="117.99998474121094" text="Company" />
+                        <TableColumn fx:id="bondsOwned" prefWidth="104.6666259765625" text="Bonds Owned" />
+                        <TableColumn fx:id="totalvaluebonds" prefWidth="123.33336385091144" text="Total Value $" />
+                     </columns>
+                  </TableView>
+                  <Label fx:id="yourbonds" layoutX="813.0" layoutY="94.0" prefHeight="77.0" prefWidth="197.0" text="Your Bonds" textFill="WHITE">
+                     <font>
+                        <Font size="29.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="testcompany" layoutX="622.0" layoutY="589.0" prefHeight="17.0" prefWidth="246.0" text="Label" textFill="WHITE" />
+                  <Button fx:id="ahmedbutton" layoutX="385.0" layoutY="585.0" mnemonicParsing="false" onAction="#ahmeds" text="Button" />
                     </children>
                 </AnchorPane>
             </center>
@@ -371,5 +398,6 @@
          </font>
       </Label>
         <Region fx:id="swaptaps" layoutX="213.0" layoutY="89.0" prefHeight="7.0" prefWidth="204.0" style="-fx-background-color: #0c4deb;" />
+      <Pane layoutX="51.0" layoutY="42.0" onMouseEntered="#setImmenuent" onMouseExited="#setImmenuex" prefHeight="29.0" prefWidth="20.0" />
     </children>
 </AnchorPane>

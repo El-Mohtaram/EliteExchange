@@ -46,12 +46,10 @@ public class PriceUpdater {
                             }
                         } catch (IOException e) {
                         }
-
                     } else {
                         try (FileWriter fileWriter = new FileWriter("src/main/java/PriceHistory/" + csvname + ".csv", true)) {
                             PrintWriter printWriter = new PrintWriter(fileWriter);
                             printWriter.print(csvname + "," + formattedDateTime);
-
                         } catch (IOException e) {
                         }
                     }
@@ -59,8 +57,6 @@ public class PriceUpdater {
              }
             }, 0, 1, TimeUnit.SECONDS);
         }
-
-
 }
 
 

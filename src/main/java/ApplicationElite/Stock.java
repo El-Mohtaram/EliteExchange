@@ -65,7 +65,7 @@ public class Stock extends Securities {
 
             }
 
-            BufferedReader reader = new BufferedReader(new FileReader(csvFile));
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
             List<String> lines = new ArrayList<>();
             String line;
             while ((line = reader.readLine()) != null) {
@@ -82,7 +82,7 @@ public class Stock extends Securities {
 
             }
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             for (String updatedLine : lines) {
                 writer.write(updatedLine);
                 writer.newLine();
