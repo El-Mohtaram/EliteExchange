@@ -55,11 +55,8 @@ import java.util.concurrent.TimeUnit;
                         }
                     }
                 }
-
-                }
-
-
-            }, 0, 30, TimeUnit.SECONDS);
+             }
+            }, 0, 1, TimeUnit.SECONDS);
         }
 
 

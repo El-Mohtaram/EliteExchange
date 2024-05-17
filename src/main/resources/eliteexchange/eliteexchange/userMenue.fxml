@@ -150,7 +150,7 @@
                     <columns>
                       <TableColumn fx:id="company" prefWidth="91.99998474121094" text="Company" />
                       <TableColumn fx:id="startPrice" prefWidth="121.33331298828125" text="Current Price" />
-                        <TableColumn prefWidth="39.33331298828125" text="24H%" />
+                        <TableColumn fx:id="change" prefWidth="39.33331298828125" text="24H%" />
                     </columns>
                   </TableView>
                   <TableView fx:id="hotbonds" layoutX="733.0" layoutY="277.0" prefHeight="167.0" prefWidth="254.0">
@@ -158,6 +158,19 @@
                         <TableColumn fx:id="companyB" prefWidth="106.666748046875" text="Company" />
                         <TableColumn fx:id="yieldB" prefWidth="60.0" text="Yield %" />
                         <TableColumn fx:id="numberB" prefWidth="86.666748046875" text="Available" />
+                     </columns>
+                  </TableView>
+                  <Label fx:id="stocksmarekttit" layoutX="628.0" layoutY="101.0" text="Stocks Market" textFill="#e8eaed">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="StocksMarket" layoutX="623.0" layoutY="150.0" prefHeight="315.0" prefWidth="406.0">
+                     <columns>
+                        <TableColumn fx:id="companym" prefWidth="113.33331298828125" text="Company" />
+                        <TableColumn fx:id="startPricem" prefWidth="105.333251953125" text="Current Price" />
+                        <TableColumn fx:id="numberofStocksm" prefWidth="99.333251953125" text="Available Stocks" />
+                        <TableColumn fx:id="changem" prefWidth="87.33331298828125" text="24H Change%" />
                      </columns>
                   </TableView>
                     </children>

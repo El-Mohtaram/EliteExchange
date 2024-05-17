@@ -86,7 +86,7 @@ public class UserController implements Initializable {
     private TableColumn<DataShow, String> requestColumn, historyColumn;
 
     @FXML
-    private TableColumn<DataShow, String> company, ownedCompanyCol,companyB;
+    private TableColumn<DataShow, String> company, ownedCompanyCol,companyB,companym,companyBm;
 
     @FXML
     private TableColumn<DataShow, Float> currentPrice;
@@ -94,11 +94,10 @@ public class UserController implements Initializable {
     private TableColumn<DataShow, Integer> stocksOwned;
 
     @FXML
-    private TableColumn<DataShow, Float> startPrice, totalPrice;
+    private TableColumn<DataShow, Float> startPrice, totalPrice,startPricem;
     @FXML
     private TableColumn<DataShow, Float> numberofStocks;
-    @FXML
-    private TextField startprice;
+
     @FXML
     private TextField amount;
 
@@ -146,9 +145,9 @@ public class UserController implements Initializable {
     @FXML
     private TableView<DataShow> pricehistoryTable;
     @FXML
-    private TableColumn<DataShow, Float> exportcompany,yieldB;
+    private TableColumn<DataShow, Float> exportcompany,yieldB,yieldBm;
     @FXML
-    private TableColumn<DataShow, Integer> numberB;
+    private TableColumn<DataShow, Integer> numberB,numberBm,numberofStocksm;
     @FXML
     private TableView<DataShow> companylists;
     @FXML
@@ -179,11 +178,13 @@ public class UserController implements Initializable {
     @FXML
     private JFXButton Dashboardb;
     @FXML
-    private Label welcomemes,hotstockstit;
+    private Label welcomemes,hotstockstit,stocksmarekttit;
     @FXML
     private NumberAxis priceAxis;
     @FXML
-    private TableView<DataShow> hotstocks,hotbonds;
+    private TableView<DataShow> hotstocks,hotbonds,StocksMarket;
+    private int focusedRowIndex = -1;
+    private TablePosition<DataShow, String> focusedCell;
 
 
     static boolean sceneloaded=false;
@@ -192,6 +193,10 @@ public class UserController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        StocksMarket.setVisible(false);
+        StocksMarket.setTranslateX(150);
+        stocksmarekttit.setVisible(false);
+
         if (viplevel!=null){
             viplevel.setTranslateX(170);
         }
@@ -219,6 +224,24 @@ public class UserController implements Initializable {
         if (companyB != null)
             companyB.setCellValueFactory(new PropertyValueFactory<>("company"));
             companyB.setResizable(false);
+        if (startPricem != null)
+            startPricem.setCellValueFactory(new PropertyValueFactory<>("price"));
+            startPricem.setResizable(false);
+        if (companym != null)
+            companym.setCellValueFactory(new PropertyValueFactory<>("company"));
+        companym.setResizable(false);
+//        if (yieldBm != null)
+//            yieldBm.setCellValueFactory(new PropertyValueFactory<>("yield"));
+//        yieldBm.setResizable(false);
+//        if (numberBm != null)
+//            numberBm.setCellValueFactory(new PropertyValueFactory<>("number"));
+//        numberBm.setResizable(false);
+//        if (companyBm != null)
+//            companyBm.setCellValueFactory(new PropertyValueFactory<>("company"));
+//        companyBm.setResizable(false);
+        if (numberofStocksm != null)
+            numberofStocksm.setCellValueFactory(new PropertyValueFactory<>("number"));
+            numberofStocksm.setResizable(false);
         if (hidebalance != null) {
             hidebalance.setVisible(false);
         }
@@ -305,6 +328,9 @@ public class UserController implements Initializable {
         if(hotstocks!=null){ hotstocks.setItems(stock.returnList());
             stock.RestoreData();
             }
+        if(StocksMarket!=null){ StocksMarket.setItems(stock.returnList());
+            stock.RestoreData();
+        }
         if(hotstocks!=null)  hotstocks.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> event.consume());
         if(hotstocks!=null)  hotstocks.lookupAll(".scroll-bar").forEach(scrollBar -> scrollBar.setVisible(false));
 
@@ -313,6 +339,12 @@ public class UserController implements Initializable {
         }
         if(hotbonds!=null)  hotbonds.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> event.consume());
         if(hotbonds!=null)  hotbonds.lookupAll(".scroll-bar").forEach(scrollBar -> scrollBar.setVisible(false));
+        // Store the focused cell
+        StocksMarket.focusModelProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                focusedCell = newVal.getFocusedCell();
+            }
+        });
     }
 
     private void updateDateTimeLabel() {
@@ -324,6 +356,23 @@ public class UserController implements Initializable {
         if(account.getUsername()!=null && !sceneloaded){
             welcomemes.setText("Welcome "+account.getUsername());
             sceneloaded=true;
+        }
+        if(hotbonds!=null){ hotbonds.setItems(bond.getBondData());
+            bond.RefreshBondList();
+        }
+        if(hotstocks!=null){ hotstocks.setItems(stock.returnList());
+            stock.RestoreData();
+        }
+        if(StocksMarket!=null){ StocksMarket.setItems(stock.returnList());
+            stock.RestoreData();
+        }
+        // Re-focus the previously focused cell
+        if (focusedCell != null) {
+            int row = focusedCell.getRow();
+            int column = focusedCell.getColumn();
+            if (row >= 0 && row < stock.returnList().size() && column >= 0 && column < StocksMarket.getColumns().size()) {
+                StocksMarket.getFocusModel().focus(row, column);
+            }
         }
     }
 
@@ -388,7 +437,8 @@ public class UserController implements Initializable {
         tapsawp.play();
         swaptaps.setTranslateX(0);
         tapsawp.setOnFinished((ActionEvent e) -> {
-
+            StocksMarket.setVisible(true);
+            stocksmarekttit.setVisible(true);
         });
     }
     @FXML
@@ -407,6 +457,8 @@ public class UserController implements Initializable {
     @FXML
     private void Dashboaedpressed(){
         menuclose();
+        StocksMarket.setVisible(false);
+        stocksmarekttit.setVisible(false);
         TranslateTransition tapsawp = new TranslateTransition();
         tapsawp.setDuration(Duration.seconds(0.4));
         tapsawp.setNode(swaptaps);
