@@ -237,6 +237,8 @@
                         <Font size="19.0" />
                      </font>
                   </JFXButton>
+                  <TextField fx:id="companyName" layoutX="503.0" layoutY="82.0" />
+                  <Button layoutX="692.0" layoutY="82.0" mnemonicParsing="false" onAction="#searchStock" text="Search" />
                     </children>
                 </AnchorPane>
             </center>
