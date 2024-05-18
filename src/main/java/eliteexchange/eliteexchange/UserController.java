@@ -199,16 +199,16 @@ public class UserController implements Initializable {
         sellb.setVisible(false);
         yourbonds.setVisible(false);
         userStockList.setVisible(false);
-      if(StocksMarket!=null) {
-          StocksMarket.setVisible(false);
-          StocksMarket.setTranslateX(150);
-      }
-        if(titleslabel!=null) titleslabel.setVisible(false);
-        if(historyTable!=null) historyTable.setVisible(false);
-       if(amount!=null) amount.setVisible(false);
-        if(depositb!=null) depositb.setVisible(false);
-    if(withdraw!=null)    withdraw.setVisible(false);
-      if(historyTable!=null)  historyTable.setVisible(false);
+        if (StocksMarket != null) {
+            StocksMarket.setVisible(false);
+            StocksMarket.setTranslateX(150);
+        }
+        if (titleslabel != null) titleslabel.setVisible(false);
+        if (historyTable != null) historyTable.setVisible(false);
+        if (amount != null) amount.setVisible(false);
+        if (depositb != null) depositb.setVisible(false);
+        if (withdraw != null) withdraw.setVisible(false);
+        if (historyTable != null) historyTable.setVisible(false);
         userBondList.setTranslateX(200);
         if (viplevel != null) {
             viplevel.setTranslateX(170);
@@ -232,7 +232,7 @@ public class UserController implements Initializable {
             startPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
             startPrice.setResizable(false);
         }
-        if(historyColumn!=null) historyColumn.setResizable(false);
+        if (historyColumn != null) historyColumn.setResizable(false);
         if (company != null) {
             company.setCellValueFactory(new PropertyValueFactory<>("company"));
             company.setResizable(false);
@@ -245,15 +245,18 @@ public class UserController implements Initializable {
             numberB.setCellValueFactory(new PropertyValueFactory<>("number"));
             numberB.setResizable(false);
         }
-        if (companyB != null){
+        if (companyB != null) {
             companyB.setCellValueFactory(new PropertyValueFactory<>("company"));
-        companyB.setResizable(false);}
-        if (startPricem != null)
-        {  startPricem.setCellValueFactory(new PropertyValueFactory<>("price"));
-        startPricem.setResizable(false);}
-        if (companym != null)
-        { companym.setCellValueFactory(new PropertyValueFactory<>("company"));
-        companym.setResizable(false);}
+            companyB.setResizable(false);
+        }
+        if (startPricem != null) {
+            startPricem.setCellValueFactory(new PropertyValueFactory<>("price"));
+            startPricem.setResizable(false);
+        }
+        if (companym != null) {
+            companym.setCellValueFactory(new PropertyValueFactory<>("company"));
+            companym.setResizable(false);
+        }
 //        if (yieldBm != null)
 //            yieldBm.setCellValueFactory(new PropertyValueFactory<>("yield"));
 //        yieldBm.setResizable(false);
@@ -263,9 +266,10 @@ public class UserController implements Initializable {
 //        if (companyBm != null)
 //            companyBm.setCellValueFactory(new PropertyValueFactory<>("company"));
 //        companyBm.setResizable(false);
-        if (numberofStocksm != null)
-        {  numberofStocksm.setCellValueFactory(new PropertyValueFactory<>("number"));
-        numberofStocksm.setResizable(false);}
+        if (numberofStocksm != null) {
+            numberofStocksm.setCellValueFactory(new PropertyValueFactory<>("number"));
+            numberofStocksm.setResizable(false);
+        }
         if (hidebalance != null) {
             hidebalance.setVisible(false);
         }
@@ -275,14 +279,14 @@ public class UserController implements Initializable {
             userStockList.setItems(stock.returnUserList());
         if (totalPrice != null)
             totalPrice.setCellValueFactory((new PropertyValueFactory<>("price")));
-            totalvaluebonds.setCellValueFactory((new PropertyValueFactory<>("price")));
+        totalvaluebonds.setCellValueFactory((new PropertyValueFactory<>("price")));
 
         if (stocksOwned != null)
             stocksOwned.setCellValueFactory((new PropertyValueFactory<>("number")));
-            bondsOwned.setCellValueFactory((new PropertyValueFactory<>("number")));
+        bondsOwned.setCellValueFactory((new PropertyValueFactory<>("number")));
         if (ownedCompanyCol != null)
             ownedCompanyCol.setCellValueFactory((new PropertyValueFactory<>("company")));
-            ownedCompanybCol.setCellValueFactory((new PropertyValueFactory<>("company")));
+        ownedCompanybCol.setCellValueFactory((new PropertyValueFactory<>("company")));
         if (balance != null) {
             balance.setText("******");
             balance.setTextFill(Color.color(0.9176470588235294, 0.9254901960784314, 0.9372549019607843));
@@ -370,14 +374,14 @@ public class UserController implements Initializable {
         }
         if (hotbonds != null) hotbonds.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> event.consume());
         if (hotbonds != null) hotbonds.lookupAll(".scroll-bar").forEach(scrollBar -> scrollBar.setVisible(false));
-        if(changem!=null){
+        if (changem != null) {
 
             changem.setCellValueFactory(cellData -> {
                 int index = cellData.getTableView().getItems().indexOf(cellData.getValue());
-                return new SimpleStringProperty(changemList.get(index));
+               return new SimpleStringProperty(changemList.get(index));
             });
-            for(int i=0;i<changemList.size();i++)
-            changem.getTableView().getItems().add(changemList.get(i));
+            for (int i = 0; i < changemList.size(); i++)
+                changem.getTableView().getItems().add(changemList.get(i));
         }
 
     }
@@ -391,22 +395,14 @@ public class UserController implements Initializable {
         if (account.getUsername() != null) {
             if(welcomemes!=null)welcomemes.setText("Welcome " + account.getUsername());
         }
-        if (hotbonds != null) {
+       /* if (hotbonds != null) {
             hotbonds.setItems(bond.getBondData());
-            bond.RefreshBondList();
-        }
-        if (hotstocks != null) {
-            hotstocks.setItems(stock.returnList());
-            stock.RestoreData();
-        }
-
-        if (StocksMarket != null) {
-            StocksMarket.setItems(stock.returnList());
-            stock.RestoreData();
-        }
-        if(changem!=null)
-        {
-            stock.refreshPercentageList();
+           // bond.RefreshBondList();
+        }*/
+        DataShow selectedStock = StocksMarket.getSelectionModel().getSelectedItem();
+        if (selectedStock != null) {
+            String selectedName = selectedStock.getCompany();
+            testcompany.setText(selectedName);
         }
     }
 

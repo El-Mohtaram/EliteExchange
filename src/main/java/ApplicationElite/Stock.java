@@ -232,16 +232,16 @@ public class Stock extends Securities {
     }
 
     public void refreshPercentageList() throws IOException {
-      percentageList.clear();
+      int i=0;
         for (String key : stocks.keySet()) {
             List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/PriceHistory/" + key + ".csv"));
             String[]values=fileContent.get(fileContent.size()-2).split(",");
             float percentage =(stocks.get(key)-Float.parseFloat(values[2]))/Float.parseFloat(values[2])*100;
            if(percentage>=0)
-               percentageList.add("+"+String.format("%.3f", percentage)+"%");
-           else percentageList.add(String.format("%.3f", percentage)+"%");
+               percentageList.add(i,"+"+String.format("%.3f", percentage)+"%");
+           else percentageList.add(i,String.format("%.3f", percentage)+"%");
 
-
+i++;
         }
 
     }
