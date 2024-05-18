@@ -14,6 +14,7 @@ private String company2;
     private float start;
     private float end;
     private int exp;
+    private String col4Data;
     public  DataShow(String date,float start,float min, float max, float end){
         this.date=date;
         this.start=start;
@@ -103,5 +104,9 @@ this.number=number;
     @Override
     public String toString() {
         return company + "  |   " + price +" $";
+    }
+
+    public String getCol4Data() {
+        return col4Data;
     }
 }

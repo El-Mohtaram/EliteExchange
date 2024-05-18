@@ -3,6 +3,7 @@ package eliteexchange.eliteexchange;
 import ApplicationElite.Account;
 import ApplicationElite.Bonds;
 import ApplicationElite.PriceUpdater;
+import ApplicationElite.Stock;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;

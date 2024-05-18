@@ -35,11 +35,10 @@ public class Securities {
                         String[] values = line.split(",");
                         if (Name.equals(values[0])) {
                             updatedAmount = Integer.parseInt(values[1]) + number + "";
-                            System.out.println("found");
                             oldContent = line;
                         if(yeild==0)    dataOverwrite = values[0] + ","+updatedAmount +","+ values[2];
                         else dataOverwrite = values[0] + "," + updatedAmount + "," + values[2]+","+values[3]+","+values[4];
-                            System.out.println(dataOverwrite);
+
 
                         }
                     }
@@ -92,13 +91,11 @@ public class Securities {
                     stockData.add(new DataShow(values[0], Integer.parseInt(values[1]), Float.parseFloat(values[2])));
                 } else if (Integer.parseInt(values[1]) != 0 && state != 0) {
                     stockData.add(new DataShow(values[0], Float.parseFloat(values[3]), Float.parseFloat(values[2]), Integer.parseInt(values[1]), Integer.parseInt(values[4]), 0));
-                    System.out.println(values[4]);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(stockData.size());
 
     }
 
@@ -350,7 +347,6 @@ public class Securities {
                 if (account.username1.equals(values[0])) {
                     for (int i = 1; i < values.length; i++) {
                         String values2[] = values[i].split(">");
-                        System.out.println(values[i]);
                         if (bond)
                             securitiesList.add(new DataShow(values2[1], Integer.parseInt(values2[0]), Integer.parseInt(values2[0]) * Stock.getPrice(values2[1]), Integer.parseInt(values2[2])));
                         else
@@ -367,6 +363,7 @@ public class Securities {
 
 
     }
+
 }
 
 

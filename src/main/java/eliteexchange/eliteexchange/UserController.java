@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
@@ -58,6 +59,8 @@ public class UserController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    ObservableList<String>changemList= stock.getPercentageList();
+
 
     @FXML
     private TableColumn<DataShow, String> dateCol;
@@ -83,7 +86,9 @@ public class UserController implements Initializable {
     @FXML
     private TableColumn<DataShow, Float> changePrice;
     @FXML
-    private TableColumn<DataShow, String> requestColumn, historyColumn,changem;
+    private TableColumn<DataShow, String> requestColumn, historyColumn;
+    @FXML
+    private TableColumn<String,String>changem;
 
     @FXML
     private TableColumn<DataShow, String> company, ownedCompanyCol, companyB, companym, companyBm,ownedCompanybCol;
@@ -194,14 +199,16 @@ public class UserController implements Initializable {
         sellb.setVisible(false);
         yourbonds.setVisible(false);
         userStockList.setVisible(false);
-        StocksMarket.setVisible(false);
-        StocksMarket.setTranslateX(150);
-        titleslabel.setVisible(false);
-        historyTable.setVisible(false);
-        amount.setVisible(false);
-        depositb.setVisible(false);
-        withdraw.setVisible(false);
-        historyTable.setVisible(false);
+      if(StocksMarket!=null) {
+          StocksMarket.setVisible(false);
+          StocksMarket.setTranslateX(150);
+      }
+        if(titleslabel!=null) titleslabel.setVisible(false);
+        if(historyTable!=null) historyTable.setVisible(false);
+       if(amount!=null) amount.setVisible(false);
+        if(depositb!=null) depositb.setVisible(false);
+    if(withdraw!=null)    withdraw.setVisible(false);
+      if(historyTable!=null)  historyTable.setVisible(false);
         userBondList.setTranslateX(200);
         if (viplevel != null) {
             viplevel.setTranslateX(170);
@@ -211,7 +218,13 @@ public class UserController implements Initializable {
         if (welcomemes != null)
             welcomemes.setText("Welcome ");
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(1), event -> updateDateTimeLabel())
+                new KeyFrame(Duration.seconds(1), event -> {
+                    try {
+                        updateDateTimeLabel();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
         );
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
@@ -219,7 +232,7 @@ public class UserController implements Initializable {
             startPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
             startPrice.setResizable(false);
         }
-        historyColumn.setResizable(false);
+        if(historyColumn!=null) historyColumn.setResizable(false);
         if (company != null) {
             company.setCellValueFactory(new PropertyValueFactory<>("company"));
             company.setResizable(false);
@@ -232,15 +245,15 @@ public class UserController implements Initializable {
             numberB.setCellValueFactory(new PropertyValueFactory<>("number"));
             numberB.setResizable(false);
         }
-        if (companyB != null)
+        if (companyB != null){
             companyB.setCellValueFactory(new PropertyValueFactory<>("company"));
-        companyB.setResizable(false);
+        companyB.setResizable(false);}
         if (startPricem != null)
-            startPricem.setCellValueFactory(new PropertyValueFactory<>("price"));
-        startPricem.setResizable(false);
+        {  startPricem.setCellValueFactory(new PropertyValueFactory<>("price"));
+        startPricem.setResizable(false);}
         if (companym != null)
-            companym.setCellValueFactory(new PropertyValueFactory<>("company"));
-        companym.setResizable(false);
+        { companym.setCellValueFactory(new PropertyValueFactory<>("company"));
+        companym.setResizable(false);}
 //        if (yieldBm != null)
 //            yieldBm.setCellValueFactory(new PropertyValueFactory<>("yield"));
 //        yieldBm.setResizable(false);
@@ -251,8 +264,8 @@ public class UserController implements Initializable {
 //            companyBm.setCellValueFactory(new PropertyValueFactory<>("company"));
 //        companyBm.setResizable(false);
         if (numberofStocksm != null)
-            numberofStocksm.setCellValueFactory(new PropertyValueFactory<>("number"));
-        numberofStocksm.setResizable(false);
+        {  numberofStocksm.setCellValueFactory(new PropertyValueFactory<>("number"));
+        numberofStocksm.setResizable(false);}
         if (hidebalance != null) {
             hidebalance.setVisible(false);
         }
@@ -357,16 +370,26 @@ public class UserController implements Initializable {
         }
         if (hotbonds != null) hotbonds.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> event.consume());
         if (hotbonds != null) hotbonds.lookupAll(".scroll-bar").forEach(scrollBar -> scrollBar.setVisible(false));
+        if(changem!=null){
+
+            changem.setCellValueFactory(cellData -> {
+                int index = cellData.getTableView().getItems().indexOf(cellData.getValue());
+                return new SimpleStringProperty(changemList.get(index));
+            });
+            for(int i=0;i<changemList.size();i++)
+            changem.getTableView().getItems().add(changemList.get(i));
+        }
+
     }
 
-    private void updateDateTimeLabel() {
+    private void updateDateTimeLabel() throws IOException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMM d, yyyy\nhh:mm:ss a");
         String formattedDateTime = LocalDateTime.now().format(formatter);
         if (datee != null) {
             datee.setText(formattedDateTime);
         }
         if (account.getUsername() != null) {
-            welcomemes.setText("Welcome " + account.getUsername());
+            if(welcomemes!=null)welcomemes.setText("Welcome " + account.getUsername());
         }
         if (hotbonds != null) {
             hotbonds.setItems(bond.getBondData());
@@ -376,9 +399,14 @@ public class UserController implements Initializable {
             hotstocks.setItems(stock.returnList());
             stock.RestoreData();
         }
+
         if (StocksMarket != null) {
             StocksMarket.setItems(stock.returnList());
             stock.RestoreData();
+        }
+        if(changem!=null)
+        {
+            stock.refreshPercentageList();
         }
     }
 

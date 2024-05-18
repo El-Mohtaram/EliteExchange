@@ -1,6 +1,8 @@
 package ApplicationElite;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +21,7 @@ public class Stock extends Securities {
     static private ObservableList<DataShow> companylist = FXCollections.observableArrayList();
     static private ArrayList<Float> priceList = new ArrayList<>();
     static private ArrayList<Integer> timeList = new ArrayList<>();
+    private static ObservableList<String> percentageList = FXCollections.observableArrayList();
 
     public void addStock(String name, int number, float f) {
         Add(name, number, f, csvFile, stocks, 0, 0);
@@ -99,11 +102,11 @@ public class Stock extends Securities {
 
     public boolean BuyStock(int amount, String company) {
 
-            if (buyCheck(csvFile, amount, company,2)) {
-                buyOrSell(company, amount, csvFile2, userStocks, 0,false,0,0);
-                updateAmountInMarket(csvFile, amount, company, 0, false);
-                return true;
-            } else return false;
+        if (buyCheck(csvFile, amount, company, 2)) {
+            buyOrSell(company, amount, csvFile2, userStocks, 0, false, 0, 0);
+            updateAmountInMarket(csvFile, amount, company, 0, false);
+            return true;
+        } else return false;
 
     }
 
@@ -226,6 +229,24 @@ public class Stock extends Securities {
 
     public static ObservableList<DataShow> getStockPriceHistory() {
         return stockPriceHistory;
+    }
+
+    public void refreshPercentageList() throws IOException {
+      percentageList.clear();
+        for (String key : stocks.keySet()) {
+            List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/PriceHistory/" + key + ".csv"));
+            String[]values=fileContent.get(fileContent.size()-2).split(",");
+            float percentage =(stocks.get(key)-Float.parseFloat(values[2]))/Float.parseFloat(values[2])*100;
+           if(percentage>=0)
+               percentageList.add("+"+String.format("%.3f", percentage)+"%");
+           else percentageList.add(String.format("%.3f", percentage)+"%");
+
+
+        }
+
+    }
+    public ObservableList<String> getPercentageList(){
+        return percentageList;
     }
 }
 
