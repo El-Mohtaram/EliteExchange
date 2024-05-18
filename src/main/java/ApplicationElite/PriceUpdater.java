@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class PriceUpdater {
     public static void main(String[] args) {
+
         LocalDateTime currentDateTime = LocalDateTime.now(); // Get the current date and time
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // Define the desired format
         String formattedDateTime = currentDateTime.format(formatter); // Format the date and time
