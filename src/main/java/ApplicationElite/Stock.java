@@ -19,6 +19,7 @@ public class Stock extends Securities {
     static private ObservableList<DataShow> userStockList = FXCollections.observableArrayList();
     static private ObservableList<DataShow> stockPriceHistory = FXCollections.observableArrayList();
     static private ObservableList<DataShow> companylist = FXCollections.observableArrayList();
+    static private ObservableList<DataShow> Notiflist = FXCollections.observableArrayList();
     static private ArrayList<Float> priceList = new ArrayList<>();
     static private ArrayList<Integer> timeList = new ArrayList<>();
     private static ObservableList<String> percentageList = FXCollections.observableArrayList();
@@ -241,12 +242,132 @@ public class Stock extends Securities {
               if (percentage >= 0)
                   percentageList.add(i, "+" + String.format("%.3f", percentage) + "%");
               else percentageList.add(i, String.format("%.3f", percentage) + "%");
+              if(percentage>1&& account.getUsername()!=null){
+                  notifications(key,percentage);
+                  checknotifications(key,percentage);
+              }
           }
           else percentageList.add(i,"new");
 i++;
         }
 
     }
+    public void notifications(String company,float percentage) throws IOException {
+
+        List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/data/notif.csv"));
+        String [] line;
+        boolean found=false;
+        for (int i = 0; i <fileContent.size() ; i++) {
+            line=fileContent.get(i).split(",");
+            if(line[0].equals(account.getUsername())){
+                for (int j = 0; j <line.length ; j++) {
+                    String [] line2=line[j].split("-");
+                    if(line2[0].equals(company)){
+                        System.out.println(line2[0]);
+                        found=true;
+                        break;
+                    }
+
+                }
+                if (!found){
+
+                    String oldcontent=fileContent.get(i);
+                    fileContent.remove(i);
+                    if(percentage>1)
+                        fileContent.add(i,oldcontent+","+company+ "-"+percentage+"-0");
+                    else fileContent.add(i,oldcontent+","+company+ "-"+percentage+"-0");
+                    Files.write(Paths.get("src/main/java/data/notif.csv"), fileContent);
+                    //fileContent = Files.readAllLines(Paths.get("src/main/java/data/notif.csv"));
+                    break;
+                }
+            }
+            if(found)
+                break;
+        }
+    }
+    public void checknotifications(String company,float percentage) throws IOException {
+        System.out.println("number of notif === "+getNumberofnotifications());
+        List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/data/notif.csv"));
+        String []line;
+        for (int i = 0; i <fileContent.size() ; i++) {
+            line=fileContent.get(i).split(",");
+            String newcontent=account.getUsername();
+            System.out.println(line.length);
+            if(line[0].equals(account.getUsername()))
+            for (int j = 1; j <line.length ; j++) {
+                String []line2=line[j].split("-");
+                if(line2[0].equals(company)&&(((percentage-Float.parseFloat(line2[1]))>0.3)||(percentage-Float.parseFloat(line2[1]))<-1)){
+                    newcontent=newcontent+","+company+ "-"+percentage+"-0";
+                }
+                else newcontent=newcontent+","+line2[0]+ "-"+line2[1]+"-"+line2[2];
+            }
+            if(!newcontent.equals(account.getUsername())){
+                System.out.println("king");
+                fileContent.remove(i);
+                fileContent.add(i,newcontent);
+            Files.write(Paths.get("src/main/java/data/notif.csv"), fileContent);
+            break;
+            }
+        }
+    }
+    public void SeenNotifications() throws IOException {
+        List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/data/notif.csv"));
+        String []line;
+        for (int i = 0; i <fileContent.size() ; i++) {
+            line=fileContent.get(i).split(",");
+            String newcontent=account.getUsername();
+            if(line[0].equals(account.getUsername()))
+                for (int j = 1; j <line.length ; j++) {
+                    String []line2=line[j].split("-");
+                    if(line2[2].equals("0")){
+                        newcontent=newcontent+","+line2[0]+ "-"+line2[1]+"-"+"1";
+                    }
+                    else newcontent=newcontent+","+line2[0]+ "-"+line2[1]+"-"+line2[2];
+                }
+            if(!newcontent.equals(account.getUsername())){
+                fileContent.remove(i);
+                fileContent.add(i,newcontent);
+                Files.write(Paths.get("src/main/java/data/notif.csv"), fileContent);
+                break;
+            }
+        }
+    }
+    public int getNumberofnotifications() throws IOException {
+        int numberofnotif=0;
+        List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/data/notif.csv"));
+        String []line;
+        for (int i = 0; i <fileContent.size() ; i++) {
+            line=fileContent.get(i).split(",");
+
+            if(line[0].equals(account.getUsername()))
+                for (int j = 1; j <line.length ; j++) {
+                    String []line2=line[j].split("-");
+                    if(line2[2].equals("0")){
+                       numberofnotif++;
+                    }
+                }
+            }
+        return numberofnotif;
+        }
+        public ObservableList<DataShow> fillnotfilist() throws IOException {
+        Notiflist.clear();
+            List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/data/notif.csv"));
+            String []line;
+            for (int i = 0; i <fileContent.size() ; i++) {
+                line=fileContent.get(i).split(",");
+
+                if(line[0].equals(account.getUsername()))
+                    for (int j = 1; j <line.length ; j++) {
+                        String []line2=line[j].split("-");
+                        if(line2[2].equals("0")){
+                            float percantage = (float) ((int) ((Float.parseFloat(line2[1])*100))) / 100;
+                          Notiflist.add(new DataShow("stock of "+line2[0]+" increased by "+percantage+"%",5,true));
+                        }
+                    }
+            }
+            return Notiflist;
+        }
+
     public ObservableList<String> getPercentageList(){
         return percentageList;
     }

@@ -2,7 +2,7 @@ package ApplicationElite;
 
 public class DataShow {
     private String requests;
-   private String company;
+   private String company,notif;
   private float price;
 private int number;
 private String history;
@@ -39,6 +39,9 @@ this.history=history;
 this.company=company;
 this.price=price;
 this.number=number;
+    }
+    public DataShow(String notif , int number,boolean x){
+        this.notif=notif;
     }
     public DataShow(String company,int number, float price,int exp)
     {
@@ -97,6 +100,9 @@ this.number=number;
     }
     public String getCompany2() {
         return company2;
+    }
+    public String getNotif() {
+        return notif;
     }
     public int getExp(){
         return exp;

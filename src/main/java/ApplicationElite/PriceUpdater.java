@@ -20,6 +20,7 @@ public class PriceUpdater {
         String formattedDateTime = currentDateTime.format(formatter); // Format the date and time
         Stock stocks = new Stock();
         Bonds bond = new Bonds();
+        Account acc=new Account();
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
         // Schedule the task to run every 2 minutes
@@ -28,6 +29,7 @@ public class PriceUpdater {
             bond.returnYield();
             stocks.RestoreData();
             stocks.UpdatePrices();
+
             System.out.println("hello");
             if (stocks.admin.marketOpenOrClose()) {
                 for (String key : Stock.stocks.keySet()) {

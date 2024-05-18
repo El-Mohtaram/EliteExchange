@@ -46,13 +46,19 @@ public class Elite extends Application {
     }
 
     public static void main(String[] args) throws IOException {
+//        Stock stock=new Stock();
+//        stock.checknotifications("messi",2.5f);
         PriceUpdater priceUpdater = new PriceUpdater();
         priceUpdater.main(args);
+//        Bonds bond = new Bonds();
+//        bond.RefreshBondList();
+//        bond.returnYield();
+//        stock.RestoreData();
+//        stock.UpdatePrices();
+//        stock.refreshPercentageList();
         // Enable hardware acceleration for Windows
         Account account = new Account();
         account.RestoreData();
-        Stock stock=new Stock();
-        stock.refreshPercentageList();
         System.setProperty("prism.order", "d3d");
         System.setProperty("prism.forceGPU", "true");
         launch();
