@@ -409,8 +409,7 @@ public class UserController implements Initializable {
         if (selectedStock != null) {
             String selectedName = selectedStock.getCompany();
             testcompany.setText(selectedName);
-            if (stock.fillDateTable(testcompany.getText())) {
-            }
+
             }
 
     }
@@ -944,8 +943,8 @@ public class UserController implements Initializable {
         LocalDateTime currentDateTime = LocalDateTime.now(); // Get the current date and time
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // Define the desired format
         String formattedDateTime = currentDateTime.format(formatter); // Format the date and time
-        if (stock.fillDateTable(testcompany.getText())) {
-            stock.getPriceList(testcompany.getText(), formattedDateTime);
+        if (stock.fillDateTable(companyName.getText())) {
+            stock.getPriceList(companyName.getText(), formattedDateTime);
             priceGraph.getData().clear();
             float max = 0;
             float min = stock.getPriceList().get(0);
@@ -974,7 +973,7 @@ public class UserController implements Initializable {
         DataShow selectedDate = dateTable.getSelectionModel().getSelectedItem();
         if (selectedDate != null) {
             String selectedName = selectedDate.getDate();
-            stock.getPriceList(testcompany.getText(), selectedName);
+            stock.getPriceList(stock.getCompany(), selectedName);
             priceGraph.getData().clear();
             XYChart.Series series = new XYChart.Series();
             float max = 0;
