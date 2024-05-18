@@ -157,12 +157,14 @@ public class Stock extends Securities {
                 String[] values = line.split(",");
                 if (date.equals(values[1])) {
                     int x = 0;
-                    for (int i = 2; i < values.length; i++) {
+                    for (int i = 2; i < values.length-1; i++) {
+
                         priceList.add(Float.parseFloat(values[i]));
                         timeList.add(x);
                         x += 10;
 
                     }
+                    System.out.println("yes");
                     System.out.println(priceList.size());
                     break;
                 }

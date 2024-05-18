@@ -384,6 +384,12 @@ public class UserController implements Initializable {
                 changem.getTableView().getItems().add(changemList.get(i));
         }
 
+        if (stock.fillDateTable(testcompany.getText())) {
+
+        }
+
+
+
     }
 
     private void updateDateTimeLabel() throws IOException {
@@ -403,7 +409,10 @@ public class UserController implements Initializable {
         if (selectedStock != null) {
             String selectedName = selectedStock.getCompany();
             testcompany.setText(selectedName);
-        }
+            if (stock.fillDateTable(testcompany.getText())) {
+            }
+            }
+
     }
 
     private void menuopen() {
@@ -965,8 +974,7 @@ public class UserController implements Initializable {
         DataShow selectedDate = dateTable.getSelectionModel().getSelectedItem();
         if (selectedDate != null) {
             String selectedName = selectedDate.getDate();
-            System.out.println(selectedName);
-            stock.getPriceList(stock.getCompany(), selectedName);
+            stock.getPriceList(testcompany.getText(), selectedName);
             priceGraph.getData().clear();
             XYChart.Series series = new XYChart.Series();
             float max = 0;
@@ -977,11 +985,10 @@ public class UserController implements Initializable {
                 if (min > stock.getPriceList().get(i)) min = stock.getPriceList().get(i);
             }
             if (priceAxis != null) {
-                if (stock.getPriceList().size() > 0) {
+                priceAxis.setAutoRanging(false);
                     priceAxis.setLowerBound((int) (min - 2)); // Set your desired lower bound
                     priceAxis.setUpperBound((int) (max + 2));
                     priceAxis.setTickUnit(1);
-                }//
             }
             priceGraph.setCreateSymbols(false);
             if (priceGraph != null)
@@ -990,6 +997,7 @@ public class UserController implements Initializable {
 
         }
     }
+
 
     @FXML
     public void Exportcsvscene(ActionEvent event) throws IOException {
