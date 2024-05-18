@@ -28,11 +28,6 @@ public class PriceUpdater {
             bond.returnYield();
             stocks.RestoreData();
             stocks.UpdatePrices();
-            try {
-                stocks.refreshPercentageList();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
             System.out.println("hello");
             if (stocks.admin.marketOpenOrClose()) {
                 for (String key : Stock.stocks.keySet()) {
@@ -61,6 +56,11 @@ public class PriceUpdater {
                     }
                 }
              }
+            try {
+                stocks.refreshPercentageList();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             }, 0, 3, TimeUnit.SECONDS);
         }
 }

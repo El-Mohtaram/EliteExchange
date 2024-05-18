@@ -235,12 +235,14 @@ public class Stock extends Securities {
       int i=0;
         for (String key : stocks.keySet()) {
             List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/PriceHistory/" + key + ".csv"));
-            String[]values=fileContent.get(fileContent.size()-2).split(",");
-            float percentage =(stocks.get(key)-Float.parseFloat(values[2]))/Float.parseFloat(values[2])*100;
-           if(percentage>=0)
-               percentageList.add(i,"+"+String.format("%.3f", percentage)+"%");
-           else percentageList.add(i,String.format("%.3f", percentage)+"%");
-
+          if(fileContent.size()>2) {
+              String[] values = fileContent.get(fileContent.size() - 2).split(",");
+              float percentage = (stocks.get(key) - Float.parseFloat(values[2])) / Float.parseFloat(values[2]) * 100;
+              if (percentage >= 0)
+                  percentageList.add(i, "+" + String.format("%.3f", percentage) + "%");
+              else percentageList.add(i, String.format("%.3f", percentage) + "%");
+          }
+          else percentageList.add(i,"new");
 i++;
         }
 
