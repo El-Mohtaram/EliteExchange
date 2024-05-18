@@ -52,6 +52,8 @@ import javafx.scene.media.Media;
 import javafx.fxml.Initializable;
 
 public class UserController implements Initializable {
+
+
     Admin admin = new Admin();
     Account account = new Account();
     Stock stock = new Stock();
@@ -59,9 +61,12 @@ public class UserController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    ObservableList<String>changemList= stock.getPercentageList();
+    ObservableList<String> changemList = stock.getPercentageList();
 
-
+    @FXML
+    public Button Searchbutton;
+    @FXML
+    public JFXButton showgraph;
     @FXML
     private TableColumn<DataShow, String> dateCol;
     @FXML
@@ -88,18 +93,18 @@ public class UserController implements Initializable {
     @FXML
     private TableColumn<DataShow, String> requestColumn, historyColumn;
     @FXML
-    private TableColumn<String,String>changem;
+    private TableColumn<String, String> changem;
 
     @FXML
-    private TableColumn<DataShow, String> company, ownedCompanyCol, companyB, companym, companyBm,ownedCompanybCol;
+    private TableColumn<DataShow, String> company, ownedCompanyCol, companyB, companym, companyBm, ownedCompanybCol;
 
     @FXML
     private TableColumn<DataShow, Float> currentPrice;
     @FXML
-    private TableColumn<DataShow, Integer> stocksOwned,bondsOwned;
+    private TableColumn<DataShow, Integer> stocksOwned, bondsOwned;
 
     @FXML
-    private TableColumn<DataShow, Float> startPrice, totalPrice, startPricem,totalvaluebonds;
+    private TableColumn<DataShow, Float> startPrice, totalPrice, startPricem, totalvaluebonds;
     @FXML
     private TableColumn<DataShow, Float> numberofStocks;
 
@@ -128,7 +133,7 @@ public class UserController implements Initializable {
     @FXML
     private TextField numberOfStocks;
     @FXML
-    private Label requestMessage, balance, buyMessage, SellMessage,testcompany;
+    private Label requestMessage, balance, buyMessage, SellMessage, testcompany;
 
     @FXML
     private Button BuyStock;
@@ -173,7 +178,7 @@ public class UserController implements Initializable {
     @FXML
     private Label MenuClose, balancetit, Menu, hotbondstit;
     @FXML
-    private JFXButton market,withdraw,depositb,sellb;
+    private JFXButton market, withdraw, depositb, sellb;
     @FXML
     private JFXButton wd;
     @FXML
@@ -191,27 +196,28 @@ public class UserController implements Initializable {
     @FXML
     private TableView<DataShow> NotifTable;
     @FXML
-    private TableColumn<DataShow, String> NotifCol=new TableColumn<>("Notification");;
+    private TableColumn<DataShow, String> NotifCol = new TableColumn<>("Notification");
+    ;
     @FXML
-    private Label messages,yourbonds;
+    private Label messages, yourbonds;
     Image menui = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menu.png");
     Image menuclosei = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menuclose.png");
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(userBondList != null)
-        userBondList.setVisible(false);
-        if(sellb != null)
-        sellb.setVisible(false);
-        if(yourbonds != null)
-        yourbonds.setVisible(false);
-        if(userStockList != null)
-        userStockList.setVisible(false);
+        if (userBondList != null)
+            userBondList.setVisible(false);
+        if (sellb != null)
+            sellb.setVisible(false);
+        if (yourbonds != null)
+            yourbonds.setVisible(false);
+        if (userStockList != null)
+            userStockList.setVisible(false);
         if (StocksMarket != null) {
             StocksMarket.setVisible(false);
             StocksMarket.setTranslateX(150);
         }
-        if (NotifTable != null)  {
+        if (NotifTable != null) {
             try {
                 NotifTable.setItems(stock.fillnotfilist());
             } catch (IOException e) {
@@ -228,8 +234,8 @@ public class UserController implements Initializable {
         if (depositb != null) depositb.setVisible(false);
         if (withdraw != null) withdraw.setVisible(false);
         if (historyTable != null) historyTable.setVisible(false);
-        if(userBondList!= null)
-        userBondList.setTranslateX(200);
+        if (userBondList != null)
+            userBondList.setTranslateX(200);
         if (viplevel != null) {
             viplevel.setTranslateX(170);
         }
@@ -299,16 +305,17 @@ public class UserController implements Initializable {
             userStockList.setItems(stock.returnUserList());
         if (totalPrice != null)
             totalPrice.setCellValueFactory((new PropertyValueFactory<>("price")));
-        if(totalvaluebonds!= null)
-        totalvaluebonds.setCellValueFactory((new PropertyValueFactory<>("price")));
+        if (totalvaluebonds != null)
+            totalvaluebonds.setCellValueFactory((new PropertyValueFactory<>("price")));
 
         if (stocksOwned != null)
             stocksOwned.setCellValueFactory((new PropertyValueFactory<>("number")));
-        if(bondsOwned != null)
-        bondsOwned.setCellValueFactory((new PropertyValueFactory<>("number")));
-        if (ownedCompanyCol != null){
+        if (bondsOwned != null)
+            bondsOwned.setCellValueFactory((new PropertyValueFactory<>("number")));
+        if (ownedCompanyCol != null) {
             ownedCompanyCol.setCellValueFactory((new PropertyValueFactory<>("company")));
-        ownedCompanybCol.setCellValueFactory((new PropertyValueFactory<>("company")));}
+            ownedCompanybCol.setCellValueFactory((new PropertyValueFactory<>("company")));
+        }
         if (balance != null) {
             balance.setText("******");
             balance.setTextFill(Color.color(0.9176470588235294, 0.9254901960784314, 0.9372549019607843));
@@ -377,7 +384,18 @@ public class UserController implements Initializable {
                 balancetit.setTextFill(Color.color(0.9176470588235294, 0.9254901960784314, 0.9372549019607843));
                 balance.setTextFill(Color.color(0.9176470588235294, 0.9254901960784314, 0.9372549019607843));
                 hidebalance.setVisible(false);
+
             });
+        if (priceGraph != null)
+            priceGraph.setVisible(false);
+        if (dateTable != null)
+            dateTable.setVisible(false);
+        if (showgraph != null)
+            showgraph.setVisible(false);
+        if (Searchbutton != null)
+            Searchbutton.setVisible(false);
+        if (companyName != null)
+            companyName.setVisible(false);
 
         if (hotstocks != null) {
             hotstocks.setItems(stock.returnList());
@@ -400,7 +418,7 @@ public class UserController implements Initializable {
 
             changem.setCellValueFactory(cellData -> {
                 int index = cellData.getTableView().getItems().indexOf(cellData.getValue());
-               return new SimpleStringProperty(changemList.get(index));
+                return new SimpleStringProperty(changemList.get(index));
             });
             for (int i = 0; i < changemList.size(); i++)
                 changem.getTableView().getItems().add(changemList.get(i));
@@ -415,18 +433,19 @@ public class UserController implements Initializable {
             datee.setText(formattedDateTime);
         }
         if (account.getUsername() != null) {
-            if(welcomemes!=null)welcomemes.setText("Welcome " + account.getUsername());
+            if (welcomemes != null) welcomemes.setText("Welcome " + account.getUsername());
         }
        /* if (hotbonds != null) {
             hotbonds.setItems(bond.getBondData());
            // bond.RefreshBondList();
         }*/
-        if(StocksMarket != null){
-        DataShow selectedStock = StocksMarket.getSelectionModel().getSelectedItem();
-        if (selectedStock != null) {
-            String selectedName = selectedStock.getCompany();
-            testcompany.setText(selectedName);
-        }}
+        if (StocksMarket != null) {
+            DataShow selectedStock = StocksMarket.getSelectionModel().getSelectedItem();
+            if (selectedStock != null) {
+                String selectedName = selectedStock.getCompany();
+                testcompany.setText(selectedName);
+            }
+        }
     }
 
     private void menuopen() {
@@ -508,7 +527,7 @@ public class UserController implements Initializable {
     }
 
     @FXML
-    private void Optionspressed() {
+    private void Notificationspressed() {
         menuclose();
         TranslateTransition tapsawp = new TranslateTransition();
         tapsawp.setDuration(Duration.seconds(0.4));
@@ -522,7 +541,7 @@ public class UserController implements Initializable {
     }
 
     @FXML
-    private void Dashboaedpressed() {
+    private void Dashboardpressed() {
         menuclose();
         yourbonds.setVisible(false);
         userStockList.setVisible(false);
@@ -534,6 +553,11 @@ public class UserController implements Initializable {
         withdraw.setVisible(false);
         userBondList.setVisible(false);
         sellb.setVisible(false);
+        priceGraph.setVisible(false);
+        dateTable.setVisible(false);
+        showgraph.setVisible(false);
+        Searchbutton.setVisible(false);
+        companyName.setVisible(false);
         TranslateTransition tapsawp = new TranslateTransition();
         tapsawp.setDuration(Duration.seconds(0.4));
         tapsawp.setNode(swaptaps);
@@ -583,16 +607,19 @@ public class UserController implements Initializable {
             stage.show();
         });
     }
+
     @FXML
     private void setImmenuent(MouseEvent event) {
         immenu.setImage(menui);
-        Menu.setTextFill(Color.color(0.09411764705882353,0.10196078431372549,0.12549019607843137));
+        Menu.setTextFill(Color.color(0.09411764705882353, 0.10196078431372549, 0.12549019607843137));
     }
+
     @FXML
     private void setImmenuex(MouseEvent event) {
         immenu.setImage(menuclosei);
-        Menu.setTextFill(Color.color(0.6392156862745098,0.6392156862745098,0.6392156862745098));
+        Menu.setTextFill(Color.color(0.6392156862745098, 0.6392156862745098, 0.6392156862745098));
     }
+
     @FXML
     public void yourStocks(ActionEvent event) throws IOException {
         stock.refreshUserStockList();
@@ -644,9 +671,10 @@ public class UserController implements Initializable {
             amount.setVisible(true);
         });
     }
+
     @FXML
     private void mainscene(ActionEvent event) throws IOException {
-        Dashboaedpressed();
+        Dashboardpressed();
         Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -934,7 +962,6 @@ public class UserController implements Initializable {
     }
 
 
-
     @FXML
     public void sellBond() {
       /*   DataShow selectedBond = userBondList.getSelectionModel().getSelectedItem();
@@ -1039,6 +1066,7 @@ public class UserController implements Initializable {
         stock.fillStockHistoryData(company, true, file);
 
     }
+
     @FXML
     private void ahmeds(ActionEvent event) throws IOException {
         stock.fillnotfilist();
@@ -1047,10 +1075,11 @@ public class UserController implements Initializable {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        System.out.println("--------------------------> "+stock.getNumberofnotifications());
+        System.out.println("--------------------------> " + stock.getNumberofnotifications());
         stock.SeenNotifications();
-        System.out.println("--------------------------> "+stock.getNumberofnotifications());
+        System.out.println("--------------------------> " + stock.getNumberofnotifications());
     }
+
     public void zopr(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("userMenue.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
