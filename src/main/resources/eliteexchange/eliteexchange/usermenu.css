@@ -2,8 +2,36 @@
     -fx-fill: #181a20; /* Initial gradient */
     -fx-transition: -fx-fill 0.6s ease;
 }
-.label{
+.label,.button{
     -fx-font-family: "Yaahowu Bold";
+}
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+.chart-series-line {
+    -fx-stroke-width: 2;
+    -fx-fill: red;
+}
+/* Chart plot area symbols */
+.chart-symbol {
+    -fx-background-radius: 6px;
+    -fx-padding: 6px;
+}
+
+/* Chart horizontal grid lines */
+.chart-horizontal-grid-lines {
+    -fx-stroke: #cccccc;
+    -fx-stroke-dash-array: 5 5;
+}
+
+/* Chart vertical grid lines */
+.chart-vertical-grid-lines {
+    -fx-stroke: #cccccc;
+    -fx-stroke-dash-array: 5 5;
+}
+#showgraph{
+    -fx-font-family: "Yaahowu Bold";
+    -fx-font-size: 19;
 }
 /*#pest:hover {*/
 /*    -fx-fill: blue; !* Color on hover *!*/
@@ -36,7 +64,7 @@
     -fx-font-family: "Yaahowu Bold";
     -fx-font-size: 25;
 }
-#market:hover,#wd:hover,#logoutb:hover,#Stocksb:hover,#Bondsb:hover,#Optionsb:hover,#market:pressed,#logoutb:pressed,#Stocksb:pressed,#Bondsb:pressed,#Optionsb:pressed{
+#market:hover,#wd:hover,#logoutb:hover,#Stocksb:hover,#Bondsb:hover,#market:pressed,#logoutb:pressed,#Stocksb:pressed,#Bondsb:pressed,#Optionsb:pressed{
     -fx-font-family: "Yaahowu Bold";
     -fx-font-size: 30;
     -fx-text-fill: #181a20;
@@ -50,9 +78,17 @@
     -fx-font-size: 21;
     -fx-text-fill: #181a20;
 }
-#Stocksb,#Bondsb,#Optionsb{
+#Stocksb,#Bondsb{
     -fx-font-family: "Yaahowu Bold";
     -fx-font-size: 25;
+}
+#Optionsb{
+    -fx-font-family: "Yaahowu Bold";
+    -fx-font-size: 20;
+}
+#Optionsb:hover{
+    -fx-font-family: "Yaahowu Bold";
+    -fx-font-size: 22;
 }
 #Dashboardb:hover,#Dashboardb:pressed{
     -fx-font-family: "Yaahowu Bold";
@@ -206,5 +242,16 @@
     -fx-border-width:  0px 0px 2px 0px ;
 }
 .text-field:hover {
+    -fx-border-color:#f0b90b;
+}
+#companyName{
+    -fx-background-color: transparent;
+    -fx-border-color: #474d57 ;
+    -fx-text-fill: #eaecef;
+    -fx-font-size: 10;
+    -fx-font-family: "Yaahowu Bold";
+    -fx-border-width:  0px 0px 2px 0px ;
+}
+#companyName:hover {
     -fx-border-color:#f0b90b;
 }
