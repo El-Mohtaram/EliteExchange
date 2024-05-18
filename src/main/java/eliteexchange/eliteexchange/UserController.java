@@ -189,19 +189,38 @@ public class UserController implements Initializable {
     @FXML
     private TableView<DataShow> hotstocks, hotbonds, StocksMarket;
     @FXML
+    private TableView<DataShow> NotifTable;
+    @FXML
+    private TableColumn<DataShow, String> NotifCol=new TableColumn<>("Notification");;
+    @FXML
     private Label messages,yourbonds;
     Image menui = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menu.png");
     Image menuclosei = new Image("file:src\\main\\resources\\eliteexchange\\eliteexchange\\menuclose.png");
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(userBondList != null)
         userBondList.setVisible(false);
+        if(sellb != null)
         sellb.setVisible(false);
+        if(yourbonds != null)
         yourbonds.setVisible(false);
+        if(userStockList != null)
         userStockList.setVisible(false);
         if (StocksMarket != null) {
             StocksMarket.setVisible(false);
             StocksMarket.setTranslateX(150);
+        }
+        if (NotifTable != null)  {
+            try {
+                NotifTable.setItems(stock.fillnotfilist());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+        if (NotifCol != null) {
+            NotifCol.setCellValueFactory(new PropertyValueFactory<>("notif"));
         }
         if (titleslabel != null) titleslabel.setVisible(false);
         if (historyTable != null) historyTable.setVisible(false);
@@ -209,6 +228,7 @@ public class UserController implements Initializable {
         if (depositb != null) depositb.setVisible(false);
         if (withdraw != null) withdraw.setVisible(false);
         if (historyTable != null) historyTable.setVisible(false);
+        if(userBondList!= null)
         userBondList.setTranslateX(200);
         if (viplevel != null) {
             viplevel.setTranslateX(170);
@@ -279,14 +299,16 @@ public class UserController implements Initializable {
             userStockList.setItems(stock.returnUserList());
         if (totalPrice != null)
             totalPrice.setCellValueFactory((new PropertyValueFactory<>("price")));
+        if(totalvaluebonds!= null)
         totalvaluebonds.setCellValueFactory((new PropertyValueFactory<>("price")));
 
         if (stocksOwned != null)
             stocksOwned.setCellValueFactory((new PropertyValueFactory<>("number")));
+        if(bondsOwned != null)
         bondsOwned.setCellValueFactory((new PropertyValueFactory<>("number")));
-        if (ownedCompanyCol != null)
+        if (ownedCompanyCol != null){
             ownedCompanyCol.setCellValueFactory((new PropertyValueFactory<>("company")));
-        ownedCompanybCol.setCellValueFactory((new PropertyValueFactory<>("company")));
+        ownedCompanybCol.setCellValueFactory((new PropertyValueFactory<>("company")));}
         if (balance != null) {
             balance.setText("******");
             balance.setTextFill(Color.color(0.9176470588235294, 0.9254901960784314, 0.9372549019607843));
@@ -399,11 +421,12 @@ public class UserController implements Initializable {
             hotbonds.setItems(bond.getBondData());
            // bond.RefreshBondList();
         }*/
+        if(StocksMarket != null){
         DataShow selectedStock = StocksMarket.getSelectionModel().getSelectedItem();
         if (selectedStock != null) {
             String selectedName = selectedStock.getCompany();
             testcompany.setText(selectedName);
-        }
+        }}
     }
 
     private void menuopen() {
@@ -1017,9 +1040,25 @@ public class UserController implements Initializable {
 
     }
     @FXML
-    private void ahmeds(){
-
+    private void ahmeds(ActionEvent event) throws IOException {
+        stock.fillnotfilist();
+        Parent root = FXMLLoader.load(getClass().getResource("notificationscene.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        System.out.println("--------------------------> "+stock.getNumberofnotifications());
+        stock.SeenNotifications();
+        System.out.println("--------------------------> "+stock.getNumberofnotifications());
     }
+    public void zopr(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("userMenue.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }
 
 
