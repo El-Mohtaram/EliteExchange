@@ -42,7 +42,7 @@
    <bottom>
       <AnchorPane prefHeight="658.0" prefWidth="1029.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="368.0" layoutY="32.0" text="Bonds Management" textFill="#ebb50c">
+            <Label fx:id="BondsManagementLabel" layoutX="368.0" layoutY="32.0" text="Bonds Management" textFill="#ebb50c">
                <font>
                   <Font size="36.0" />
                </font>

@@ -25,8 +25,25 @@
     transition: all 0.3s ease; /* Smooth transition for the change */
 }
 
+.label{
+   -fx-font-family: "Yaahowu Bold";
+}
+
+.text-field{
+    -fx-background-color: transparent;
+    -fx-border-color: #474d57 ;
+    -fx-text-fill: #eaecef;
+    -fx-font-size: 10;
+    -fx-font-family: "Yaahowu Bold";
+    -fx-border-width:  0px 0px 2px 0px ;
+}
+.text-field:hover {
+    -fx-border-color:#f0b90b;
+}
+
 #addStock,#deleteStock{
     -fx-background-color: #fcd535;
+    -fx-font-family: "Yaahowu Bold";
     -fx-cursor: hand;
 }
 #addStock:hover,#addStock:hover{

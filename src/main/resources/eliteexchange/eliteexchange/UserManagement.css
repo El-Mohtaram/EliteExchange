@@ -29,8 +29,13 @@
    transition: all 0.6s ease;  Smooth transition for the change
 }*/
 
+.label{
+   -fx-font-family: "Yaahowu Bold";
+}
+
 #blockuserbutton,#unblockuserbutton,#deleteuserbutton,#userlist{
     -fx-background-color: #fcd535;
+    -fx-font-family: "Yaahowu Bold";
     -fx-cursor: hand;
 }
 #blockuserbutton:hover,#unblockuserbutton:hover,#deleteuserbutton:hover,#userlist:hover{

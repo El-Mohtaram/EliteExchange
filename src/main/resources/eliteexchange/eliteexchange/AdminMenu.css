@@ -18,10 +18,23 @@
 #close:pressed{
     -fx-fill: #930000
 }
+
+.label{
+   -fx-font-family: "Yaahowu Bold";
+}
+#EliteExchangeLabel{
+   -fx-font-family: "Alien League"
+}
+
 #StocksManagementButton,#UsersManagementButton,#RequestsButton,#LogoutButton,#BondsManagementButton{
     -fx-background-color: #fcd535;
+    -fx-font-family: "Yaahowu Bold";
     -fx-cursor: hand;
 }
 #StocksManagementButton:hover,#UsersManagementButton:hover,#RequestsButton:hover,#LogoutButton:hover,#BondsManagementButton:hover{
     -fx-background-color: #cfaf30;
+}
+
+#StocksManagementButton:hover,#BondsManagementButton:hover{
+    -fx-font-size: 11;
 }

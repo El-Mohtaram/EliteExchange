@@ -30,8 +30,13 @@
     transition: all 0.6s ease;  Smooth transition for the change
 }*/
 
+.label{
+   -fx-font-family: "Yaahowu Bold";
+}
+
 #accept,#refuse{
     -fx-background-color: #fcd535;
+    -fx-font-family: "Yaahowu Bold";
     -fx-cursor: hand;
 }
 #accept:hover,#refuse:hover{

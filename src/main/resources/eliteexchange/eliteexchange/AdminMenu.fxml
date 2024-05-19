@@ -41,13 +41,26 @@
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="1029.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="StocksManagementButton" layoutX="194.0" layoutY="224.0" mnemonicParsing="false" onAction="#AddstockScene" prefHeight="30.0" prefWidth="124.0" text="Stocks Management" />
+            <ImageView fitHeight="457.0" fitWidth="355.0" layoutX="-114.0" layoutY="208.0">
+               <image>
+                  <Image url="@star.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="457.0" fitWidth="355.0" layoutX="803.0" layoutY="73.0">
+               <image>
+                  <Image url="@star.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="StocksManagementButton" layoutX="194.0" layoutY="224.0" mnemonicParsing="false" onAction="#AddstockScene" prefHeight="30.0" prefWidth="124.0" text="Stocks Management">
+               <font>
+                  <Font size="11.0" />
+               </font></Button>
             <ImageView fitHeight="49.0" fitWidth="49.0" layoutX="14.0" layoutY="14.0">
                <image>
                   <Image url="@icon.png" />
                </image>
             </ImageView>
-            <Label layoutX="76.0" layoutY="27.0" text="Elite Exchange" textFill="#ebb50c">
+            <Label fx:id="EliteExchangeLabel" layoutX="76.0" layoutY="27.0" text="Elite Exchange" textFill="#ebb50c">
                <font>
                   <Font size="24.0" />
                </font>
@@ -59,7 +72,10 @@
             <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" layoutX="365.0" layoutY="396.0" size="25" />
             <FontAwesomeIconView fill="WHITE" glyphName="ADDRESS_BOOK" layoutX="498.0" layoutY="204.0" size="25" />
             <FontAwesomeIconView fill="WHITE" glyphName="INBOX" layoutX="748.0" layoutY="205.0" size="25" />
-            <Button fx:id="BondsManagementButton" layoutX="578.0" layoutY="411.0" mnemonicParsing="false" onAction="#BondsManagement" prefHeight="30.0" prefWidth="124.0" text="Bonds Management" />
+            <Button fx:id="BondsManagementButton" layoutX="578.0" layoutY="411.0" mnemonicParsing="false" onAction="#BondsManagement" prefHeight="30.0" prefWidth="124.0" text="Bonds Management">
+               <font>
+                  <Font size="11.0" />
+               </font></Button>
             <FontAwesomeIconView fill="WHITE" glyphName="MONEY" layoutX="628.0" layoutY="395.0" size="25" />
             <JFXToggleButton fx:id="marketStatues" layoutX="832.0" layoutY="15.0" onAction="#changeMarketStatues" text="Open market" textFill="WHITE">
                <toggleGroup>

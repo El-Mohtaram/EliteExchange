@@ -42,7 +42,6 @@ public class Elite extends Application {
         stage.setScene(scene);
         stage.show();
         // Perform a long-running operation on a background thread
-
     }
 
     public static void main(String[] args) throws IOException {
