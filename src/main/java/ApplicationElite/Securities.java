@@ -363,6 +363,17 @@ public class Securities {
 
 
     }
+//    public int getNumberOfsec()
+//    {
+//        try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
+//            String line;
+//            br.readLine();
+//            while ((line = br.readLine()) != null) {
+//                String[] values = line.split(",");
+//                if (account.username1.equals(values[0])) {
+//                    for (int i = 1; i < values.length; i++) {
+//                        String values2[] = values[i].split(">");
+//    }
 
 }
 

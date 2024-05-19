@@ -244,7 +244,7 @@ public class Stock extends Securities {
         int i = 0;
         for (String key : stocks.keySet()) {
             List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/PriceHistory/" + key + ".csv"));
-            if (fileContent.size() > 2) {
+//            if (fileContent.size() > 2&&) {
                 String[] values = fileContent.get(fileContent.size() - 2).split(",");
                 float percentage = (stocks.get(key) - Float.parseFloat(values[2])) / Float.parseFloat(values[2]) * 100;
                 if (percentage >= 0)
@@ -253,7 +253,7 @@ public class Stock extends Securities {
                 if ((percentage > 1 || percentage < -1) && account.getUsername() != null) {
                     notifications(key, percentage);
                     checknotifications(key, percentage);
-                }
+//                }
             } else percentageList.add(i, "new");
             i++;
         }
@@ -307,8 +307,11 @@ public class Stock extends Securities {
                     if (line2[0].equals(company) && (((percentage - Float.parseFloat(line2[1])) > 0.3) || (percentage - Float.parseFloat(line2[1])) < -1)) {
                         newcontent = newcontent + "," + company + ">" + percentage + ">0";
                     } }
-                    else if (line2[0].equals(company) && (((percentage - Float.parseFloat(line2[1])) > 1) || (percentage - Float.parseFloat(line2[1])) < -1))
-                        newcontent = newcontent + "," + line2[0] + ">" + line2[1] + ">" + line2[2];
+                    if(percentage<0){
+                        if (line2[0].equals(company) && (((percentage - Float.parseFloat(line2[1])) > 1) || (percentage - Float.parseFloat(line2[1])) < -1))
+                            System.out.println("===================>"+((percentage - Float.parseFloat(line2[1]))));
+                        newcontent = newcontent + "," + company + ">" + percentage + ">" + "0";
+                }
                 }
             if (newcontent!=null&&!newcontent.equals(account.getUsername())) {
                // System.out.println("king");
