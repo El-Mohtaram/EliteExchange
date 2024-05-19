@@ -25,6 +25,7 @@ public class Stock extends Securities {
     static private ArrayList<Float> priceList = new ArrayList<>();
     static private ArrayList<Integer> timeList = new ArrayList<>();
     private static ObservableList<String> percentageList = FXCollections.observableArrayList();
+    private static ArrayList<String>h=new ArrayList<>();
 
     public void addStock(String name, int number, float f) {
         Add(name, number, f, csvFile, stocks, 0, 0);
@@ -242,20 +243,31 @@ public class Stock extends Securities {
 
     public void refreshPercentageList() throws IOException {
         int i = 0;
+
+        for(String key : stocks.keySet())
+        {
+            if(!h.contains(key)) {
+                h.add(key);
+                if (percentageList.size() < stocks.size() && getNumberOfsec(key) > 0) percentageList.add("");
+            }
+
+        }
+
         for (String key : stocks.keySet()) {
             List<String> fileContent = Files.readAllLines(Paths.get("src/main/java/PriceHistory/" + key + ".csv"));
-//            if (fileContent.size() > 2&&) {
+            if (fileContent.size() > 0 && getNumberOfsec(key) > 0) {
                 String[] values = fileContent.get(fileContent.size() - 2).split(",");
                 float percentage = (stocks.get(key) - Float.parseFloat(values[2])) / Float.parseFloat(values[2]) * 100;
                 if (percentage >= 0)
-                    percentageList.add(i, "+" + String.format("%.3f", percentage) + "%");
-                else percentageList.add(i, String.format("%.3f", percentage) + "%");
+                    percentageList.set(i, "+" + String.format("%.3f", percentage) + "%");
+                else percentageList.set(i, String.format("%.3f", percentage) + "%");
                 if ((percentage > 1 || percentage < -1) && account.getUsername() != null) {
                     notifications(key, percentage);
                     checknotifications(key, percentage);
 //                }
-            } else percentageList.add(i, "new");
-            i++;
+                } //else percentageList.add(i, "new");
+                i++;
+            }
         }
 
     }

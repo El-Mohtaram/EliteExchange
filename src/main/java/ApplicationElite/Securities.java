@@ -96,7 +96,6 @@ public class Securities {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void Delete(String Name, String dataPath, HashMap<String, Float> securities, int state) {
@@ -363,23 +362,19 @@ public class Securities {
 
 
     }
-//    public int getNumberOfsec()
-//    {
-//        try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
-//            String line;
-//            br.readLine();
-//            while ((line = br.readLine()) != null) {
-//                String[] values = line.split(",");
-//                if (account.username1.equals(values[0])) {
-//                    for (int i = 1; i < values.length; i++) {
-//                        String values2[] = values[i].split(">");
-//    }
+   public int getNumberOfsec(String name) {
+       try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/Market.csv"))) {
+           String line;
+           br.readLine();
+           while ((line = br.readLine()) != null) {
+               String[] values = line.split(",");
+               if (name.equals(values[0])) {
+                   return Integer.parseInt(values[1]);
 
-}
-
-
-
-
-
-
-    
+               }
+           }
+       } catch (IOException e) {
+           throw new RuntimeException(e);
+       }
+       return 0;
+   }}

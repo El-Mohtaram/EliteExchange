@@ -417,10 +417,11 @@ public class UserController implements Initializable {
         if (hotbonds != null) hotbonds.lookupAll(".scroll-bar").forEach(scrollBar -> scrollBar.setVisible(false));
         if (changem != null ) {
 
-            changem.setCellValueFactory(cellData -> {
+            { changem.setCellValueFactory(cellData -> {
                 int index = cellData.getTableView().getItems().indexOf(cellData.getValue());
                 return new SimpleStringProperty(changemList.get(index));
             });
+        }
             if(change!=null)
             change.setCellValueFactory(cellData -> {
                 int index = cellData.getTableView().getItems().indexOf(cellData.getValue());
@@ -474,14 +475,8 @@ public class UserController implements Initializable {
                     };
                 }
             });
-            for (int i = 0; i < changemList.size(); i++)
-                changem.getTableView().getItems().add(changemList.get(i));
-            if(change!=null)
-            for (int i = 0; i < changemList.size(); i++) {
-                change.getTableView().getItems().add(changemList.get(i));
 
-            }
-        }
+}
         Label userStocks =new Label("You Have No Stocks");
         userStocks.setStyle(
                 "-fx-font-size: 20px; " +
