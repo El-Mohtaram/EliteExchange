@@ -5,7 +5,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -21,15 +20,11 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="667.0" prefWidth="1029.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eliteexchange.eliteexchange.UserController">
     <children>
-      <TableView fx:id="historyTable" layoutX="290.0" layoutY="159.0" prefHeight="325.0" prefWidth="700.0">
-        <columns>
-          <TableColumn fx:id="historyColumn" prefWidth="698.6666768789291" text="Transaction" />
-        </columns>
-      </TableView>
       <Pane prefHeight="677.0" prefWidth="1029.0" style="-fx-background-color: #181a20;" />
       <ImageView fx:id="star" fitHeight="551.0" fitWidth="431.0" layoutX="596.0" layoutY="85.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -210,9 +205,8 @@
                         <Font size="29.0" />
                      </font>
                   </Label>
-                  <Label fx:id="testcompany" layoutX="622.0" layoutY="589.0" prefHeight="17.0" prefWidth="246.0" text="Label" textFill="WHITE" />
-                  <Button fx:id="ahmedbutton" layoutX="385.0" layoutY="585.0" mnemonicParsing="false" onAction="#ahmeds" text="Button" />
-                  <LineChart fx:id="priceGraph" layoutX="387.0" layoutY="136.0" prefHeight="376.0" prefWidth="427.0">
+                  <Label fx:id="testcompany" layoutX="227.0" layoutY="626.0" prefHeight="17.0" prefWidth="246.0" text="Label" textFill="#181a20" />
+                  <LineChart fx:id="priceGraph" layoutX="385.0" layoutY="140.0" legendVisible="false" prefHeight="371.0" prefWidth="420.0">
                     <xAxis>
                       <NumberAxis fx:id="timeAxis" label="Time" prefHeight="37.0" prefWidth="508.0" side="BOTTOM" tickLabelFill="WHITE" />
                     </xAxis>
@@ -220,11 +214,6 @@
                       <NumberAxis fx:id="priceAxis" label="Price" side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <TableView fx:id="dateTable" layoutX="215.0" layoutY="111.0" prefHeight="363.0" prefWidth="177.0">
-                    <columns>
-                      <TableColumn fx:id="dateCol" prefWidth="175.9999745686849" text="Date" />
-                    </columns>
-                  </TableView>
                   <JFXButton fx:id="showgraph" buttonType="RAISED" layoutX="243.0" layoutY="489.0" onAction="#showSelectedDateGraph" prefHeight="49.0" prefWidth="121.0" style="-fx-background-color: ebb50c;" text="Show" textFill="#181a20">
                      <font>
                         <Font size="19.0" />
@@ -239,6 +228,11 @@
                     </columns>
                   </TableView>
                   <JFXButton fx:id="Searchbutton" layoutX="392.0" layoutY="81.0" onAction="#searchStock" style="-fx-background-color: ebb50c;" text="Search" textFill="#181a20" />
+                  <TableView fx:id="dateTable" layoutX="215.0" layoutY="149.0" prefHeight="325.0" prefWidth="177.0">
+                    <columns>
+                      <TableColumn fx:id="dateCol" prefWidth="175.9999745686849" text="Date" />
+                    </columns>
+                  </TableView>
                     </children>
                 </AnchorPane>
             </center>
@@ -369,7 +363,7 @@
                                 </RadialGradient>
                             </ripplerFill>
                         </JFXButton>
-                        <JFXButton fx:id="Optionsb" layoutX="418.0" layoutY="10.0" onAction="#Notificationspressed" prefHeight="77.0" prefWidth="204.0" text="Notifications" textFill="#181a20">
+                        <JFXButton fx:id="Notificationsb" layoutX="418.0" layoutY="10.0" onAction="#Notificationspressed" prefHeight="77.0" prefWidth="204.0" text="Notifications" textFill="#181a20">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -421,5 +415,12 @@
       </Label>
         <Region fx:id="swaptaps" layoutX="213.0" layoutY="89.0" prefHeight="7.0" prefWidth="204.0" style="-fx-background-color: #0c4deb;" />
       <Pane layoutX="51.0" layoutY="42.0" onMouseEntered="#setImmenuent" onMouseExited="#setImmenuex" prefHeight="29.0" prefWidth="20.0" />
+      <Circle fx:id="notificircle" fill="RED" layoutX="860.0" layoutY="50.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <TableView fx:id="historyTable" layoutX="290.0" layoutY="159.0" prefHeight="325.0" prefWidth="700.0">
+        <columns>
+          <TableColumn fx:id="historyColumn" prefWidth="698.6666768789291" text="Transaction" />
+        </columns>
+      </TableView>
+      <Label fx:id="notifinum" layoutX="856.0" layoutY="41.0" prefHeight="17.0" prefWidth="9.0" text=" " textFill="WHITE" />
     </children>
 </AnchorPane>

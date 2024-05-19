@@ -9,8 +9,8 @@
     -fx-background-color: transparent;
 }
 .chart-series-line {
-    -fx-stroke-width: 2;
-    -fx-fill: red;
+    -fx-stroke-width: 1.25;
+    -fx-stroke: #ebb50c;
 }
 /* Chart plot area symbols */
 .chart-symbol {
@@ -20,13 +20,13 @@
 
 /* Chart horizontal grid lines */
 .chart-horizontal-grid-lines {
-    -fx-stroke: #cccccc;
+    -fx-stroke: grey;
     -fx-stroke-dash-array: 5 5;
 }
 
 /* Chart vertical grid lines */
 .chart-vertical-grid-lines {
-    -fx-stroke: #cccccc;
+    -fx-stroke: grey;
     -fx-stroke-dash-array: 5 5;
 }
 #showgraph{
@@ -57,14 +57,14 @@
     -fx-font-size: 19;
     -fx-cursor: hand;
 }
-#MenuClose,#Menu,#market,#wd,#TransHistory,#AccMangb,#logoutb,#Dashboardb,#Stocksb,#Bondsb,#Optionsb,#hotstockstit{
+#MenuClose,#Menu,#market,#wd,#TransHistory,#AccMangb,#logoutb,#Dashboardb,#Stocksb,#Bondsb,#Notificationsb,#hotstockstit{
     -fx-font-family: "Yaahowu Bold";
 }
 #Dashboardb{
     -fx-font-family: "Yaahowu Bold";
     -fx-font-size: 25;
 }
-#market:hover,#wd:hover,#logoutb:hover,#Stocksb:hover,#Bondsb:hover,#market:pressed,#logoutb:pressed,#Stocksb:pressed,#Bondsb:pressed,#Optionsb:pressed{
+#market:hover,#wd:hover,#logoutb:hover,#Stocksb:hover,#Bondsb:hover,#market:pressed,#logoutb:pressed,#Stocksb:pressed,#Bondsb:pressed,#Notificationsb:pressed{
     -fx-font-family: "Yaahowu Bold";
     -fx-font-size: 30;
     -fx-text-fill: #181a20;
@@ -82,11 +82,11 @@
     -fx-font-family: "Yaahowu Bold";
     -fx-font-size: 25;
 }
-#Optionsb{
+#Notificationsb{
     -fx-font-family: "Yaahowu Bold";
     -fx-font-size: 20;
 }
-#Optionsb:hover{
+#Notificationsb:hover{
     -fx-font-family: "Yaahowu Bold";
     -fx-font-size: 22;
 }
@@ -166,7 +166,7 @@
     -fx-border-radius: 10 10 10 10;
     -fx-background-radius: 10 10 10 10;
 }
-#yieldB,#numberB,#startPrice{
+#yieldB,#numberB,#startPrice,#change,#changem{
     -fx-alignment: CENTER;
     -fx-text-alignment: CENTER;
 }
@@ -229,10 +229,26 @@
     -fx-max-height: 0;
 }
 
-#StocksMarket .table-row-cell:hover,#StocksMarket .table-row-cell:focused,#userStockList .table-row-cell:hover,#userStockList .table-row-cell:focused {
+#StocksMarket .table-row-cell:hover,#userStockList .table-row-cell:hover,#userStockList .table-row-cell:focused,dateTable .table-row-cell:hover,dateTable .table-row-cell:focused {
     -fx-background-color: #bf930a;
+
+}
+.axis {
+    -fx-tick-length: 6;
+    -fx-tick-label-fill: white;
+    -fx-font-family: "Yaahowu Bold";
 }
 
+.axis-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-padding: -6px;
+}
+#priceAxis .axis-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-padding: 0px;
+}
 .text-field{
     -fx-background-color: transparent;
     -fx-border-color: #474d57 ;

@@ -31,6 +31,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -174,9 +175,10 @@ public class UserController implements Initializable {
     private double x, y;
     @FXML
     private AnchorPane slider;
-
     @FXML
-    private Label MenuClose, balancetit, Menu, hotbondstit;
+    private Circle notificircle;
+    @FXML
+    private Label MenuClose, balancetit, Menu, hotbondstit,notifinum;
     @FXML
     private JFXButton market, withdraw, depositb, sellb;
     @FXML
@@ -186,7 +188,7 @@ public class UserController implements Initializable {
     @FXML
     private FontAwesomeIconView showbalance, hidebalance;
     @FXML
-    private JFXButton Dashboardb;
+    private JFXButton Dashboardb,Notificationsb;
     @FXML
     private Label welcomemes, hotstockstit, titleslabel;
     @FXML
@@ -225,9 +227,7 @@ public class UserController implements Initializable {
             }
 
         }
-        if (NotifCol != null) {
-            NotifCol.setCellValueFactory(new PropertyValueFactory<>("notif"));
-        }
+
         if (titleslabel != null) titleslabel.setVisible(false);
         if (historyTable != null) historyTable.setVisible(false);
         if (amount != null) amount.setVisible(false);
@@ -320,16 +320,14 @@ public class UserController implements Initializable {
             balance.setText("******");
             balance.setTextFill(Color.color(0.9176470588235294, 0.9254901960784314, 0.9372549019607843));
         }
-        if (historyTable != null)
-            historyTable.setItems(admin.historyList());
+
+
         if (pricehistoryTable != null)
             pricehistoryTable.setItems(stock.getStockPriceHistory());
         if (companylists != null)
             companylists.setItems(stock.fillcompanytaple());
         if (dateTable != null)
             dateTable.setItems(Stock.getDateList());
-        if (historyColumn != null)
-            historyColumn.setCellValueFactory(new PropertyValueFactory<>("history"));
         if (maxPrice != null)
             maxPrice.setCellValueFactory(new PropertyValueFactory<>("max"));
         if (lowPrice != null)
@@ -414,21 +412,107 @@ public class UserController implements Initializable {
         }
         if (hotbonds != null) hotbonds.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> event.consume());
         if (hotbonds != null) hotbonds.lookupAll(".scroll-bar").forEach(scrollBar -> scrollBar.setVisible(false));
-        if (changem != null) {
+        if (changem != null ) {
 
             changem.setCellValueFactory(cellData -> {
                 int index = cellData.getTableView().getItems().indexOf(cellData.getValue());
                 return new SimpleStringProperty(changemList.get(index));
             });
+            if(change!=null)
             change.setCellValueFactory(cellData -> {
                 int index = cellData.getTableView().getItems().indexOf(cellData.getValue());
                 return new SimpleStringProperty(changemList.get(index));
             });
+            change.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+                @Override
+                public TableCell<String, String> call(TableColumn<String, String> param) {
+                    return new TableCell<String, String>() {
+                        @Override
+                        protected void updateItem(String item, boolean empty) {
+                            super.updateItem(item, empty);
+
+                            if (!empty) {
+                                if (item.startsWith("-")) {
+                                    setStyle("-fx-text-fill: #eb0c12;");
+                                } else if (item.startsWith("+")) {
+                                    setStyle("-fx-text-fill: green;");
+                                }
+                                else {
+                                    setStyle("-fx-text-fill: white;");
+                                }
+
+                                setText(item);
+                            }
+                        }
+                    };
+                }
+            });
+            changem.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+                @Override
+                public TableCell<String, String> call(TableColumn<String, String> param) {
+                    return new TableCell<String, String>() {
+                        @Override
+                        protected void updateItem(String item, boolean empty) {
+                            super.updateItem(item, empty);
+
+                            if (!empty) {
+                                if (item.startsWith("-")) {
+                                    setStyle("-fx-text-fill: #eb0c12;");
+                                } else if (item.startsWith("+")) {
+                                    setStyle("-fx-text-fill: green;");
+                                }
+                                else {
+                                    setStyle("-fx-text-fill: white;");
+                                }
+
+                                setText(item);
+                            }
+                        }
+                    };
+                }
+            });
             for (int i = 0; i < changemList.size(); i++)
                 changem.getTableView().getItems().add(changemList.get(i));
+            if(change!=null)
+            for (int i = 0; i < changemList.size(); i++) {
+                change.getTableView().getItems().add(changemList.get(i));
+
+            }
         }
-        for (int i = 0; i < changemList.size(); i++)
-            change.getTableView().getItems().add(changemList.get(i));
+        Label userStocks =new Label("You Have No Stocks");
+        userStocks.setStyle(
+                "-fx-font-size: 20px; " +
+                "-fx-text-fill: #ffffff; "
+        );
+        userStockList.setPlaceholder(userStocks);
+        Label userbonds =new Label("You Have No Bonds");
+        userbonds.setStyle(
+                "-fx-font-size: 20px; " +
+                "-fx-text-fill: #ffffff; "
+        );
+        userBondList.setPlaceholder(userbonds);
+        Label dateshow =new Label("Firstly,\nSelect a Company");
+        dateshow.setStyle(
+                "-fx-font-size: 20px; " +
+                "-fx-text-fill: #ffffff; " +
+                "-fx-alignment: CENTER; " +
+                "-fx-text-alignment: CENTER; "
+        );
+        Label notifications =new Label("No Data to be Shown");
+        notifications.setStyle(
+                "-fx-font-size: 20px; " +
+                "-fx-text-fill: #ffffff; "
+        );
+        historyTable.setPlaceholder(notifications);
+        dateTable.setPlaceholder(dateshow);
+        Notificationsb.setOnMouseEntered(event -> {
+            notificircle.setTranslateX(-6);
+            notifinum.setTranslateX(-6);
+        });
+        Notificationsb.setOnMouseExited(event -> {
+            notificircle.setTranslateX(0);
+            notifinum.setTranslateX(0);
+        });
 
     }
 
@@ -441,17 +525,31 @@ public class UserController implements Initializable {
         if (account.getUsername() != null) {
             if (welcomemes != null) welcomemes.setText("Welcome " + account.getUsername());
         }
-       /* if (hotbonds != null) {
-            hotbonds.setItems(bond.getBondData());
-           // bond.RefreshBondList();
-        }*/
+        String selectedName = "";
         if (StocksMarket != null) {
             DataShow selectedStock = StocksMarket.getSelectionModel().getSelectedItem();
             if (selectedStock != null) {
-                String selectedName = selectedStock.getCompany();
-                testcompany.setText(selectedName);
+                selectedName = selectedStock.getCompany();
+
             }
         }
+            if (!testcompany.equals(selectedName)) {
+                searchStock();
+                testcompany.setText(selectedName);
+            }
+            if (stock.getNumberofnotifications()>0) {
+                notificircle.setVisible(true);
+                notifinum.setVisible(true);
+                try {
+                    notifinum.setText(Integer.toString(stock.getNumberofnotifications()));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            else {
+                notificircle.setVisible(false);
+                notifinum.setVisible(false);
+            }
     }
 
     private void menuopen() {
@@ -538,8 +636,38 @@ public class UserController implements Initializable {
     }
 
     @FXML
-    private void Notificationspressed() {
+    private void Notificationspressed() throws IOException {
+        historyColumn.setText("Notifications");
+        historyColumn.setCellValueFactory(new PropertyValueFactory<>("notif"));
+        historyTable.setItems(stock.fillnotfilist());
         menuclose();
+        historyTable.setVisible(false);
+        userStockList.setVisible(false);
+        yourbonds.setVisible(false);
+        sellb.setVisible(false);
+        messages.setVisible(false);
+        amount.setVisible(false);
+        depositb.setVisible(false);
+        withdraw.setVisible(false);
+        StocksMarket.setVisible(false);
+        titleslabel.setVisible(false);
+        userBondList.setVisible(false);
+        welcomemes.setVisible(false);
+        showbalance.setVisible(false);
+        hotbondstit.setVisible(false);
+        hidebalance.setVisible(false);
+        balancetit.setVisible(false);
+        balance.setVisible(false);
+        hotstocks.setVisible(false);
+        hotstockstit.setVisible(false);
+        hotbonds.setVisible(false);
+        viplevel.setVisible(false);
+        sellb.setVisible(false);
+        priceGraph.setVisible(false);
+        dateTable.setVisible(false);
+        showgraph.setVisible(false);
+        Searchbutton.setVisible(false);
+        companyName.setVisible(false);
         TranslateTransition tapsawp = new TranslateTransition();
         tapsawp.setDuration(Duration.seconds(0.4));
         tapsawp.setNode(swaptaps);
@@ -547,7 +675,16 @@ public class UserController implements Initializable {
         tapsawp.play();
         swaptaps.setTranslateX(0);
         tapsawp.setOnFinished((ActionEvent e) -> {
-
+            try {
+                stock.SeenNotifications();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            titleslabel.setText("Your Inbox");
+            historyTable.setTranslateX(-80);
+            historyTable.setVisible(true);
+            titleslabel.setTranslateX(105);
+            titleslabel.setVisible(true);
         });
     }
 
@@ -834,8 +971,12 @@ public class UserController implements Initializable {
 
     @FXML
     private void transactionhistoryscene(ActionEvent event) throws IOException {
+        historyColumn.setText("Previous Transactions");
+        historyColumn.setCellValueFactory(new PropertyValueFactory<>("history"));
+        historyTable.setItems(admin.historyList());
         admin.refreshTransactionHistory();
         menuclose();
+        historyTable.setVisible(false);
         userStockList.setVisible(false);
         yourbonds.setVisible(false);
         sellb.setVisible(false);
@@ -924,8 +1065,8 @@ public class UserController implements Initializable {
         LocalDateTime currentDateTime = LocalDateTime.now(); // Get the current date and time
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // Define the desired format
         String formattedDateTime = currentDateTime.format(formatter); // Format the date and time
-        if (stock.fillDateTable(companyName.getText())) {
-            stock.getPriceList(companyName.getText(), formattedDateTime);
+        if (stock.fillDateTable(testcompany.getText())) {
+            stock.getPriceList(testcompany.getText(), formattedDateTime);
             priceGraph.getData().clear();
             float max = 0;
             float min = stock.getPriceList().get(0);

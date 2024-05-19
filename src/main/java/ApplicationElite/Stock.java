@@ -4,6 +4,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+
+import eliteexchange.eliteexchange.UserController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

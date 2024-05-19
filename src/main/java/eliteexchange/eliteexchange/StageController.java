@@ -142,11 +142,6 @@ public class StageController implements Initializable {
     private double x, y;
 
     @FXML
-    private Button signupConfirm;
-    @FXML
-    private Button loginConfirm;
-
-    @FXML
     public FontAwesomeIconView RefreshIcon;
 
     @Override
