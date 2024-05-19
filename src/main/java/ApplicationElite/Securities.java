@@ -363,6 +363,22 @@ public class Securities {
 
 
     }
+    public int getNumOfSecurities(String name){
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/data/Market.csv"))) {
+            String line;
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (name.equals(values[0])) {
+                    return  Integer.parseInt(values[1]);
+                }
+                }
+            return 0;
+                } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 }
 
