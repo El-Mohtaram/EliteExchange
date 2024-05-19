@@ -52,7 +52,7 @@
 #close:pressed{
     -fx-fill: #930000
 }
-#depositb,#withdraw,#depositb:hover,#withdraw:hover,#depositb:pressed,#withdraw:pressed,#sellb,#sellb:pressed,#sellb:pressed{
+#depositb,#withdraw,#depositb:hover,#withdraw:hover,#depositb:pressed,#withdraw:pressed,#sellb,#sellb:pressed,#sellb:pressed,#buyb,#buyb:pressed,#buyb:pressed{
     -fx-font-family: "Yaahowu Bold";
     -fx-font-size: 19;
     -fx-cursor: hand;

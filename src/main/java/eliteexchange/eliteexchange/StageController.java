@@ -551,21 +551,7 @@ public class StageController implements Initializable {
         }
     }
 
-    @FXML
-    private void buy() {
 
-        DataShow selectedStock = Addtable.getSelectionModel().getSelectedItem();
-        if (selectedStock != null) {
-            String selectedName = selectedStock.getCompany();
-            if (admin.marketOpenOrClose()) {
-                if (stock.BuyStock(Integer.parseInt(amount.getText()), selectedName)) {
-                    account.updateBalance();
-                    stock.RestoreData();
-                    buyMessage.setText("Bought Successfully");
-                } else buyMessage.setText("Not enough amount");
-            } else buyMessage.setText("Sorry, market is closed");
-        }
-    }
 
     @FXML
     private void changeMarketStatues(ActionEvent event) {
