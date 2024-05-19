@@ -219,7 +219,6 @@
                         <Font size="19.0" />
                      </font>
                   </JFXButton>
-                  <TextField fx:id="companyName" layoutX="229.0" layoutY="81.0" promptText="Search Stock" />
                   <TableView fx:id="hotstocks" layoutX="244.0" layoutY="277.0" prefHeight="167.0" prefWidth="311.0">
                     <columns>
                       <TableColumn fx:id="company" prefWidth="91.99998474121094" text="Company" />
@@ -227,12 +226,16 @@
                         <TableColumn fx:id="change" prefWidth="96.66667683919269" text="24H%" />
                     </columns>
                   </TableView>
-                  <JFXButton fx:id="Searchbutton" layoutX="392.0" layoutY="81.0" onAction="#searchStock" style="-fx-background-color: ebb50c;" text="Search" textFill="#181a20" />
                   <TableView fx:id="dateTable" layoutX="215.0" layoutY="149.0" prefHeight="325.0" prefWidth="177.0">
                     <columns>
                       <TableColumn fx:id="dateCol" prefWidth="175.9999745686849" text="Date" />
                     </columns>
                   </TableView>
+                  <JFXButton fx:id="buyb" buttonType="RAISED" layoutX="632.0" layoutY="499.0" onAction="#buy" prefHeight="49.0" prefWidth="121.0" style="-fx-background-color: ebb50c;" text="Buy" textFill="#181a20">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </JFXButton>
                     </children>
                 </AnchorPane>
             </center>
