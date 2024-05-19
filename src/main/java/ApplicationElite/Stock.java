@@ -250,7 +250,7 @@ public class Stock extends Securities {
                 if (percentage >= 0)
                     percentageList.add(i, "+" + String.format("%.3f", percentage) + "%");
                 else percentageList.add(i, String.format("%.3f", percentage) + "%");
-                if (percentage > 1 && account.getUsername() != null) {
+                if ((percentage > 1 || percentage < 1) && account.getUsername() != null) {
                     notifications(key, percentage);
                     checknotifications(key, percentage);
                 }
@@ -281,9 +281,7 @@ public class Stock extends Securities {
 
                     String oldcontent = fileContent.get(i);
                     fileContent.remove(i);
-                    if (percentage > 1)
-                        fileContent.add(i, oldcontent + "," + company + "-" + percentage + "-0");
-                    else fileContent.add(i, oldcontent + "," + company + "-" + percentage + "-0");
+                    fileContent.add(i, oldcontent + "," + company + "-" + percentage + "-0");
                     Files.write(Paths.get("src/main/java/data/notif.csv"), fileContent);
                     //fileContent = Files.readAllLines(Paths.get("src/main/java/data/notif.csv"));
                     break;
@@ -370,7 +368,11 @@ public class Stock extends Securities {
                     String []line2=line[j].split("-");
                     if(line2[2].equals("0")){
                         float percantage = (float) ((int) ((Float.parseFloat(line2[1])*100))) / 100;
+                        if(percantage>0)
                         Notiflist.add(new DataShow("stock of "+line2[0]+" increased by "+percantage+"%",5,true));
+                        else if(percantage<0)
+                        Notiflist.add(new DataShow("stock of "+line2[0]+" decreased by "+percantage+"%",5,true));
+
                     }
                 }
         }

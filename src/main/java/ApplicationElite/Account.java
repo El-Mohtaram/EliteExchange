@@ -1,13 +1,8 @@
 package ApplicationElite;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -278,8 +273,133 @@ public class Account {
             e.printStackTrace();
         }
     }
+    public void ChangeUsernameOrPassWord(String NewData,String currentPassword,int state) throws IOException {
+        String oldContent = "";
+        String dataOverwrite = "";
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            String line;
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (username1.equals(values[0])&&values[1].equals(currentPassword)) {
+                    oldContent = line;
+                    if(state==0)
+                    dataOverwrite = NewData+ "," + values[1] + "," + "user" + "," + getBalance();
+                    else if (state ==1)
+                        dataOverwrite = values[0] + "," +  NewData+ "," + "user" + "," + getBalance();
+
+                    break;
+                }
+            }
+            try {
+                List<String> fileContent = Files.readAllLines(Paths.get(csvFile));
+
+                for (int i = 0; i < fileContent.size(); i++) {
+                    if (fileContent.get(i).equals(oldContent)) {
+                        fileContent.set(i, dataOverwrite);
+                        break;
+                    }
+                }
+
+                Files.write(Paths.get(csvFile), fileContent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    }
 
 }
+public void setPremiumUser(){
+    String oldContent = "";
+    String dataOverwrite = "";
+    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        String line;
+        br.readLine();
+        while ((line = br.readLine()) != null) {
+            String[] values = line.split(",");
+            if (username1.equals(values[0])) {
+                oldContent = line;
+
+                    dataOverwrite = values[0]+ "," + values[1] + "," + "user" + "," + (getBalance()-69.99f)+",Premium-900";
+
+                break;
+            }
+        }
+        try {
+            List<String> fileContent = Files.readAllLines(Paths.get(csvFile));
+
+            for (int i = 0; i < fileContent.size(); i++) {
+                if (fileContent.get(i).equals(oldContent)) {
+                    fileContent.set(i, dataOverwrite);
+                    break;
+                }
+            }
+
+            Files.write(Paths.get(csvFile), fileContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+} catch (IOException e) {
+        throw new RuntimeException(e);
+    }
+}
+    public void RefreshPremium()
+    {
+        ArrayList<String>lines=new ArrayList<>();
+        try {
+            try (BufferedReader br = new BufferedReader(new FileReader(csvFile2))) {
+                String line = br.readLine();
+                lines.add(line);
+                while ((line = br.readLine()) != null) {
+                    String[] values = line.split(",");
+                    line = values[0]+","+values[1]+","+values[2]+","+values[3];
+                        String[] values2 = values[4].split("-");
+                        if (Integer.parseInt(values2[1]) > 0) {
+                            line = line + ","+values2[0]+"-"+(Integer.parseInt(values2[1]) - 1) ;
+                        }
+                    lines.add(line);
+                    }
+
+                }
+                BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile));
+                for (String updatedLine : lines) {
+                    writer.write(updatedLine);
+                    writer.newLine();
+                }
+                writer.flush();
+                writer.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+        catch (NumberFormatException e) {
+            throw new RuntimeException(e);
+        }}
+    public boolean IsUserPremium(){
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            String line;
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (username1.equals(values[0])) {
+                    for (int i = 4; i < values.length ; i++) {
+                        String []line2 =values[i].split("-");
+                        if(values[0].equals("Premium"))
+                            return true;
+                    }
+
+                    break;
+                }
+            }
+            return false;
+
+    }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
+
 
 
 
