@@ -142,11 +142,6 @@ public class StageController implements Initializable {
     private double x, y;
 
     @FXML
-    private Button signupConfirm;
-    @FXML
-    private Button loginConfirm;
-
-    @FXML
     public FontAwesomeIconView RefreshIcon;
 
     @Override
@@ -157,10 +152,6 @@ public class StageController implements Initializable {
             );
             timeline.setCycleCount(Animation.INDEFINITE);
             timeline.play();
-        }
-        if (marketStatues != null) {
-            marketStatues.setToggleGroup(aaa);
-            marketStatues.setOnAction(this::changeMarketStatues);
         }
         if (bondsTable != null)
             bondsTable.setItems(Bonds.getBondData());
@@ -209,41 +200,33 @@ public class StageController implements Initializable {
         String formattedDateTime = LocalDateTime.now().format(formatter);
         if (datee != null)
             datee.setText(formattedDateTime);
-        //stock.RestoreData();
         if (numberofStocks != null)
             numberofStocks.setCellValueFactory(new PropertyValueFactory<>("number"));
     }
 
     @FXML
-    private void mainscene(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    private void dragwindow(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setY(event.getScreenY() - y);
+        stage.setX(event.getScreenX() - x);
     }
 
     @FXML
-    void BackbuttonPressed(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    private void presswindow(MouseEvent event) {
+        x = event.getSceneX();
+        y = event.getSceneY();
     }
 
     @FXML
-    void LogoutButtonPressed(ActionEvent event) throws IOException {
-        account.adminSwitch();
-        Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        String MainScenecss = getClass().getResource("menu.css").toExternalForm();
-        scene.getStylesheets().add(MainScenecss);
-        stage.setScene(scene);
-        stage.show();
+    private void exit(MouseEvent event) throws IOException {
+        System.exit(0);
     }
 
+    @FXML
+    private void min(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setIconified(true);
+    }
 
     @FXML
     private void LoginPressed(ActionEvent event) throws IOException {
@@ -264,7 +247,6 @@ public class StageController implements Initializable {
         scene.getStylesheets().add(Elite.css);
         stage.show();
     }
-
 
     @FXML
     private void signupConfirmPressed() {
@@ -292,10 +274,7 @@ public class StageController implements Initializable {
             messagelabel.setText("your account has been banned");
         } else if (account.CheckLoginData() && account.userOrAdmin().equals("user")) {
             stock.RestoreData();
-            //      Parent root = FXMLLoader.load(getClass().getResource("userMenue.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            //        scene = new Scene(root);
-            //          stage.setScene(scene);
             stage.setScene(Elite.usermainmenu);
             String usercss = getClass().getResource("usermenu.css").toExternalForm();
             stage.getScene().getStylesheets().add(usercss);
@@ -320,27 +299,6 @@ public class StageController implements Initializable {
     }
 
     @FXML
-    void AddstockScene(ActionEvent event) throws IOException {
-
-        Parent root = FXMLLoader.load(getClass().getResource("StockManagementScene.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        String StockManagementcss = getClass().getResource("StockManagementScene.css").toExternalForm();
-        stage.getScene().getStylesheets().add(StockManagementcss);
-        stock.RestoreData();
-        stage.show();
-
-    }
-
-    @FXML
-    void addStock(ActionEvent event) {
-        stock.addStock(companyName.getText(), Integer.parseInt(numberOfStocks.getText()), Float.parseFloat(startprice.getText()));
-        stock.RestoreData();
-        Addtable.setItems(stock.returnList());
-    }
-
-    @FXML
     void BackPressed(MouseEvent event) throws IOException {
         if (account.userOrAdmin().equals("user")) {
             Parent root = FXMLLoader.load(getClass().getResource("userMenue.fxml"));
@@ -362,240 +320,7 @@ public class StageController implements Initializable {
     }
 
 
-    @FXML
-    private void exit(MouseEvent event) throws IOException {
-        System.exit(0);
-    }
 
-    @FXML
-    private void min(MouseEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setIconified(true);
-    }
-
-    @FXML
-    private void dragwindow(MouseEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setY(event.getScreenY() - y);
-        stage.setX(event.getScreenX() - x);
-    }
-
-    @FXML
-    private void presswindow(MouseEvent event) {
-        x = event.getSceneX();
-        y = event.getSceneY();
-    }
-
-    @FXML
-    private void exit2(ActionEvent event) throws IOException {
-        account.adminSwitch();
-        System.exit(0);
-    }
-
-    @FXML
-    void deleteStock(ActionEvent event) {
-        // int selectedID = Addtable.getSelectionModel().getSelectedIndex();
-        // Addtable.getItems().remove(selectedID);
-        DataShow selectedStock = Addtable.getSelectionModel().getSelectedItem();
-        if (selectedStock != null) {
-            String selectedName = selectedStock.getCompany();
-            System.out.println("Selected stock name: " + selectedName);
-            stock.DeleteStock(selectedName);
-            int selectedID = Addtable.getSelectionModel().getSelectedIndex();
-            Addtable.getItems().remove(selectedID);
-        }
-    }
-
-    @FXML
-    void MarketPressed(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Market.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        stock.RestoreData();
-    }
-
-    @FXML
-    void usermanagementscene(ActionEvent event) throws IOException {
-        System.out.println(event);
-        Admin.createuserslist();
-        Parent root = FXMLLoader.load(getClass().getResource("Usermanagement.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        String UserManagementcss = getClass().getResource("UserManagement.css").toExternalForm();
-        scene.getStylesheets().add(UserManagementcss);
-        stage.setScene(scene);
-        stage.show();
-        stock.RestoreData();
-    }
-
-    @FXML
-    void RefreshUserMangementScreen(MouseEvent event) throws IOException {
-        RotateTransition RefreshA = new RotateTransition();
-        RefreshA.setDuration(Duration.seconds(0.7));
-        RefreshA.setNode(RefreshIcon);
-        RefreshA.setToAngle(angle += 360);
-        RefreshA.play();
-        Admin.createuserslist();
-        System.out.println(event);
-//        Parent root = FXMLLoader.load(getClass().getResource("Usermanagement.fxml"));
-//        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        scene = new Scene(root);
-//        String UserManagementcss = getClass().getResource("UserManagement.css").toExternalForm();
-//        scene.getStylesheets().add(UserManagementcss);
-//        stage.setScene(scene);
-//        stage.show();
-        admin.RestoreData();
-    }
-
-    @FXML
-    void RefreshRequestsScreen(MouseEvent event) throws IOException {
-        RotateTransition RefreshA = new RotateTransition();
-        RefreshA.setDuration(Duration.seconds(0.7));
-        RefreshA.setNode(RefreshIcon);
-        RefreshA.setToAngle(angle += 360);
-        RefreshA.play();
-        System.out.println(event);
-        Admin.createuserslist();
-        requestsTable.setItems(admin.returnList());
-//        Parent root = FXMLLoader.load(getClass().getResource("RequestScene.fxml"));
-//        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        scene = new Scene(root);
-//        String UserManagementcss = getClass().getResource("Requests.css").toExternalForm();
-//        scene.getStylesheets().add(UserManagementcss);
-//        stage.setScene(scene);
-//        stage.show();
-        admin.RestoreData();
-    }
-
-    @FXML
-    private void blockuser() throws IOException {
-        Admin.createuserslist();
-        Admin.blockuser(userlist.getValue());
-        for (int i = 0; i < Admin.userslist.size(); i++) {
-            userlist.getItems().set(i, Admin.userslist.get(i));
-        }
-        System.out.println(userlist.getValue());
-    }
-
-    @FXML
-    private void unblockuser() throws IOException {
-        Admin.createuserslist();
-        Admin.unblockuser(userlist.getValue());
-        for (int i = 0; i < Admin.userslist.size(); i++) {
-            userlist.getItems().set(i, Admin.userslist.get(i));
-        }
-        System.out.println(userlist.getValue());
-    }
-
-    @FXML
-    private void deleteusers() throws IOException {
-        Admin.createuserslist();
-        System.out.println(userlist.getValue());
-        Admin.deleteuser(userlist.getValue());
-        for (int i = 0; i < Admin.userslist.size(); i++) {
-            userlist.getItems().set(i, Admin.userslist.get(i));
-        }
-    }
-
-    @FXML
-    private void DandW(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("WDscene.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-    }
-
-
-    @FXML
-    private void adminRequests(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("RequestScene.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        String Requestscss = getClass().getResource("Requests.css").toExternalForm();
-        scene.getStylesheets().add(Requestscss);
-        stage.setScene(scene);
-        stage.show();
-        admin.RestoreData();
-    }
-
-    @FXML
-    public void accept() {
-        DataShow selectedRequest = requestsTable.getSelectionModel().getSelectedItem();
-        if (selectedRequest != null) {
-            String selectedName = selectedRequest.getRequests();
-            System.out.println(selectedName);
-            admin.acceptRequest(selectedName);
-            admin.deleteRequest(selectedName);
-            int selectedID = requestsTable.getSelectionModel().getSelectedIndex();
-            requestsTable.getItems().remove(selectedID);
-            admin.RestoreData();
-        }
-    }
-
-    @FXML
-    public void refuse() {
-
-        DataShow selectedRequest = requestsTable.getSelectionModel().getSelectedItem();
-        if (selectedRequest != null) {
-            String selectedName = selectedRequest.getRequests();
-            System.out.println(selectedName);
-            admin.deleteRequest(selectedName);
-            int selectedID = requestsTable.getSelectionModel().getSelectedIndex();
-            requestsTable.getItems().remove(selectedID);
-            admin.transaction(selectedName, 1);
-            admin.RestoreData();
-        }
-    }
-
-
-
-    @FXML
-    private void changeMarketStatues(ActionEvent event) {
-        if (marketStatues.isSelected()) {
-            marketStatues.setText("Close Market");
-            admin.openMarket();
-        } else {
-            marketStatues.setText("Open Market");
-            admin.closeMarket();
-        }
-    }
-
-    @FXML
-    public void BondsManagement(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("BondsManagementScene.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        String BondsManagementcss = getClass().getResource("BondsManagementScene.css").toExternalForm();
-        scene.getStylesheets().add(BondsManagementcss);
-        stage.setScene(scene);
-        bond.RefreshBondList();
-        stage.show();
-    }
-
-    @FXML
-    void addBond(ActionEvent event) {
-        bond.addBonds(companyName.getText(), Float.parseFloat(value.getText()), Integer.parseInt(numberOfStocks.getText()), Float.parseFloat(yield.getText()), Integer.parseInt(ValidUntil.getText()));
-        bond.RefreshBondList();
-        bondsTable.setItems(Bonds.getBondData());
-        bond.RefreshBondList();
-    }
-
-    @FXML
-    public void deleteBond() {
-        DataShow selectedBond = bondsTable.getSelectionModel().getSelectedItem();
-        if (selectedBond != null) {
-            String selectedName = selectedBond.getCompany();
-            System.out.println("Selected stock name: " + selectedName);
-            bond.deleteBonds(selectedName);
-            int selectedID = bondsTable.getSelectionModel().getSelectedIndex();
-            bondsTable.getItems().remove(selectedID);
-
-        }
-    }
 
     @FXML
     public void buyBond() {
@@ -636,15 +361,4 @@ public class StageController implements Initializable {
         stage.show();
     }
 
-
 }
-
-
-
-
-
-
-
-
-
-
