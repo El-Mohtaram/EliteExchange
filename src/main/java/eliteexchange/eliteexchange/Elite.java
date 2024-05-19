@@ -45,8 +45,8 @@ public class Elite extends Application {
     }
 
     public static void main(String[] args) throws IOException {
-//        Stock stock=new Stock();
-//        stock.checknotifications("messi",2.5f);
+        Stock stock=new Stock();
+        stock.checknotifications("messi",2.5f);
         PriceUpdater priceUpdater = new PriceUpdater();
         priceUpdater.main(args);
 //        Bonds bond = new Bonds();

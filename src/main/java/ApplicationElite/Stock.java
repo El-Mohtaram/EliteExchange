@@ -250,7 +250,7 @@ public class Stock extends Securities {
                 if (percentage >= 0)
                     percentageList.add(i, "+" + String.format("%.3f", percentage) + "%");
                 else percentageList.add(i, String.format("%.3f", percentage) + "%");
-                if ((percentage > 1 || percentage < 1) && account.getUsername() != null) {
+                if ((percentage > 1 || percentage < -1) && account.getUsername() != null) {
                     notifications(key, percentage);
                     checknotifications(key, percentage);
                 }
@@ -269,7 +269,7 @@ public class Stock extends Securities {
             line = fileContent.get(i).split(",");
             if (line[0].equals(account.getUsername())) {
                 for (int j = 0; j < line.length; j++) {
-                    String[] line2 = line[j].split("-");
+                    String[] line2 = line[j].split(">");
                     if (line2[0].equals(company)) {
                       ///  System.out.println(line2[0]);
                         found = true;
@@ -281,7 +281,7 @@ public class Stock extends Securities {
 
                     String oldcontent = fileContent.get(i);
                     fileContent.remove(i);
-                    fileContent.add(i, oldcontent + "," + company + "-" + percentage + "-0");
+                    fileContent.add(i, oldcontent + "," + company + ">" + percentage + ">0");
                     Files.write(Paths.get("src/main/java/data/notif.csv"), fileContent);
                     //fileContent = Files.readAllLines(Paths.get("src/main/java/data/notif.csv"));
                     break;
@@ -302,12 +302,15 @@ public class Stock extends Securities {
           //  System.out.println(line.length);
             if (line[0].equals(account.getUsername()))
                 for (int j = 1; j < line.length; j++) {
-                    String[] line2 = line[j].split("-");
+                    String[] line2 = line[j].split(">");
+                    if(percentage >0){
                     if (line2[0].equals(company) && (((percentage - Float.parseFloat(line2[1])) > 0.3) || (percentage - Float.parseFloat(line2[1])) < -1)) {
-                        newcontent = newcontent + "," + company + "-" + percentage + "-0";
-                    } else newcontent = newcontent + "," + line2[0] + "-" + line2[1] + "-" + line2[2];
+                        newcontent = newcontent + "," + company + ">" + percentage + ">0";
+                    } }
+                    else if (line2[0].equals(company) && (((percentage - Float.parseFloat(line2[1])) > 1) || (percentage - Float.parseFloat(line2[1])) < -1))
+                        newcontent = newcontent + "," + line2[0] + ">" + line2[1] + ">" + line2[2];
                 }
-            if (!newcontent.equals(account.getUsername())) {
+            if (newcontent!=null&&!newcontent.equals(account.getUsername())) {
                // System.out.println("king");
                 fileContent.remove(i);
                 fileContent.add(i, newcontent);
@@ -325,10 +328,10 @@ public class Stock extends Securities {
             String newcontent = account.getUsername();
             if (line[0].equals(account.getUsername()))
                 for (int j = 1; j < line.length; j++) {
-                    String[] line2 = line[j].split("-");
+                    String[] line2 = line[j].split(">");
                     if (line2[2].equals("0")) {
-                        newcontent = newcontent + "," + line2[0] + "-" + line2[1] + "-" + "1";
-                    } else newcontent = newcontent + "," + line2[0] + "-" + line2[1] + "-" + line2[2];
+                        newcontent = newcontent + "," + line2[0] + ">" + line2[1] + ">" + "1";
+                    } else newcontent = newcontent + "," + line2[0] + ">" + line2[1] + ">" + line2[2];
                 }
             if (!newcontent.equals(account.getUsername())) {
                 fileContent.remove(i);
@@ -348,7 +351,7 @@ public class Stock extends Securities {
 
             if (line[0].equals(account.getUsername()))
                 for (int j = 1; j < line.length; j++) {
-                    String[] line2 = line[j].split("-");
+                    String[] line2 = line[j].split(">");
                     if (line2[2].equals("0")) {
                         numberofnotif++;
                     }
@@ -365,7 +368,7 @@ public class Stock extends Securities {
 
             if(line[0].equals(account.getUsername()))
                 for (int j = 1; j <line.length ; j++) {
-                    String []line2=line[j].split("-");
+                    String []line2=line[j].split(">");
                     if(line2[2].equals("0")){
                         float percantage = (float) ((int) ((Float.parseFloat(line2[1])*100))) / 100;
                         if(percantage>0)

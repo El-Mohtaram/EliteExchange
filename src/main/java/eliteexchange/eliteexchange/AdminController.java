@@ -252,9 +252,12 @@ public class AdminController implements Initializable {
     }
     @FXML
     void addStock(ActionEvent event) {
-        stock.addStock(companyName.getText(), Integer.parseInt(numberOfStocks.getText()), Float.parseFloat(startprice.getText()));
+      try{  stock.addStock(companyName.getText(), Integer.parseInt(numberOfStocks.getText()), Float.parseFloat(startprice.getText()));
         stock.RestoreData();
-        Addtable.setItems(stock.returnList());
+        Addtable.setItems(stock.returnList());}
+      catch (Exception e){
+
+      }
     }
 
     @FXML
@@ -381,10 +384,11 @@ public class AdminController implements Initializable {
 
     @FXML
     void addBond(ActionEvent event) {
-        bond.addBonds(companyName.getText(), Float.parseFloat(value.getText()), Integer.parseInt(numberOfStocks.getText()), Float.parseFloat(yield.getText()), Integer.parseInt(ValidUntil.getText()));
+     try{   bond.addBonds(companyName.getText(), Float.parseFloat(value.getText()), Integer.parseInt(numberOfStocks.getText()), Float.parseFloat(yield.getText()), Integer.parseInt(ValidUntil.getText()));
         bond.RefreshBondList();
         bondsTable.setItems(Bonds.getBondData());
-        bond.RefreshBondList();
+        bond.RefreshBondList();}
+     catch (Exception e){}
     }
 
     @FXML
