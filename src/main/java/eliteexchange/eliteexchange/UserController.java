@@ -93,7 +93,7 @@ public class UserController implements Initializable {
     @FXML
     private TableColumn<DataShow, String> requestColumn, historyColumn;
     @FXML
-    private TableColumn<String, String> changem;
+    private TableColumn<String, String> changem,change;
 
     @FXML
     private TableColumn<DataShow, String> company, ownedCompanyCol, companyB, companym, companyBm, ownedCompanybCol;
@@ -215,7 +215,7 @@ public class UserController implements Initializable {
             userStockList.setVisible(false);
         if (StocksMarket != null) {
             StocksMarket.setVisible(false);
-            StocksMarket.setTranslateX(150);
+            StocksMarket.setTranslateX(205);
         }
         if (NotifTable != null) {
             try {
@@ -420,9 +420,15 @@ public class UserController implements Initializable {
                 int index = cellData.getTableView().getItems().indexOf(cellData.getValue());
                 return new SimpleStringProperty(changemList.get(index));
             });
+            change.setCellValueFactory(cellData -> {
+                int index = cellData.getTableView().getItems().indexOf(cellData.getValue());
+                return new SimpleStringProperty(changemList.get(index));
+            });
             for (int i = 0; i < changemList.size(); i++)
                 changem.getTableView().getItems().add(changemList.get(i));
         }
+        for (int i = 0; i < changemList.size(); i++)
+            change.getTableView().getItems().add(changemList.get(i));
 
     }
 
@@ -520,6 +526,11 @@ public class UserController implements Initializable {
         swaptaps.setTranslateX(0);
         titleslabel.setTranslateX(0);
         tapsawp.setOnFinished((ActionEvent e) -> {
+            priceGraph.setVisible(true);
+            dateTable.setVisible(true);
+            showgraph.setVisible(true);
+            Searchbutton.setVisible(true);
+            companyName.setVisible(true);
             StocksMarket.setVisible(true);
             titleslabel.setText("Stocks Market");
             titleslabel.setVisible(true);
@@ -643,6 +654,12 @@ public class UserController implements Initializable {
         hotbonds.setVisible(false);
         viplevel.setVisible(false);
         historyTable.setVisible(false);
+        sellb.setVisible(false);
+        priceGraph.setVisible(false);
+        dateTable.setVisible(false);
+        showgraph.setVisible(false);
+        Searchbutton.setVisible(false);
+        companyName.setVisible(false);
         TranslateTransition tapsawp = new TranslateTransition();
         tapsawp.setDuration(Duration.seconds(0.4));
         tapsawp.setNode(swaptaps);
@@ -681,84 +698,6 @@ public class UserController implements Initializable {
         stage.setScene(scene);
         scene.getStylesheets().add(Elite.css);
         stage.show();
-    }
-
-    @FXML
-    void BackbuttonPressed(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        scene.getStylesheets().add(Elite.css);
-        stage.show();
-    }
-
-
-    @FXML
-    private void LoginPressed(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("mainscene.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        scene.getStylesheets().add(Elite.css);
-        stage.show();
-    }
-
-    @FXML
-    private void SignupPressed(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Signup.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        scene.getStylesheets().add(Elite.css);
-        stage.show();
-    }
-
-
-    @FXML
-    private void signupConfirmPressed() {
-        account.setUserName(username.getText());
-        account.setPassword(password.getText());
-        account.setCheckPassword(confirmpassword.getText());
-        if (account.CheckMatchPassword() && password.getText().length() >= 3) {
-            signedup1.setText("Signed up success");
-            account.ImportUserData();
-        } else {
-            messagelabel.setText(account.SignUpMessages());
-
-        }
-    }
-
-    @FXML
-    private void LoginConfirmPressed(ActionEvent event) throws IOException {
-        account.setUserName(username.getText());
-        account.setPassword(password.getText());
-        if (account.CheckLoginData() && account.userOrAdmin().equals("user") && Account.BannedOrNot) {
-            messagelabel.setText("your account has been banned");
-        } else if (account.CheckLoginData() && account.userOrAdmin().equals("user")) {
-            stock.RestoreData();
-            Parent root = FXMLLoader.load(getClass().getResource("userMenue.fxml"));
-            String cssuser = getClass().getResource("usermenu.css").toExternalForm();
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            scene.getStylesheets().add(cssuser);
-            stage.show();
-        } else if (account.CheckLoginData() && account.userOrAdmin().equals("admin") && account.admin_log_in_out().equals("no")) {
-            Admin.createuserslist();
-            account.adminSwitch();
-            stock.RestoreData();
-            Parent root = FXMLLoader.load(getClass().getResource("AdminMenu.fxml"));
-
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } else if (account.CheckLoginData() && account.userOrAdmin().equals("admin") && account.admin_log_in_out().equals("yes"))
-            messagelabel.setText("Admin already logged in!");
-        else {
-            messagelabel.setText(account.LoginMessages());
-        }
     }
 
     @FXML
@@ -804,10 +743,6 @@ public class UserController implements Initializable {
         y = event.getSceneY();
     }
 
-    @FXML
-    private void exit2(ActionEvent event) throws IOException {
-        System.exit(0);
-    }
 
 
     @FXML
@@ -819,14 +754,6 @@ public class UserController implements Initializable {
         stage.show();
         stock.RestoreData();
     }
-//    @FXML
-//    void BondsPressed(ActionEvent event) throws IOException {
-//        Parent root = FXMLLoader.load(getClass().getResource("BondsScene.fxml"));
-//        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-//    }
 
     @FXML
     private void DandW(ActionEvent event) throws IOException {
@@ -846,6 +773,12 @@ public class UserController implements Initializable {
         yourbonds.setVisible(false);
         viplevel.setVisible(false);
         historyTable.setVisible(false);
+        sellb.setVisible(false);
+        priceGraph.setVisible(false);
+        dateTable.setVisible(false);
+        showgraph.setVisible(false);
+        Searchbutton.setVisible(false);
+        companyName.setVisible(false);
         TranslateTransition tapsawp = new TranslateTransition();
         tapsawp.setDuration(Duration.seconds(0.4));
         tapsawp.setNode(swaptaps);
@@ -924,6 +857,12 @@ public class UserController implements Initializable {
         hotbonds.setVisible(false);
         viplevel.setVisible(false);
         historyTable.setTranslateX(-80);
+        sellb.setVisible(false);
+        priceGraph.setVisible(false);
+        dateTable.setVisible(false);
+        showgraph.setVisible(false);
+        Searchbutton.setVisible(false);
+        companyName.setVisible(false);
         TranslateTransition tapsawp = new TranslateTransition();
         tapsawp.setDuration(Duration.seconds(0.4));
         tapsawp.setNode(swaptaps);
@@ -985,8 +924,8 @@ public class UserController implements Initializable {
         LocalDateTime currentDateTime = LocalDateTime.now(); // Get the current date and time
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // Define the desired format
         String formattedDateTime = currentDateTime.format(formatter); // Format the date and time
-        if (stock.fillDateTable(testcompany.getText())) {
-            stock.getPriceList(testcompany.getText(), formattedDateTime);
+        if (stock.fillDateTable(companyName.getText())) {
+            stock.getPriceList(companyName.getText(), formattedDateTime);
             priceGraph.getData().clear();
             float max = 0;
             float min = stock.getPriceList().get(0);
