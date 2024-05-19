@@ -27,7 +27,7 @@ public class Elite extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        //stage.initStyle(StageStyle.TRANSPARENT); //i love Elmalak
+        stage.initStyle(StageStyle.TRANSPARENT); //i love Elmalek
         FXMLLoader mainload = new FXMLLoader(Elite.class.getResource("mainscene.fxml"));
         usermainmenufxml = new FXMLLoader(Elite.class.getResource("userMenue.fxml"));
         usermainmenu = new Scene(usermainmenufxml.load());
